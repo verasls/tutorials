@@ -1,0 +1,1147 @@
+---
+output:
+  bookdown::pdf_document2:
+    highlight: tango
+    toc: false
+    number_sections: yes
+    includes:
+      in_header: preamble.tex
+      before_body: title.tex
+bibliography: bibliography.bib
+csl: apa.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+```{r, message=FALSE, include=FALSE}
+library(tidyverse)
+library(car)
+library(emmeans)
+library(socviz)
+```
+
+# Introduction
+
+The present work is a tutorial about analysis of covariance (ANCOVA) using the R Project for Statistical Computing. It will, first, present an introduction to R covering how to download and install it, as well as some basic concepts regarding the R programming language. After, it will approach some theoretical background behind the ANCOVA and general linear models (GLM). Then, a more practical section about how to perform an ANCOVA using R will be presented, including how to enter and explore the data, check the assumptions of the statistical test and fit the ANCOVA model. Finally, the last section will cover some suggestions on how to report the results of the test in the form of a scientific paper.
+
+# The R environment
+
+R is a programming language and environment for statistical computing and graphics [@R]. It is a free and open source software, which means that the code behind it is fully accessible. R exists as a base package, with some functionality, but one of its greatest advantages is that it can be easily extended by packages, that can be developed and distributed by anyone [@R]. Both R and its packages are stored at the Comprehensive R Archive Network (CRAN) [@R]. Albeit free, powerful and very versatile, R may not be easy to learn. One of the main reasons is that it works as a command line tool, rather than by a graphical user interface, as other statistical software such as SPSS. But, once you master a few things, these written commands show to be a more efficient way to work.
+
+## Installing R and RStudio
+
+To install R, you should first choose a CRAN mirror in a location close to you. The University of Porto has a mirror that can be accessed by clicking on this link: [http://cran.dcc.fc.up.pt/](http://cran.dcc.fc.up.pt/). On this main page, you need to click on the link corresponding to your operation system (Windows, macOS or Linux) and then select the version to install. The current version is R 3.6.3. After downloading the file (`R-3.6.3-win.exe` for Windows or `R-3.6.3.pkg` for macOS), click on it and start the installation process.
+
+I also suggest to install and use RStudio, which is an integrated development environment (IDE) that can facilitate the way you work with R. To install RStudio, click on this link: [https://rstudio.com/products/rstudio/download/](https://rstudio.com/products/rstudio/download/), go to the bottom of the page and click on the `RStudio-1.2.5033.exe` link to download for Windows or `RStudio-1.2.5033.dmg` for macOS.
+
+## Getting started
+
+### The RStudio interface
+
+```{r rstudio, echo=FALSE, out.extra="", out.width="100%", fig.align="center", fig.cap="RStudio main window. Letter A indicates the Source Pane; Letter B the Console Pane; and Letter C the Files/Plots/Packages/Help/Viewer Pane."}
+knitr::include_graphics("figs/RStudio.png")
+```
+
+Figure \@ref(fig:rstudio) shows the main RStudio window. To write and edit R code to run your analysis, you need to create a new R script file (File > New File > R Script) that will be shown in the Source Pane, located in the top left part of the screen and indicated by the letter A in the figure. Once ready to run, you can send the code to be evaluated by the software. The code, then, will appear in the Console Pane, along with any output it produces. The Console pane is located below the Source pane, and is indicated by the letter B in the figure. Another important pane is indicated by the letter C. It contains the Plots tab, that will show any graphic produced by your code.
+
+The code can also be typed directly at the Console Pane. It is less advisable, as code typed there cannot be edited or saved to future analysis. To execute code written in a script, put the cursor on the line or highlight the lines (if there are multiple lines to be executed) and press Control + Enter, for Windows, or Command + Enter, for macOS.
+
+The panes as shown in Figure \@ref(fig:rstudio) are in the default position and you should find your new RStudio installation like that. However, you can also modify the panes position by going to Tools > Global Options > Pane Layout. Also, the RStudio theme can be altered at the Appearance menu in the Global Options.
+
+### Introduction to R {#intro-R}
+
+This section will cover some basic aspects of the R language to help to understand how it works.
+
+#### Everything is an object
+
+Almost everything in R is some type of object. The code you write will always create, manipulate or use these objects. For example, we can create a vector of numbers using the function `c()`:
+
+\vspace{0.5em}
+
+```{r}
+c(1, 2, 3, 4, 5)
+```
+
+\vspace{0.5em}
+
+But instead of getting the result print in the console, we can assign it to an object using the assignment operator "`<-`":
+
+\vspace{0.5em}
+
+```{r}
+my_vector <- c(1, 2, 3, 4, 5)
+```
+
+\vspace{0.5em}
+
+And to see what this object contains, we can type its name and run the code (remember the shortcuts Control + Enter or Command + Enter):
+
+\vspace{0.5em}
+
+```{r}
+my_vector
+```
+
+\vspace{0.5em}
+
+As the assignment operator is used so frequently, RStudio has a shortcut to for it: Alt + minus (-)
+
+#### Every object has a name
+
+Every object, either variable, data, functions, or else, has a name. For example, to the numeric vector we just created was attributed the name "`my_vector`". Each different object you create has to have a different name, otherwise it will overwrite the previous object. For example:
+
+\vspace{0.5em}
+
+```{r}
+my_vector <- "another object"
+```
+
+\vspace{0.5em}
+
+The code above attributes to the object "`my_vector`" the character string "`another object`". We can inspect by typing again the object name and executing it:
+
+\vspace{0.5em}
+
+```{r}
+my_vector
+```
+
+\vspace{0.5em}
+
+And we can see that it no longer represents the numeric vector created earlier. Another important thing regarding object names is that in R, the names are case sensitive, hence we need to pay close attention to the spelling.
+
+\vspace{0.5em}
+
+```{r, error=TRUE}
+My_vector
+```
+
+\vspace{0.5em}
+
+As we can see, typing the name "`My_vector`" with a capital `M` and executing it shows an error message, as an object with this name does not exist. Another important detail is that spaces are not allowed in object names. To facilitate naming objects, you can follow the tidyverse style guide (accessed through this link: [https://style.tidyverse.org](https://style.tidyverse.org)) and name objects with lower case and separating words with the underscore character "`_`" when needed.
+
+#### You do things with functions
+
+Functions are special types of objects that can perform tasks for you. For example, we have already used the function `c()`, which combines elements into a vector. The functions can be recognized by the parenthesis after their names. Inside the parenthesis are the arguments, that are specific information that a function needs to perform its task. Most functions have one or more arguments, and take the general form:
+
+\vspace{0.5em}
+
+```
+function(argument = value)
+function(argument1 = value1, argument2 = value2, ..., argumentN = valueN)
+```
+
+\vspace{0.5em}
+
+We can see what arguments does a function need in their documentation by putting a question mark before the function name and executing it: `?c()`. If you execute a function without specifying a required argument it will raise an error:
+
+\vspace{0.5em}
+
+```{r, error=TRUE}
+mean()
+```
+
+\vspace{0.5em}
+
+As the error message implies, we need to specify the argument `x`:
+
+\vspace{0.5em}
+
+```{r}
+my_vector <- c(1, 2, 3, 4, 5)
+mean(x = my_vector)
+```
+
+\vspace{0.5em}
+
+Also, we do not need to specify the argument name:
+
+\vspace{0.5em}
+
+```{r}
+my_vector <- c(1, 2, 3, 4, 5)
+mean(my_vector)
+```
+
+\vspace{0.5em}
+
+By doing so, R will assume that you are giving the arguments in the function's default order (that can be seen in the documentation: `?function_name()`), so, be careful.
+
+#### Data
+
+The most common class of object to store datasets in R is the data frame. Data frames are a rectangular table with rows and columns. We can see an example of a data frame with a tiny dataset contained in the `socviz` package:
+
+\vspace{0.5em}
+
+```{r}
+titanic
+```
+
+\vspace{0.5em}
+
+Another object type that R uses to store datasets and that we will use throughout this tutorial is the tibble. Tibbles are very similar to data frames, but show more information regarding the type of data in the columns and are more friendly to interact in the console.
+
+\vspace{0.5em}
+
+```{r}
+titanic <- as_tibble(titanic)
+titanic
+```
+
+\vspace{0.5em}
+
+In this tutorial we will be using datasets provided by R packages. For more information about how to import data from a file to R, I recommend reading the chapter "Data Import" from the R for Data Science book [@R4DS] that can be read online ([https://r4ds.had.co.nz](https://r4ds.had.co.nz)).
+
+#### Code commenting
+
+When writing code, you can use comments to record important findings and decisions, as well as to separate sections of your code. These comments are simple text that the software will not evaluate to produce any results. In R, comments are marked by a # in the beginning of the line. Anything placed after the # will be a comment.
+
+\vspace{0.5em}
+
+```{r}
+# This is a comment
+```
+
+\vspace{0.5em}
+
+#### Working directory
+
+The working directory is a folder on your computer that R is pointing at. By default, R will make the folder in which it is installed to be the working directory, but you can use the `getwd()` function to discover what is your current working directory.
+
+\vspace{0.5em}
+
+```{r eval=FALSE}
+getwd()
+```
+
+\vspace{0.5em}
+
+You can change your working directory using the `setwd()` function. For this tutorial, I recommend to create a new R script file and save it in a folder named "`ancova_tutorial`" at your desktop, for example. In the first line of this R script you can change your working directory to this folder by doing:
+
+For Windows (replace "`your_username`" by your actual username):
+
+\vspace{0.5em}
+
+```{r eval=FALSE}
+setwd("C:/Users/your_username/Desktop/ancova_tutorial")
+```
+
+\vspace{0.5em}
+
+And for macOS:
+
+\vspace{0.5em}
+
+```{r eval=FALSE}
+setwd("~/Desktop/ancova_tutorial")
+```
+
+\vspace{0.5em}
+
+#### Final remarks
+
+In the [**Performing an ANCOVA using R**](#ancova-R) section, the code necessary to perform each step of the data analysis will be presented. You can copy and paste this code into your R script saved inside the `ancova_tutorial` folder in your desktop (or anywhere else) and execute it step by step while reading the tutorial. You can also access the entire code in the following link: [https://raw.githubusercontent.com/verasls/data_analysis_essay/master/analysis.R](https://raw.githubusercontent.com/verasls/data_analysis_essay/master/analysis.R).
+
+# The ANCOVA
+
+## What is ANCOVA?
+
+Sometimes a researcher wants to evaluate whether or not the means of an outcome variable are equal among different treatment conditions. These treatment conditions are usually expressed through categorical variables and, when there are at least three conditions (or groups), the statistical test more suitable to answer this question is an analysis of variance (ANOVA) [@Field_2012]. The ANOVA model can be expanded by the inclusion of a continuous variable in addition to the treatment conditions categorical variable [@Rutherford_2011]. When these continuous variables have an influence on the outcome, but have not been controlled by the experimental manipulations, they are called covariates, and the inclusion of covariates in the ANOVA is a method called analysis of covariance - or ANCOVA [@Rutherford_2011; @Field_2012]. By controlling for the covariate, the ANCOVA is a statistical procedure that evaluates more precisely the treatment effect of the experimental manipulations, as it eliminates the variance that was not due to the treatment itself and would have been residual variance in an ANOVA [@Field_2012]. The ANCOVA, then, has two important features: i) it reduces error variance, increasing the fit of the model; and ii) it eliminates the confounding effects of other variables on the experimental conditions [@Field_2012].
+
+\vspace{0.5em}
+
+## The general linear model
+
+The ANCOVA is part of the general linear model (GLM), along with some other statistical methods such as the *t*-tests, ANOVA, single or multiple linear regression and multilevel models [@Rutherford_2011; @Agresti_2015]. As such, it can be written in a general equation [@Rutherford_2011]:
+
+\begin{equation}
+  outcome_i = model + error_i
+  (\#eq:GLM1)
+\end{equation}
+
+The "general" term in GLM represents its capacity to include either distinctions in quantitative continuous variables or categorical variables representing experimental conditions [@Rutherford_2011]. The "linear" term implies that it should be a linear relationship between the outcome and independent variables [@Rutherford_2011]. Also, as GLM is a linear model, the Equation \@ref(eq:GLM1) can be more precisely represented by:
+
+\begin{equation}
+  Y_i = \left(\beta_0 + \beta_1X_{1i}\right) + \epsilon_i
+  (\#eq:GLM2)
+\end{equation}
+
+Where $Y$ is the predicted outcome for the $i$th subject, $\beta_0$ is the constant and represents the intercept in the Y axis, $\beta_1$ is the regression coefficient and represents the slope of the line, $X_{1i}$ is the value of the independent variable, or predictor, for the $i$th subject and $\epsilon_i$ is the error term for the $i$th subject.
+
+Furthermore, the Equation \@ref(eq:GLM2) can be expanded to include more than one independent variable:
+
+\begin{equation}
+  Y_i = \left(\beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + ... + \beta_kX_{ki}\right) + \epsilon_i
+  (\#eq:GLM3)
+\end{equation}
+
+As such, the ANCOVA can be thought as a multiple linear regression model, with the covariate being one of the predictors as a continuous variable, and the experimental condition other predictor as a categorical variable. For two experimental conditions we have:
+
+\begin{equation}
+  outcome_i = \beta_0 + \beta_1covariate_i + \beta_2group_{1i} + \epsilon_i
+  (\#eq:GLM4)
+\end{equation}
+
+And for $k$ experimental conditions there will be $k - 1$ predictors indicating these categories.
+
+\vspace{0.5em}
+
+## The uses of ANCOVA
+
+One of the main applications of ANCOVA is to control for other variables that can influence the outcome [@Field_2012]. An example would be to control for the age of the participants in a study aiming to investigate the effects of exercise training on bone mineral density, as age is a factor known to influence the osteogenic response to exercise. Another frequent use of the ANCOVA is to analyse data from studies with pre-test *vs.* post-test designs [@Dimitrov_2003]. This study design is characterized by having at least two groups, usually with a control, and each group is measured before and after the intervention [@Gliner_2003]. The allocation of study participants into the groups can be randomized or not [@Dimitrov_2003]. Some studies [@Dimitrov_2003; @VanBreukelen_2006; @Connell_2017] have tested several methods to analyse this type of data, such as ANCOVA, ANOVA of change score, repeated measures ANOVA and linear mixed models, and the ANCOVA arised as the preferred method.
+
+In this type of design, the pre-test scores of the dependent variable are used as covariate to adjust the post-test scores which are the outcome variable and variate [@Gliner_2003]. As a general advice, the adjustment for baseline scores should be done even when there are no significant differences among groups as these scores can be seen as confounders of the treatment effect [@Twisk_2018]. Thus, any small variations on the pre-test scores can affect the post-test values, and to reduce the error variance and improve the model fit, this adjustment should be done [@Dimitrov_2003; @Twisk_2018]. 
+
+The rest of this tutorial will cover the application of ANCOVA in a pre-test *vs.* post-test study design.
+
+\vspace{0.5em}
+
+## The assumptions behind the ANCOVA
+
+As any statistical test, the ANCOVA has a series of assumptions that need to be met for the conclusions taken from it to be valid [@Field_2012]. Being it a parametric test, first, the assumptions that are common to this type of test need to be true [@Field_2012]. These assumptions are:
+
+- Normal distribution of data: the sample distribution must be normal within the groups.
+- Homogeneity of variance: the variances must be equal across the groups.
+- Interval data: data must be continuous, measured at least at the interval level.
+- Independence: data from different participants should be independent from each other.
+
+At the data analysis, the main assumptions that need to be checked are the first two. The normality of data distribution can be checked visually (with histograms or Q-Q plots, for example) or with a normality test such as Shapiro-Wilk, while the homogeneity of variance can be checked through the Levene's test [@Field_2012].
+
+Also, there are some assumptions specific to the ANCOVA. First, is the independence of the covariate and the treatment effect [@Rutherford_2011; @Field_2012]. The importance of this assumption is that, if the covariate and the treatment effect (the independent variable) are not independent, they share some variance, and the experimental effect will be confounded by the covariate [@Field_2012]. That is, part of the variance that would be explained by the treatment effect will be, then, explained by the covariate [@Field_2012].
+
+A second assumption is the linearity between the covariate and the outcome variable [@Rutherford_2011; @Field_2012]. As the ANCOVA is a GLM, a linear regression will be fit with the covariate as one of the predictors [@Rutherford_2011]. Therefore, it should be expected that the covariate has a linear relationship with the dependent variable [@Rutherford_2011].
+
+The last assumption is the homogeneity of regression slopes [@Rutherford_2011; @Field_2012]. For this assumption to be true, the linear regression slopes of the relationship between the covariate and the dependent variable should be homogeneous across the groups [@Field_2012]. It happens due to the fact that, when the ANCOVA model is built, what matters is the overall relationship between the covariate and the outcome, regardless of the groups, and if the regression slope is different across the groups, the model is inaccurate [@Field_2012]. It also means that there is no interaction effect between the covariate and the treatment effect, that is not part of a traditional ANCOVA model [@Rutherford_2011].
+
+\vspace{0.5em}
+
+# Performing an ANCOVA using R {#ancova-R}
+
+From now on, it will be presented a practical tutorial, step by step, on how to perform an ANCOVA using R. The code necessary to each step, and an explanation of what it does, will be given. You can either type the code into an R script, paying close attention to the correct spelling of the commands, or copy and paste it. Remember that a brief introduction of some aspects of the R programming language was given at the [**Introduction to R**](#intro-R) section.
+
+## Installing and loading necessary packages
+
+\vspace{0.5em}
+
+In order to perform all the analysis in this tutorial, you will need to install the following packages:
+
+- `datarium`: For accessing sample data;
+- `tidyverse`: For data manipulation and plotting;
+- `car`: To calculate the Type III sum of squares (SS) and to execute the Levene's test;
+- `emmeans`: To compute the estimated marginal means from the models.
+
+To install R packages, we will use the function `install.packages()`, with the package name between quotation marks as the only argument:
+
+\vspace{0.5em}
+
+```{r install-packs, eval=FALSE}
+install.packages("datarium")
+install.packages("tidyverse")
+install.packages("car")
+install.packages("emmeans")
+```
+
+\vspace{0.5em}
+
+And then, use the `library()` function to load the packages into your R session. In the `library()` function the packages names must go without the quotation marks:
+
+\vspace{0.5em}
+
+```{r load-packs, eval=FALSE}
+library(tidyverse)
+library(car)
+library(emmeans)
+```
+
+\vspace{0.5em}
+
+Note that the `datarium` package does not need to be loaded.
+
+## Entering the data
+
+For this tutorial, we will be using the `anxiety` dataset contained in the `datarium` package. As described by the package manual, this data contains 45 individuals (`id` variable), divided into three groups (`group` variable), and their measured anxiety score at three time points (`t1`, `t2`, and `t3` variables). These data can be loaded and displayed with the following commands:
+
+\vspace{0.5em}
+
+```{r read-data}
+data("anxiety", package = "datarium")
+anxiety %>% print(n = Inf)
+```
+
+\vspace{0.5em}
+
+In the subsequent analysis, we will only need the anxiety scores from the first and last time points. Therefore, we will select only these columns and change the variable names to `pre_test` and `post_test`, respectively. Also, we can rename the levels of the `group` variable to facilitate the interpretation: `grp1` will be renamed to `Control`, `grp2` to `Moderate`, and `grp3` to `High`, referring to the control group, and moderate and high intensity exercise groups, respectively. These changes can be done executing:
+
+\vspace{0.5em}
+
+```{r clean-data}
+# Select and rename variables
+anxiety <- anxiety %>% 
+  as_tibble() %>% 
+  select(id, group, pre_test = t1, post_test = t3)
+
+# Recode group factors
+anxiety$group <- recode_factor(
+  anxiety$group,
+  "grp1" = "Control",
+  "grp2" = "Moderate",
+  "grp3" = "High"
+)
+```
+
+\vspace{0.5em}
+
+And the data in the tibble can, then, be inspected:
+
+\vspace{0.5em}
+
+```{r show-data}
+anxiety
+```
+
+\vspace{0.5em}
+
+The data, until now, is in wide format, with multiple observations of a same individual in the same line. Some analyses will need the data to be in the long format, with each observation of an individual in a different line. To create a new data frame in the long format, execute the following commands:
+
+\vspace{0.5em}
+
+```{r reshape-data}
+# Reshape data
+anxiety_long <- anxiety %>% 
+  pivot_longer(
+    c(pre_test, post_test),
+    names_to = "time",
+    values_to = "score"
+  )
+
+# Recode time into a factor
+anxiety_long$time <- as_factor(anxiety_long$time)
+anxiety_long$time <- recode_factor(
+  anxiety_long$time, 
+  "pre_test" = "Pre-test",
+  "post_test" = "Post-test"
+)
+
+anxiety_long
+```
+
+\vspace{0.5em}
+
+It is important to highlight that, as this is an example of a pre-test *vs.* post-test study design, our outcome variable is the post-test anxiety score, the covariate is the pre-test anxiety score and the groups (control, moderate and high) are the treatment conditions.
+
+## Exploring the data
+
+First, lets explore the data with some plots. We can generate boxplots for the three groups and two time points:
+
+\vspace{0.5em}
+
+```{r boxplot, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Boxplot of anxiety score separated by group (Control, Moderate and High) and time (Pre-test and Post-test)."}
+ggplot(data = anxiety_long, mapping = aes(x = group, y = score)) +
+  geom_boxplot() +
+  geom_dotplot(
+    binaxis = "y",
+    stackdir = "center",
+    dotsize = 0.7,
+    binwidth = 0.3,
+    fill = "white"
+  ) +
+  facet_wrap(~time) +
+  labs(x = "Group", y = "Anxiety score")
+```
+
+\vspace{0.5em}
+
+As can be observed in the Figure \@ref(fig:boxplot) boxplots, the pre-test anxiety score values are roughly equal among groups, while the post-test scores tend to be lower for the moderate, but mainly for the high intensity group, compared to the control. This indicates that there is at least a tendency to the exercise to decrease an individual`s anxiety level, and exercise intensity may play a role in it. Also, there is no clear difference in the spread of the scores among groups at both time points.
+
+Another useful plot to make is the histogram, as we need to verify whether the pre- and post-test scores are normally distributed in all of the groups, which is an assumption of parametric tests, such as the ANCOVA [@Rutherford_2011; @Field_2012]. We can plot a frequency histogram by executing the following code:
+
+\vspace{0.5em}
+
+```{r histogram-test, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Histogram of the pre-test scores separated by group (Control, Moderate, High), without manual adjustment of the bin widths."}
+ggplot(data = anxiety, mapping = aes(pre_test)) +
+  geom_histogram() +
+  facet_wrap(~group) +
+  labs(x = "Pre-test", y = "")
+```
+
+\vspace{0.5em}
+
+The resulting plot in Figure \@ref(fig:histogram-test) is not very illustrative of the data. A way to improve it would be to manually adjust the histograms bin width. The Freedman-Diaconis rule [@Freedman_1981] can be used to select the best width, and it is shown in Equation \@ref(eq:freedman).
+
+\begin{equation}
+  bin\ width = 2\frac{IQR(x)}{n^\frac{1}{3}}
+  (\#eq:freedman)
+\end{equation}
+
+This rule can be written as a function in R, to be applied to the histograms.
+
+\vspace{0.5em}
+
+```{r bin-width}
+bin_width <- function(variable) {
+  bw <- 2 * IQR(variable) / length(variable)^(1/3)
+  return(bw)
+}
+```
+
+\vspace{0.5em}
+
+To load this function into your R session, execute the code chunk above.
+
+\vspace{0.5em}
+
+```{r histogram-pre, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Histogram of the pre-test scores separated by group (Control, Moderate and High)."}
+ggplot(data = anxiety, mapping = aes(pre_test)) +
+  geom_histogram(binwidth = bin_width(anxiety$pre_test)) +
+  facet_wrap(~group) +
+  labs(x = "Pre-test", y = "")
+```
+
+```{r histogram-post, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Histogram of the post-test scores separated by group (Control, Moderate and High)."}
+ggplot(data = anxiety, mapping = aes(post_test)) +
+  geom_histogram(binwidth = bin_width(anxiety$post_test)) +
+  scale_x_continuous(breaks = seq(11, 21, 2)) +
+  facet_wrap(~group) +
+  labs(x = "Pre-test", y = "")
+```
+
+\vspace{0.5em}
+
+By the inspection of the histograms in Figures \@ref(fig:histogram-pre) and \@ref(fig:histogram-post) we can notice that the data distribution is approximately normal. To assure that, however, a normality test is needed. Prior to running the normality tests, we need to separate the original data frame into three, one for each group:
+
+\vspace{0.5em}
+
+```{r separate-groups}
+# Separate the groups into 3 different data frames
+anxiety_c <- filter(anxiety, group == "Control")
+anxiety_m <- filter(anxiety, group == "Moderate")
+anxiety_h <- filter(anxiety, group == "High")
+```
+
+\vspace{0.5em}
+
+Now we can use the `shapiro.test()` function to perform the Shapiro-Wilk Normality Test in the pre-test scores of each of the groups:
+
+\vspace{0.5em}
+
+```{r normality-pre, results="hide"}
+shapiro.test(anxiety_c$pre_test)
+shapiro.test(anxiety_m$pre_test)
+shapiro.test(anxiety_h$pre_test)
+```
+
+```{r normality-pre-results, echo=FALSE}
+shapiro.test(anxiety_c$pre_test)
+shapiro.test(anxiety_m$pre_test)
+shapiro.test(anxiety_h$pre_test)
+```
+
+\vspace{0.5em}
+
+And in the post-test scores:
+
+\vspace{0.5em}
+
+```{r normality-post, results="hide"}
+shapiro.test(anxiety_c$post_test)
+shapiro.test(anxiety_m$post_test)
+shapiro.test(anxiety_h$post_test)
+```
+
+```{r normality-post-results, echo=FALSE}
+shapiro.test(anxiety_c$post_test)
+shapiro.test(anxiety_m$post_test)
+shapiro.test(anxiety_h$post_test)
+```
+
+\vspace{0.5em}
+
+As all *p* values were > 0.05, we can accept the null hypothesis that both pre- and post-test scores of all groups had a normal distribution.
+
+Then, another assumption of the parametric tests that needs to be checked is the homogeneity of the variances [@Rutherford_2011; @Field_2012]. We can check if the variance of the outcome variable (post-test scores) is constant across groups by executing a Levene's test, which tests the null hypothesis that the variances in different groups are equal. In R, this test can be done by the `leveneTest()` function:
+
+\vspace{0.5em}
+
+```{r levene}
+leveneTest(anxiety$post_test, anxiety$group, center = median)
+```
+
+\vspace{0.5em}
+
+As the *p* value (located in the `Pr(>F)` column) is > 0.05, we accept the null hypothesis that the variances are equal across the groups.
+
+Finally, some descriptive statistics can be calculated, such as the sample size, mean and standard deviation of the scores:
+
+\vspace{0.5em}
+
+```{r descriptives}
+descriptives <- anxiety_long %>% 
+  group_by(group, time) %>% 
+  summarise(
+    n = n(),
+    mean = mean(score),
+    sd = sd(score)
+  )
+descriptives %>% as.data.frame()
+```
+
+\vspace{0.5em}
+
+## Checking the assumptions
+
+### Assumptions of parametric tests
+
+The main assumptions of the parametric tests, which are the normality of data distribution and the homogeneity of variances have already been checked in the previous section.
+
+### Independence of the covariate and treatment effect
+
+To check this assumption, simply perform an ANOVA to test whether the experimental groups (control, medium and high) differ on the covariate (pre-test scores).
+
+\vspace{0.5em}
+
+```{r ind-cov-treat}
+aov(formula = pre_test ~ group, data = anxiety) %>% summary()
+```
+
+\vspace{0.5em}
+
+We can see that the *p* value (`Pr(>F)` column) is > 0.05. Therefore, we conclude that the covariate does not depend on the treatment effect.
+
+### Linearity between the covariate and the outcome variable
+
+In order to check this assumption, we need to build linear regression models using data from each group separately (`anxiety_c`, `anxiety_m` and `anxiety_h` data frames used previously). The models will have the post-test scores as outcome variable and the pre-test scores as predictor. This assumption will be met if the pre-test coefficients in the models are statistically significant (*p* < 0.05). Code to build the linear regression models and their results is shown below:
+
+\vspace{0.5em}
+
+```{r lm, results="hide"}
+lm(formula = post_test ~ pre_test, data = anxiety_c) %>% summary()
+lm(formula = post_test ~ pre_test, data = anxiety_m) %>% summary()
+lm(formula = post_test ~ pre_test, data = anxiety_h) %>% summary()
+```
+
+```{r lm-results, echo=FALSE}
+lm(formula = post_test ~ pre_test, data = anxiety_c) %>% summary()
+lm(formula = post_test ~ pre_test, data = anxiety_m) %>% summary()
+lm(formula = post_test ~ pre_test, data = anxiety_h) %>% summary()
+```
+
+\vspace{0.5em}
+
+The coefficients *p* value can be found in the `Pr(>|t|)` column of the output. In this case, as the *p* values were very small, they are written in scientific notation. For example, on the first case (linear regression for the control group), the *p* value shown is `6.8e-08`, meaning $6.8 \times 10^{-08}$, which equals to 0.000000068. The results show that for each of the groups, there is a significant (*p* < 0.001) linear relationship between the covariate and the outcome variable. This relationship can be also shown in a scatterplot of the pre-test scores in the X axis and the post-test scores in the Y axis, with the linear regression lines for each group:
+
+\vspace{0.5em}
+
+```{r lm-plot, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Scatterplot of pre-test versus post-test scores, with linear regression lines. Groups (Control, Moderate and High) are distinguished by different dot and line colors."}
+ggplot(
+  data = anxiety, 
+  mapping = aes(x = pre_test, y = post_test, colour = group)
+) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  guides(color = guide_legend("group")) +
+  labs(
+    x = "Pre-test",
+    y = "Post-test"
+  )
+```
+
+\vspace{0.5em}
+
+### Homogeneity of regression slopes
+
+The first step to check this assumption would be to inspect the scatterplot with the regression lines in Figure \@ref(fig:lm-plot). If there is an homogeneity of regression slopes, then, the linear regression line of the three groups should be parallel. By looking at the plot, we can see that the lines are not exactly parallel, but have fairly similar slopes. An statistical test to confirm that is to build an ANOVA model with the post-test score as the outcome variable and the interaction term between the covariate and the treatment as the predictor. If this interaction effect is not statistically significant, we can assume that the regression slopes are homogeneous.
+
+\vspace{0.5em}
+
+```{r hos}
+aov(formula = post_test ~ pre_test * group, data = anxiety) %>% summary()
+```
+
+\vspace{0.5em}
+
+In the output above, by looking at the line regarding the interaction term (`pre_test:group`), we can see that it is not statistically significant, as the *p* value (at the `Pr(>F)` column) is > 0.05.
+
+## The ANCOVA model in R
+
+### Fitting the model 
+
+Now  that all assumptions were checked, and none was violated, we can fit an ANCOVA model using the `aov()` function:
+
+\vspace{0.5em}
+
+```{r ancova-1}
+ancova <- aov(formula = post_test ~ pre_test + group, data = anxiety)
+```
+
+\vspace{0.5em}
+
+This model has the post-test scores as outcome variable, the pre-test scores as covariate and the group variable as independent variable.
+
+### Interpreting the results
+
+To see the model results, we can use the `Anova()` function, specifying the Type III SS:
+
+\vspace{0.5em}
+
+```{r anova-table1}
+Anova(ancova, type = "III")
+```
+
+\vspace{0.5em}
+
+By looking at the *p* values (`Pr(>F)` column), we can see that the covariate significantly influences the post-test scores (`pre_test` *p* < 0.001), and that, when removing the effect of the covariate, there is a significant treatment effect (`group` *p* < 0.001). We can, then, look at the descriptive statistics for the post-test scores among groups:
+
+\vspace{0.5em}
+
+```{r descriptives-post}
+descriptives %>% 
+  filter(time == "Post-test") %>% 
+  as.data.frame()
+```
+
+\vspace{0.5em}
+
+According to the ANCOVA results, we can assume that these means are significantly different, although we still cannot say between which groups these differences lie. But, actually, these means have not been adjusted for the covariate, they are the original means. To obtain the adjusted means (also called estimated marginal means or least squares means), we can use the `emmeans()` function:
+
+\vspace{0.5em}
+
+```{r emmeans-1}
+emmeans(ancova, ~ group)
+```
+
+\vspace{0.5em}
+
+We can see that these means are slightly different from the original means, as, within each group, they were adjusted for the pre-test scores. Knowing this, we can now move further and analyse which groups differ. There are two ways we can accomplish that: using planned contrasts and using *post hoc* tests.
+
+### Interpreting the contrasts
+
+As the ANCOVA is part of the GLM, the calculations behind it are the same as for a multiple linear regression. Therefore, for categorical variables, such as the `group` variable, we need to recode it into dummy variables, which are categorical variables with two numeric codes: 0 for one group, and 1 for the other. In our case, with three groups, two dummy variables are needed. R automatically does it, and we can inspect these contrasts using the `contrasts()` function:
+
+\vspace{0.5em}
+
+```{r dummy-contrasts}
+contrasts(anxiety$group)
+```
+
+\vspace{0.5em}
+
+The control group was assumed to be a base category and was always coded as 0. The first contrast (`Moderate`), compares the moderate group with the control group, and the second contrast (`High`), compares the high group with the control group. The general representation of a linear model with three predictors, such as the ANCOVA we fitted, is:
+
+\begin{equation}
+  Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3
+  (\#eq:glm1)
+\end{equation}
+
+And, to more closely represent our ANCOVA:
+
+\begin{equation}
+  post\_test = \beta_0 + \beta_1pre\_test + \beta_2groupModerate +
+  \beta_3groupHigh
+  (\#eq:ancova1)
+\end{equation}
+
+Replacing the dummy variables contrasts for the moderate group, for example, we get:
+
+\begin{equation}
+  post\_test = \beta_0 + \beta_1pre\_test + \beta_2 \times 1 + \beta_3 \times 0
+  (\#eq:ancova2)
+\end{equation}
+
+We can now ask for the coefficients for the ANCOVA model we built:
+
+\vspace{0.5em}
+
+```{r model-coeffs-1}
+summary.lm(ancova)
+```
+
+\vspace{0.5em}
+
+The `groupModerate` coefficient is related to the `Moderate` dummy variable. Therefore, it compares the control group with the moderate group, and its *p* value (in the `Pr(>|t|)` column) indicates whether or not the difference between these two groups is statistically significant. The same applies to the `groupHigh` coefficient, which indicates the regression coefficient for the comparison between the control group and high group, and its *p* values indicates the significance level for the comparison. As both coefficients *p* value were < 0.05, we can conclude that the control group post-test score is significantly different than the moderate and the high group scores, adjusted for the pre-test.
+
+Also, if we substitute the coefficients found for the model in the Equation \@ref(eq:ancova2):
+
+\begin{align}
+  post\_test_{moderate} &= - 0.35347 + 0.98674 \times \left(\frac{17.08667 + 16.64667 + 17.01333}{3}\right) \\
+  &\quad - 0.54583 \times 1 - 2.87431 \times 0 \nonumber \\
+  &= - 0.35347 + 0.98674 \times 16.91556 - 0.54583 \nonumber \\
+  &= 15.79199 \nonumber
+\end{align}
+
+The result is the adjusted post-test mean for the moderate group.
+
+\vspace{0.5em}
+
+As we have seen, this type of dummy contrast is default in R, but we can still specify the contrasts by ourselves to test some specific hypothesis we may have *a priori*. One way of doing this is to set orthogonal contrasts, in which the sum of the coefficients for each contrast equals to 0 [@Field_2012]. A common choice of contrasts to do in a study design like this, is to use the first contrast to compare the control group with the two experimental conditions, and the second contrast to compare between the two experimental conditions. Table \@ref(tab:tab-contrast) shows an example of such contrasts.
+
+\begin{table}[H] \centering 
+\caption[]{Orthogonal contrasts for the anxiety data \label{tab:tab-contrast}}
+\begin{tabular}{lrrr}
+\hline
+Group    & Contrast 1 & Contrast 2 & Product \\
+\hline
+Control  & 2          & 0          & 0       \\
+Moderate & - 1        & 1          & - 1     \\
+High     & - 1        & - 1        & 1       \\
+\hline
+Total    & 0          & 0          & 0       \\  
+\hline
+\end{tabular}
+\end{table}
+
+We can see in Table \@ref(tab:tab-contrast) that the sum of each contrast coefficients is 0 (Total row). Also the sum of the coefficients products also equals to 0, therefore we can conclude that these contrasts are indeed orthogonal. Examining the Contrast 1, it shows that the control group has a weight of 2, as it is being compared against the means of two other groups, and the moderate and high groups have the same weight and a different sign than the control. For the Contrast 2, the weight of the control group is 0, as it was already singled out in the Contrast 1, and the moderate and high groups have the same weight, but with different signs, as they now are being compared with one another.
+
+These contrasts can be established in R by the following command:
+
+\vspace{0.5em}
+
+```{r planned-contrasts}
+contrasts(anxiety$group) <- cbind(c(2, -1, -1), c(0, 1, -1))
+contrasts(anxiety$group)
+```
+
+\vspace{0.5em}
+
+Now, we will rerun the ANCOVA model, with the same formula as we did the last time, the only difference being the contrasts, and ask for the model results and the adjusted means:
+
+```{r ancova-2}
+ancova_2 <- aov(formula = post_test ~ pre_test + group, data = anxiety)
+Anova(ancova_2, type = "III")
+
+emmeans(ancova_2, ~ group)
+```
+
+By inspecting these results, we can see that they are the same than for the first model, which was expected, as the data did not change. The only difference that can be observed is in the SS for the intercept. That happens because all linear model coefficients have changed, including the intercept, reflecting the new coding for the `group` variable, as we can see:
+
+\vspace{0.5em}
+
+```{r model-coeffs-2}
+summary.lm(ancova_2)
+```
+
+\vspace{0.5em}
+
+Now, the `group1` coefficient reflects the Contrast 1, which is the comparison between the control group and the moderate and high groups. It accomplishes it by comparing the adjusted mean of the control group with the average of the adjusted means of the moderate and high groups:
+
+\begin{align}\label{eq:beta1}
+  \beta_{group1} &= \bar{X}_{control} - \left(\frac{\bar{X}_{moderate} + \bar{X}_{high}}{2}\right) \\
+  &= 16.33782 - \left(\frac{15.79199 + 13.46352}{2}\right) \nonumber \\
+  &= 1.71007 \nonumber
+\end{align}
+
+Looking at the results for the Equation \@ref(eq:beta1), we would assume that the coefficient for the Contrast 1 is 1.71007, which is not true. This value still gets divided by the number of groups in the contrast, 3 in this case, to control for the inflated familywise error. Therefore, $\beta_{group1} = \frac{1.71007}{3} = 0.57002$, the same as shown in the output above. Furthermore, the *p* value for this coefficient (`Pr(>|t|)` column) is < 0.05, which indicates that the control group adjusted mean is significantly different than the means for the moderate and high groups. Therefore, we can conclude that the treatment conditions are significantly different than the control.
+
+The `group2` coefficient is related to the Contrast 2, which compares the moderate and high groups. Repeating the same process shown in Equation \@ref(eq:beta1) we get:
+
+\begin{align}\label{eq:beta2}
+  \beta_{group2} &= \bar{X}_{moderate} - \bar{X}_{high} \\
+  &= 15.79199 - 13.46352 \nonumber \\
+  &= 2.32847 \nonumber
+\end{align}
+
+Then, dividing this value by 2, which is the number of groups involved in the contrast, we have $\beta_{group2} = 2.32847 = 1.16424$, the same as seen in the output. The *p* value for this coefficient is also < 0.05, indicating that the difference in the adjusted means of the moderate and high groups is statistically significant. Hence, exercising at higher intensities shows to be more effective to reduce anxiety levels.
+
+### *Post hoc* tests
+
+Another way to test for differences between the groups is by running *post hoc* tests. These tests are pairwise comparisons that compare all possible combinations of groups. It is like performing a *t*-test on each pair of groups, but applying an adjustment to the *p* value to control for the inflated familywise error. In an ANCOVA, we must use the adjusted means in the *post hoc* tests. In R, we can use the `pairs()` function, and select the adjusted means for comparison (*e.g.*: `emmeans(ancova_2, ~ group)`) and then choose the adjustment method with the `adjust` argument. Below we can see the *post hoc* test with three of the most common adjustments.
+
+\vspace{0.5em}
+
+```{r post-hocs, results="hide"}
+pairs(emmeans(ancova_2, ~ group), adjust = "Bonferroni")
+pairs(emmeans(ancova_2, ~ group), adjust = "Holm")
+pairs(emmeans(ancova_2, ~ group), adjust = "Tukey")
+```
+
+```{r post-hocs-results, echo=FALSE}
+pairs(emmeans(ancova_2, ~ group), adjust = "Bonferroni")
+pairs(emmeans(ancova_2, ~ group), adjust = "Holm")
+pairs(emmeans(ancova_2, ~ group), adjust = "Tukey")
+```
+
+\vspace{0.5em}
+
+We can see that all parameters (estimated differences, standard error, degrees of freedom and *t*-ratio) are the same among the adjustment, as they only adjust the *p* value. In this case, the same conclusion can be taken from all the three *post hoc* adjustment methods: all three groups adjusted means significantly differ from each other.
+
+### Model diagnostic plots
+
+The `aov()` function we used to fit the ANCOVA model automatically generates some plots that can be used to test the assumptions about the residuals, which are important assumptions regarding the quality of the linear model [@Field_2012]. The first plot we should look at is the residuals vs. fitted values:
+
+\vspace{0.5em}
+
+```{r diag-plots-1, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Plot of residuals against fitted values for the ANCOVA model."}
+plot(ancova_2, 1)
+```
+
+\vspace{0.5em}
+
+This plot show the residuals (difference between the values predicted by the model and the observed values) in the Y axis and the fitted values (values predicted by the model) in the X axis. It is useful to test the assumption of homogeneity of variance of the residuals. If it looks like the dots are evenly scattered around 0 (which is the case), the homocedasticity assumption is met.
+
+Another useful plot generated by the model is a Q-Q (quantile-quantile) plot:
+
+\vspace{0.5em}
+
+```{r diag-plots-2, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Q-Q plots of the ANCOVA model residuals."}
+plot(ancova_2, 2)
+```
+
+\vspace{0.5em}
+
+This plot shows if the residuals distribution deviates from normality. It plots the cumulative values in the data against the cumulative probability of the normal distribution. If the dots fall in the diagonal dotted line (which is the case for the majority of dots), the data has a normal distribution.
+
+### Plotting post-test scores by group
+
+To graphically present the results of our analysis, we can build a plot with our outcome variable, the post-test scores, divided by the treatment conditions, the groups. It will be, then, useful to plot the group means and their confidence intervals. First, to explore the results, we will build a plot with the non-adjusted means. Before plotting, we need to get the descriptive data and calculate the confidence intervals as:
+
+\begin{equation}
+  confidence\ interval = \bar{X} \pm \left(t_{df} \times SE \right)
+  (\#eq:ci)
+\end{equation}
+
+Where $\bar{X}$ is the sample mean, $t_{df}$ is the quantile of a *t*-distribution with the corresponding degrees of freedom (sample size $-$ 1) and SE is the standard error of the mean. As we are interested in a 95% confidence interval we need the two-tailed *t* value for a 0.05 probability, which corresponds to the 97.5% quantile [@Field_2012]. Also, as in the `descriptives` data frame we created earlier there is no SE, we can calculate it as:
+
+\begin{equation}
+  SE = \frac{sd}{\sqrt{n}}
+  (\#eq:SE)
+\end{equation}
+
+Where $sd$ is the standard deviation and $n$ is the sample size. Therefore, to calculate the confidence interval and put it into a data frame to be used to build the plot, we execute the following:
+
+\vspace{0.5em}
+
+```{r ancova-desc-no-adj}
+no_adj_plot_df <- descriptives %>% 
+  filter(time == "Post-test") %>% 
+  mutate(
+    lower_CI = mean - ((sd / sqrt(n)) * qt(0.975, df = n - 1)),
+    upper_CI = mean + ((sd / sqrt(n)) * qt(0.975, df = n - 1))
+  )
+no_adj_plot_df %>% as.data.frame()
+```
+
+\vspace{0.5em}
+
+And then create the plot:
+
+\vspace{0.5em}
+
+```{r ancova-plot-no-adj, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Post-test anxiety scores non-adjusted group means and 95\\% confidence intervals."}
+ggplot(data = no_adj_plot_df) +
+  geom_point(mapping = aes(x = group, y = mean)) +
+  geom_errorbar(
+    aes(x = group, ymin = lower_CI, ymax = upper_CI),
+    width = 0.3
+  )
+```
+
+\vspace{0.5em}
+
+Analysing the Figure \@ref(fig:ancova-plot-no-adj) we can see that the confidence intervals for the control and moderate group overlap. Thus, we could conclude that there are no significant differences between these groups in the post-test scores, contrary to what our *post hoc* tests have shown. But as we used the non-adjusted means to build this plot, it is not controlled for the pre-test scores and, therefore, it shows the same results as a simple ANOVA. We can confirm that by looking at the results of an ANOVA of the post-test scores by group:
+
+\vspace{0.5em}
+
+```{r anova}
+aov(formula = post_test ~ group, data = anxiety) %>% summary()
+```
+
+\vspace{0.5em}
+
+As it showed significant differences between the groups (*p* < 0.001), we can ask for *post hoc* tests to discover between which groups these differences are. We can use the `pairwise.t.test()` function with the Bonferroni adjustment (argument `p.adjust.method = "bonferroni"`) to run the *post hoc* tests in our non-adjusted means:
+
+\vspace{0.5em}
+
+```{r anova-post-hoc}
+pairwise.t.test(
+  anxiety$post_test, anxiety$group, 
+  p.adjust.method = "bonferroni"
+)
+```
+
+\vspace{0.5em}
+
+These results confirm what was shown in Figure \@ref(fig:ancova-plot-no-adj): no significant differences between the control and moderate groups (*p* > 0.05). Now, to represent the ANCOVA results, we will put the adjusted means into a data frame and build the same plot using these means:
+
+\vspace{0.5em}
+
+```{r adj-means-df}
+emmeans <- emmeans(ancova_2, ~ group) %>% as.data.frame()
+emmeans
+```
+
+\vspace{0.5em}
+
+```{r ancova-plot-adj, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Post-test anxiety scores adjusted group means and 95\\% confidence intervals."}
+ggplot(data = emmeans) +
+  geom_point(mapping = aes(x = group, y = emmean)) +
+  geom_errorbar(
+    aes(x = group, ymin = lower.CL, ymax = upper.CL),
+    width = 0.3
+  )
+```
+
+\vspace{0.5em}
+
+Inspecting the confidence intervals in Figure \@ref(fig:ancova-plot-adj) we can conclude that all groups significantly differ from each other, and that was the same conclusion we took from the ANCOVA *post hoc* tests. Furthermore, what could be observed analysing Figures \@ref(fig:ancova-plot-no-adj) and \@ref(fig:ancova-plot-adj) reinforces the importance of using an ANCOVA to adjust for baseline values in a pre-test *vs.* post-test study design.
+
+### Effect sizes
+
+A final step of the analysis is to compute the effect sizes. An effect size that is commonly calculated in ANCOVA is the partial eta squared ($\eta^2_p$). This effect size corresponds to the proportion of variance that a variable explains and that is not explained by other variables [@Field_2012], and can be expressed as:
+
+\begin{equation}
+  \eta^2_p = \frac{SS_{effect}}{SS_{effect} + SS_{residuals}}
+  (\#eq:partiale2)
+\end{equation}
+
+We can, then, look at SS values on the output of the `Anova(ancova_2, type = "III")` function, substitute these values in the Equation \@ref(eq:partiale2), and calculate the $\eta^2_p$ for the treatment effect:
+
+\begin{align}\label{eq:partiale2group}
+  \eta^2_p &= \frac{SS_{group}}{SS_{group} + SS_{residuals}} \\
+  &= \frac{69.865}{69.865 + 9.468} \nonumber \\
+  &= 0.881 \nonumber
+\end{align}
+
+And for the covariate:
+
+\begin{align}\label{eq:partiale2cov}
+  \eta^2_p &= \frac{SS_{covariate}}{SS_{covariate} + SS_{residuals}} \\
+  &= \frac{93.366}{93.366 + 9.468} \nonumber \\
+  &= 0.908 \nonumber
+\end{align}
+
+Inspecting these effect size values we can see that they are very similar, albeit slightly bigger for the covariate effect.
+
+Rather than calculating the $\eta^2_p$ by the equation, we can define a function in R to do this:
+
+\vspace{0.5em}
+
+```{r partial-eta-function}
+partial_eta_squared <- function(SS_effect, SS_residual) {
+  es <- SS_effect / (SS_effect + SS_residual)
+  return(es)
+}
+```
+
+\vspace{0.5em}
+
+To apply this function, first we need to put the SS values in a data frame:
+
+\vspace{0.5em}
+
+```{r SS-df}
+SS <- as.data.frame(Anova(ancova_2, type = "III"))[1]
+SS
+```
+
+\vspace{0.5em}
+
+And then we can calculate:
+
+\vspace{0.5em}
+
+```{r partial_eta_2-compute}
+# For the treatment effect
+partial_eta_squared(SS[3, 1], SS[4, 1])
+# For the covariate
+partial_eta_squared(SS[2, 1], SS[4, 1])
+```
+
+# Reporting the results
+
+After running all the analysis and interpreting the results, they need to be properly described in a publication. It is important to describe the ANCOVA results, namely the *F*-ratio (and its degrees of freedom), the *p* value and the effect size, for both the covariate and the treatment effect. The *post hoc* tests *t* and *p* value should also be described. An example of a paragraph describing these results can be seen below:
+
+\vspace{0.5em}
+\begin{quote}
+"The pre-test anxiety scores significantly entered as covariate in the ANCOVA model (\textit{F}(1, 41) = 404.29, \textit{p} < 0.001), with an effect size of $\eta_p^2$ = 0.91. After controlling for the pre-test scores, the post-test anxiety scores significantly differed among groups (\textit{F}(2, 41) = 151.26, \textit{p} < 0.001), with an effect size of $\eta_p^2$ = 0.88. \textit{Post hoc} tests with Bonferroni adjustment showed that there was a significant difference between the control and moderate groups (\textit{t} = 3.09, \textit{p} = 0.011), between the control and high groups (\textit{t} = 16.38, \textit{p} < 0.001) and between the moderate and high groups (\textit{t} = 16.38, \textit{p} < 0.001)."
+\end{quote}
+\vspace{0.5em}
+
+Besides describing the results in text, we can also present a figure similar to the Figure \@ref(fig:ancova-plot-adj), but with some adjustments to make it more suitable for publication. First, we will rename the group factors levels:
+
+\vspace{0.5em}
+
+```{r recode-factor}
+emmeans$group <- recode_factor(
+  emmeans$group,
+  "Control" = "Control Group",
+  "Moderate" = "Moderate Exercise Group",
+  "High" = "High Exercise Group"
+)
+```
+
+\vspace{0.5em}
+
+Then, build another plot with the same code used to create the Figure \@ref(fig:ancova-plot-adj), but adjusting the size of the point and error bar, and assign it to an object:
+
+\vspace{0.5em}
+
+```{r pub-plot-1}
+plot <- ggplot(data = emmeans) +
+  geom_point(
+    mapping = aes(x = group, y = emmean),
+    size = 2.5
+  ) +
+  geom_errorbar(
+    aes(x = group, ymin = lower.CL, ymax = upper.CL),
+    width = 0.1, size = 1
+  )
+```
+
+\vspace{0.5em}
+
+We can now control some aspects of the plot, such as the Y axis scale, the plot theme and the axes labels. It can be done by adding some controlling functions to the plot we have just created:
+
+\vspace{0.5em}
+
+```{r pub-plot-2}
+plot <- plot +
+  scale_y_continuous(
+    limits = c(13, 17),
+    breaks = seq(13, 17, 1),
+    expand = c(0, 0)
+  ) +
+  theme_classic() +
+  theme(
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_blank(),
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12)
+  ) +
+  ylab("Anxiety Score")
+```
+
+\vspace{0.5em}
+
+The resulting plot can be seen below:
+
+\vspace{0.5em}
+
+```{r pub-plot-final, fig.pos="H", out.extra="", out.width="75%", fig.align="center", fig.cap="Post-test anxiety scores adjusted group means and 95\\% confidence intervals."}
+plot
+```
+
+\vspace{0.5em}
+
+And we can use the `ggsave()` function to save our plot into a pdf file in the working directory:
+
+\vspace{0.5em}
+
+```{r save-plot, eval=FALSE}
+ggsave("plot.pdf", plot, width = 8, height = 6, dpi = 100)
+```
+
+\vspace{0.5em}
+
+The pdf file dimensions can be controlled by the `width` and `height` arguments, and the resolution by the `dpi` argument, according to the journal figure guidelines.
+
+\pagebreak
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\noindent
