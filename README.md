@@ -1,3 +1,3 @@
-# rstats_tutorials
+# tutorials
 
-Repo with code for stats tutorials using R
+Repo with the tutorials available in my [page](lveras.com/tutorials.html).
