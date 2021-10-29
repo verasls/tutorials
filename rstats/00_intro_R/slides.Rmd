@@ -1,0 +1,208 @@
+---
+title: Intro to R
+author: Lucas Veras
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "xaringan-themer.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+```{r xaringan-themer, include = FALSE, warning = FALSE}
+library(xaringanthemer)
+style_mono_light(base_color = "#23395b")
+```
+
+## What is R?
+
+.middle2[.center[.huge["R is a language and environment for statistical computing and graphics"]<sup>[1]</sup>]]
+
+.footer[.tiny[[1] https://www.r-project.org/about.html]]
+
+--
+
+.middle2[.center[.huge["R is a .orange[language] and environment for statistical computing and graphics"]<sup>[1]</sup>]]
+
+--
+
+.middle2[.center[.huge["R is a .orange[language] and environment for .orange[statistical] computing and graphics"]<sup>[1]</sup>]]
+
+--
+
+.middle2[.center[.huge["R is a .orange[language] and environment for .orange[statistical] computing and .orange[graphics]"]<sup>[1]</sup>]]
+
+---
+
+## Advantages
+
+.middle2[.center[![copypaste](./figs/copy_paste.png)]]
+
+---
+
+## Advantages
+
+.middle2[
+
+.center[.huge[Reuse your code]]
+
+```{r, echo = FALSE, fig.align = "center", out.width = "40%"}
+knitr::include_graphics("./figs/recycle.png")
+```
+
+]
+
+---
+
+## Advantages
+
+.middle2[.center[.huge[Make publication-quality plots]]]
+
+---
+
+## Advantages
+
+```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+knitr::include_graphics("./figs/bland-altman.png")
+```
+---
+
+## Advantages
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/lineplot.png")
+```
+---
+
+## Advantages
+
+```{r, echo = FALSE, fig.align = "center", out.width = "60%"}
+knitr::include_graphics("./figs/boxplot.png")
+```
+---
+
+## Advantages
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/regplots.png")
+```
+---
+
+## Advantages
+
+.center[.huge[Write a paper]]
+
+![paper_pdf](./figs/paper_r.png)
+
+---
+
+## Advantages
+
+.center[.huge[Write a paper]]
+
+![paper_pdf](./figs/paper_pdf.png)
+
+---
+
+## Advantages
+
+.center[.huge[Make presentations]]
+
+```{r, eval = FALSE}
+## Advantages
+
+.center[.huge[Write a paper]]
+
+![paper_pdf](./figs/paper_r.png)
+
+---
+
+## Advantages
+
+.center[.huge[Write a paper]]
+
+![paper_pdf](./figs/paper_pdf.png)
+
+---
+
+## Advantages
+
+.center[.huge[Make presentations]]
+```
+
+---
+
+## Advantages
+
+.middle2[
+
+```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+knitr::include_graphics("./figs/everything.png")
+```
+
+]
+
+---
+
+## Disadvantages
+
+.middle2[
+
+```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+knitr::include_graphics("./figs/r.png")
+```
+
+]
+
+--
+
+.middle2[
+
+```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+knitr::include_graphics("./figs/dont_know.png")
+```
+
+]
+
+---
+
+## Disadvantages
+
+![paper_pdf](./figs/documentation.png)
+
+---
+
+## Disadvantages
+
+.middle2[![paper_pdf](./figs/cockpit.png)]
+
+---
+
+## Disadvantages
+
+![paper_pdf](./figs/learning.png)
+
+---
+
+## Disadvantages
+
+.middle2[
+
+```{r, echo = FALSE, fig.align = "center", out.width = "60%"}
+knitr::include_graphics("./figs/no_idea.png")
+```
+
+]
+
+---
+
+## Help
+
+.center[![paper_pdf](./figs/help.png)]
+
+--
+
+```{r, echo = FALSE, fig.align = "center", out.width = "80%"}
+knitr::include_graphics("./figs/help2.png")
+```
