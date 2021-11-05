@@ -37,7 +37,7 @@ style_mono_light(base_color = "#23395b")
 
 ## Advantages
 
-.middle2[.center[![copypaste](./figs/copy_paste.png)]]
+.middle2[.center[![](./figs/copy_paste.png)]]
 
 ---
 
@@ -93,7 +93,7 @@ knitr::include_graphics("./figs/regplots.png")
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_r.png)
+![](./figs/paper_r.png)
 
 ---
 
@@ -101,7 +101,7 @@ knitr::include_graphics("./figs/regplots.png")
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_pdf.png)
+![](./figs/paper_pdf.png)
 
 ---
 
@@ -114,7 +114,7 @@ knitr::include_graphics("./figs/regplots.png")
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_r.png)
+![](./figs/paper_r.png)
 
 ---
 
@@ -122,7 +122,7 @@ knitr::include_graphics("./figs/regplots.png")
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_pdf.png)
+![](./figs/paper_pdf.png)
 
 ---
 
@@ -169,19 +169,19 @@ knitr::include_graphics("./figs/dont_know.png")
 
 ## Disadvantages
 
-![paper_pdf](./figs/documentation.png)
+![](./figs/documentation.png)
 
 ---
 
 ## Disadvantages
 
-.middle2[![paper_pdf](./figs/cockpit.png)]
+.middle2[![](./figs/cockpit.png)]
 
 ---
 
 ## Disadvantages
 
-![paper_pdf](./figs/learning.png)
+![](./figs/learning.png)
 
 ---
 
@@ -199,7 +199,7 @@ knitr::include_graphics("./figs/no_idea.png")
 
 ## Help
 
-.center[![paper_pdf](./figs/help.png)]
+.center[![](./figs/help.png)]
 
 --
 
