@@ -37,7 +37,8 @@ style_mono_light(base_color = "#23395b")
 
 ## Advantages
 
-.middle2[.center[![](./figs/copy_paste.png)]]
+
+.center[![](./figs/copy_paste.png)]
 
 ---
 
@@ -135,13 +136,11 @@ knitr::include_graphics("./figs/regplots.png")
 
 ## Advantages
 
-.middle2[
+<br>
 
-```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+```{r, echo = FALSE, fig.align = "center", out.width = "60%"}
 knitr::include_graphics("./figs/everything.png")
 ```
-
-]
 
 ---
 
@@ -175,25 +174,26 @@ knitr::include_graphics("./figs/dont_know.png")
 
 ## Disadvantages
 
-.middle2[![](./figs/cockpit.png)]
+<br>
+
+```{r, echo = FALSE, fig.align = "center", out.width = "60%"}
+knitr::include_graphics("./figs/cockpit.png")
+```
 
 ---
 
 ## Disadvantages
 
+<br>
 ![](./figs/learning.png)
 
 ---
 
 ## Disadvantages
 
-.middle2[
-
-```{r, echo = FALSE, fig.align = "center", out.width = "60%"}
+```{r, echo = FALSE, fig.align = "center", out.width = "40%"}
 knitr::include_graphics("./figs/no_idea.png")
 ```
-
-]
 
 ---
 
