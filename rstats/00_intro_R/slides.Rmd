@@ -1,5 +1,5 @@
 ---
-title: Intro to R
+title: Introduction
 author: Lucas Veras
 output:
   xaringan::moon_reader:
@@ -15,11 +15,69 @@ library(xaringanthemer)
 style_mono_light(base_color = "#23395b")
 ```
 
+class: middle, center
+
+# Statistics with R
+
+---
+
+## Statistics with R
+
+.huge[What are you going to learn?]
+
+--
+
+1. Statistical concepts
+
+--
+
+   * What to do
+
+--
+
+   * How to do
+
+--
+
+   * What is behind it
+
+--
+
+2. A (probably) new tool: R
+
+--
+
+   * Free, open source software
+
+---
+
+## Today
+
+<br> 
+
+.huge[
+* Why R?
+]
+
+--
+
+.huge[
+* How to install
+]
+
+--
+
+.huge[
+* The basics
+]
+
+---
+
 ## What is R?
 
 .middle2[.center[.huge["R is a language and environment for statistical computing and graphics"]<sup>[1]</sup>]]
 
-.footer[.tiny[[1] https://www.r-project.org/about.html]]
+.footer[.tiny[[1] [r-project.org](https://www.r-project.org)]]
 
 --
 
@@ -205,4 +263,970 @@ knitr::include_graphics("./figs/no_idea.png")
 
 ```{r, echo = FALSE, fig.align = "center", out.width = "80%"}
 knitr::include_graphics("./figs/help2.png")
+```
+
+---
+
+## Installing R
+
+.center[.huge[[r-project.org](https://www.r-project.org)]]
+
+.center[![](./figs/install1.png)]
+
+---
+
+## Installing R
+
+.center[.huge[[r-project.org](https://www.r-project.org)]]
+
+.center[![](./figs/install2.png)]
+
+---
+
+## Installing R
+
+.huge[Choose the mirror closest to your location]
+
+.center[![](./figs/install3.png)]
+
+--
+
+.huge[Select your operating system]
+
+.center[![](./figs/install4.png)]
+
+---
+
+## Installing R
+
+.huge[For windows]
+
+.center[![](./figs/install5.png)]
+
+---
+
+## Installing R
+
+.huge[For macOS]
+
+.center[![](./figs/install6.png)]
+
+---
+
+## Installing
+
+.middle2[.center[.huge[Click on the installer and follow the instructions]]]
+
+---
+
+## R GUI
+
+
+.middle2[
+
+```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+knitr::include_graphics("./figs/r.png")
+```
+
+]
+
+---
+
+## Alternatives
+
+.huge[Code editors]
+
+  * .large[VSCode, Emacs, Vim]
+
+--
+
+<br>
+<br>
+
+.huge[RStudio IDE]
+
+```{r, echo = FALSE, fig.align = "left", out.width = "40%"}
+knitr::include_graphics("./figs/rstudio.png")
+```
+
+---
+
+## Installing RStudio
+
+.center[.huge[[rstudio.com](https://www.rstudio.com)]]
+
+.center[![](./figs/install7.png)]
+
+---
+
+## Installing RStudio
+
+.center[.huge[[rstudio.com](https://www.rstudio.com)]]
+
+.center[![](./figs/install8.png)]
+
+--
+
+.center[![](./figs/install9.png)]
+
+---
+
+## Installing RStudio
+
+.center[.huge[Select your operating system]]
+
+.center[![](./figs/install10.png)]
+
+.center[.huge[Click on the installer and follow the instructions]]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface1.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface2.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface3.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface4.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface5.png)]
+
+---
+
+## R as a calculator
+
+```{r}
+2 + 2
+```
+
+---
+
+## R as a calculator
+
+```{r}
+2 + 2
+5 - 9
+```
+
+---
+
+## R as a calculator
+
+```{r}
+2 + 2
+5 - 9
+3 * 7
+```
+
+---
+
+## R as a calculator
+
+```{r}
+2 + 2
+5 - 9
+3 * 7
+17 / 6
+```
+
+---
+
+## R as a calculator
+
+```{r}
+2 + 2
+5 - 9
+3 * 7
+17 / 6
+4^2 # can be 4**2
+```
+
+---
+
+## Everything is an object
+
+```{r}
+3
+```
+
+---
+
+## Everything is an object
+
+```{r}
+3
+x <- 3
+```
+
+---
+
+## Everything is an object
+
+```{r}
+3
+x <- 3
+x
+```
+
+---
+
+## Everything is an object
+
+```{r}
+3
+x <- 3
+x
+```
+
+Assignment operator: `<-` preferable over `=`
+
+--
+
+RStudio shortcut: Alt (Option) + -
+
+---
+
+## Object naming
+
+.large[Best practices]<sup>[2]</sup>
+.footer[.tiny[[2] [style.tidyverse.org](https://style.tidyverse.org/index.html)]]
+
+Should only use lowercase letters, numbers and underscore (\_)
+
+```{r, eval = FALSE}
+# Good
+day_one
+day_1
+
+# Bad
+DayOne
+dayone
+day.one
+```
+
+---
+
+## Object naming
+
+.large[Best practices]<sup>[2]</sup>
+.footer[.tiny[[2] [style.tidyverse.org](https://style.tidyverse.org/index.html)]]
+
+Should only use lowercase letters, numbers and underscore (\_)
+
+```{r, eval = FALSE}
+# Good
+day_one
+day_1
+
+# Bad
+DayOne
+dayone
+day.one
+```
+
+ATTENTION: R is case sensitive
+
+```{r, error = TRUE}
+number_1 <- 1
+Number_1
+```
+
+---
+
+## Object types
+
+.huge[Numeric]
+
+```{r, eval = FALSE}
+1
+0
+-4
+8.72
+pi
+```
+
+---
+
+## Object types
+
+.huge[Numeric]
+
+```{r, eval = FALSE}
+1
+0
+-4
+8.72
+pi
+```
+
+Obs: `interger` vs. `double`
+
+---
+
+## Object types
+
+.huge[Character]
+
+```{r, eval = FALSE}
+"a"
+"multipleletters"
+"you can use spaces"
+"5"
+```
+
+---
+
+## Object types
+
+.huge[Logical]
+
+```{r, eval = FALSE}
+TRUE
+FALSE
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+```{r, eval = FALSE}
+10 == 10
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+```{r}
+10 == 10
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+```{r}
+10 == 10
+```
+
+```{r, eval = FALSE}
+3 == 10
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+```{r}
+10 == 10
+```
+
+```{r}
+3 == 10
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+```{r}
+10 == 10
+3 == 10
+```
+
+```{r, eval = FALSE}
+a <- 1
+a == 1
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+```{r}
+10 == 10
+3 == 10
+```
+
+```{r}
+a <- 1
+a == 1
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+```{r}
+10 == 10
+3 == 10
+a <- 1
+a == 1
+```
+
+IMPORTANT: double equal sign `==`
+
+```{r, error = TRUE}
+10 = 10
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+```{r, eval = FALSE}
+2 > 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+```{r}
+2 > 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+```{r}
+2 > 3
+```
+
+```{r, eval = FALSE}
+2 < 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+```{r}
+2 > 3
+```
+
+```{r}
+2 < 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+```{r}
+2 > 3
+```
+
+```{r}
+2 < 3
+```
+
+```{r, eval = FALSE}
+2 < 2
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+```{r}
+2 > 3
+```
+
+```{r}
+2 < 3
+```
+
+```{r}
+2 < 2
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+```{r, eval = FALSE}
+3 >= 1
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+```{r}
+3 >= 1
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+```{r}
+3 >= 1
+```
+
+```{r, eval = FALSE}
+3 <= 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+```{r}
+3 >= 1
+```
+
+```{r}
+3 <= 3
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+```{r, eval = FALSE}
+10 != 10
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+```{r}
+10 != 10
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+```{r}
+10 != 10
+```
+
+```{r, eval = FALSE}
+!(5 > 9)
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+```{r}
+10 != 10
+```
+
+```{r}
+!(5 > 9)
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+--
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+--
+
+```{r, eval = FALSE}
+7 <= 7 & 3 != 4
+7 < 7 & 3 != 4
+7 == 7 & 3 > 4
+7 != 7 & 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+7 <= 7 & 3 != 4
+```
+
+```{r, eval = FALSE}
+7 < 7 & 3 != 4
+7 == 7 & 3 > 4
+7 != 7 & 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+7 <= 7 & 3 != 4
+7 < 7 & 3 != 4
+```
+
+```{r, eval = FALSE}
+7 == 7 & 3 > 4
+7 != 7 & 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+7 <= 7 & 3 != 4
+7 < 7 & 3 != 4
+7 == 7 & 3 > 4
+```
+
+```{r, eval = FALSE}
+7 != 7 & 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+7 <= 7 & 3 != 4
+7 < 7 & 3 != 4
+7 == 7 & 3 > 4
+7 != 7 & 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r, eval = FALSE}
+-1 > -2 | 9 > 5
+-1 <= -2 | 9 != 5
+-1 != -2 | 9 >= 5
+-1 == -2 | 9 < 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+-1 > -2 | 9 > 5
+```
+
+```{r, eval = FALSE}
+-1 <= -2 | 9 != 5
+-1 != -2 | 9 >= 5
+-1 == -2 | 9 < 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+-1 > -2 | 9 > 5
+-1 <= -2 | 9 != 5
+```
+
+```{r, eval = FALSE}
+-1 != -2 | 9 >= 5
+-1 == -2 | 9 < 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+-1 > -2 | 9 > 5
+-1 <= -2 | 9 != 5
+-1 != -2 | 9 >= 5
+```
+
+```{r, eval = FALSE}
+-1 == -2 | 9 < 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+```{r}
+-1 > -2 | 9 > 5
+-1 <= -2 | 9 != 5
+-1 != -2 | 9 >= 5
+-1 == -2 | 9 < 5
+```
+
+---
+
+## Vectors
+
+Untill now, we have operated with vectors of lenght 1
+
+```{r}
+x <- 7
+x
+```
+
+---
+
+## Vectors
+
+Untill now, we have operated with vectors of lenght 1
+
+```{r}
+x <- 7
+x
+```
+
+We can assess the length of a vector with the function `length()`
+
+```{r}
+length(x)
+```
+
+---
+
+## Vectors
+
+We can create vectors with the function `c()`
+
+```{r}
+my_vector <- c(1, 1, 8, 3, 5, 20)
+my_vector
+```
+
+--
+
+```{r}
+length(my_vector)
+```
+
+--
+
+We can combine vectors to create bigger vectors
+
+```{r}
+bigger_vector <- c(my_vector, c(100, 101, 102))
+bigger_vector
+```
+
+---
+
+## Vectors
+
+Vectors can have elements of different types
+
+```{r}
+mixed_vector <- c("word", 9, TRUE)
+mixed_vector
+```
+
+--
+
+We can access vector elements by position using the `[]` operator
+
+```{r}
+char_vector <- c("one", "two", "three")
+char_vector[2]
+```
+
+--
+
+```{r, error = TRUE}
+char_vector[4]
+```
+
+---
+
+## Vectors
+
+One of the major benefits of vectors is the concept of **vectorization**
+
+```{r, eval = FALSE}
+n <- 1:10
+n
+```
+
+---
+
+## Vectors
+
+One of the major benefits of vectors is the concept of **vectorization**
+
+```{r}
+n <- 1:5
+n
+```
+
+--
+
+```{r}
+n^2
+```
+
+--
+
+```{r}
+sqrt(n)
+log(n)
+```
+
+---
+
+## Data frames
+
+* A list of equal-length vectors: it has a rectangular shape
+
+--
+
+* Each vector is a column
+
+--
+
+* Each column can store only objects with the same type
+
+--
+
+* We can create data frames or import from files
+
+--
+
+* R has some built-in data frames
+
+```{r, eval = FALSE}
+mtcars
+```
+
+---
+
+## Data frames
+
+* A list of equal-length vectors: it has a rectangular shape
+
+* Each vector is a column
+
+* Each column can store only objects with the same type
+
+* We can create data frames or import from files
+
+* R has some built-in data frames
+
+```{r}
+head(mtcars)
 ```
