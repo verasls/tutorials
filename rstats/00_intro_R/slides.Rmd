@@ -1548,3 +1548,74 @@ What is real?
 * Your workspace?
 
 * Your outputs?
+
+--
+
+<br>
+
+.center[.huge[Keep your code!]]
+
+---
+
+## Working directory
+
+Where you are
+
+--
+
+```{r, eval = FALSE}
+getwd()
+```
+
+---
+
+## Working directory
+
+Where you are
+
+```{r}
+getwd()
+```
+
+--
+
+```{r, eval = FALSE}
+setwd("path/to/where/you/choose")
+```
+
+--
+
+<br>
+
+**Do not use this!**
+
+--
+
+Use RStudio Projects + `{here}` package
+
+---
+
+## Projects
+
+.center[![](./figs/finder.png)]
+
+---
+
+## Projects
+
+* Always open RStudio by clicking "my_project.Rproj"
+
+--
+
+* Use the `{here}` package to refer to relative paths inside your project
+
+--
+
+```{r, eval = FALSE}
+read_csv(here("data", "raw_data.csv"))
+```
+--
+
+<br>
+
+**Remember that packages need first to be installed and then loaded into your session**
