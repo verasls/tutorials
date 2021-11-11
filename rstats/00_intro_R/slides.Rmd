@@ -15,7 +15,7 @@ library(xaringanthemer)
 style_mono_light(base_color = "#23395b")
 ```
 
-class: middle, center
+class: inverse, middle, center
 
 # Statistics with R
 
@@ -70,6 +70,12 @@ class: middle, center
 .huge[
 * The basics
 ]
+
+---
+
+class: inverse, middle, center
+
+# Why R?
 
 ---
 
@@ -267,6 +273,12 @@ knitr::include_graphics("./figs/help2.png")
 
 ---
 
+class: inverse, middle, center
+
+# Installing R
+
+---
+
 ## Installing R
 
 .center[.huge[[r-project.org](https://www.r-project.org)]]
@@ -408,6 +420,12 @@ knitr::include_graphics("./figs/rstudio.png")
 ## RStudio
 
 .center[![](./figs/rstudio_interface5.png)]
+
+---
+
+class: inverse, middle, center
+
+# R Basics
 
 ---
 
@@ -1619,3 +1637,9 @@ read_csv(here("data", "raw_data.csv"))
 <br>
 
 **Remember that packages need first to be installed and then loaded into your session**
+
+---
+
+class: inverse, middle, center
+
+# Exercises
