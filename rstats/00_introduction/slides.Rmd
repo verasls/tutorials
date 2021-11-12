@@ -21,7 +21,7 @@ background-position: 7% 2%
 background-size: 120px 70px
 
 ```{r title_fig, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, warning = FALSE}
-library(tidyverse)
+library(ggplot2)
 library(ggsci)
 
 set.seed(20211111)
@@ -39,7 +39,7 @@ y <- c(
   rep("d", 1e5)
 )
 
-tibble(x, y) |>
+data.frame(x, y) |>
   ggplot(aes(x = x, color = y)) +
   geom_density() +
   #scale_color_tron() +
