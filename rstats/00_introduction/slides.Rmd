@@ -1685,3 +1685,28 @@ read_csv(here("data", "raw_data.csv"))
 class: inverse, middle, center
 
 # Exercises
+
+---
+
+class: inverse, middle, center
+background-image: url("./figs/logo.png")
+background-position: 7% 2%
+background-size: 120px 70px
+
+.enormous[Thank you!]
+
+<br>
+
+Slides at:
+
+```{r, echo = FALSE, fig.align = "center", out.width = "20%"}
+knitr::include_graphics("./figs/qrcode.png")
+```
+
+```{r, echo = FALSE}
+library(icons)
+```
+
+`r icon_style(fontawesome("github"), fill = "white")` @verasls | `r icon_style(fontawesome("twitter"), fill = "white")` @verasls
+
+`r icon_style(fontawesome("envelope", style = "solid"), fill = "white")` lucasdsveras@gmail.com
