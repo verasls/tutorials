@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Intro to R</title>
+    <title>Introduction</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lucas Veras" />
     <script src="libs/header-attrs-2.11/header-attrs.js"></script>
@@ -11,21 +11,93 @@
   </head>
   <body>
     <textarea id="source">
-class: center, middle, inverse, title-slide
 
-# Intro to R
-### Lucas Veras
+
+
+
+class: inverse, left, bottom
+background-image: url("./figs/logo.png")
+background-position: 7% 2%
+background-size: 120px 70px
+
+&lt;img src="slides_files/figure-html/title_fig-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+### Statistics with R
+
+#### Lesson 00: Introduction
+
 
 ---
 
+class: inverse, middle, center
 
+# Statistics with R
 
+---
+
+## Statistics with R
+
+.huge[What are you going to learn?]
+
+--
+
+1. Statistical concepts
+
+--
+
+   * What to do
+
+--
+
+   * How to do
+
+--
+
+   * What is behind it
+
+--
+
+2. A (probably) new tool: R
+
+--
+
+   * Free, open source software
+
+---
+
+## Today
+
+&lt;br&gt; 
+
+.huge[
+* Why R?
+]
+
+--
+
+.huge[
+* How to install
+]
+
+--
+
+.huge[
+* The basics
+]
+
+---
+
+class: inverse, middle, center
+
+# Why R?
+
+---
 
 ## What is R?
 
 .middle2[.center[.huge["R is a language and environment for statistical computing and graphics"]&lt;sup&gt;[1]&lt;/sup&gt;]]
 
-.footer[.tiny[[1] https://www.r-project.org/about.html]]
+.footer[.tiny[[1] [r-project.org](https://www.r-project.org)]]
 
 --
 
@@ -43,7 +115,8 @@ class: center, middle, inverse, title-slide
 
 ## Advantages
 
-.middle2[.center[![copypaste](./figs/copy_paste.png)]]
+
+.center[![](./figs/copy_paste.png)]
 
 ---
 
@@ -89,7 +162,7 @@ class: center, middle, inverse, title-slide
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_r.png)
+![](./figs/paper_r.png)
 
 ---
 
@@ -97,7 +170,7 @@ class: center, middle, inverse, title-slide
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_pdf.png)
+![](./figs/paper_pdf.png)
 
 ---
 
@@ -111,7 +184,7 @@ class: center, middle, inverse, title-slide
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_r.png)
+![](./figs/paper_r.png)
 
 ---
 
@@ -119,7 +192,7 @@ class: center, middle, inverse, title-slide
 
 .center[.huge[Write a paper]]
 
-![paper_pdf](./figs/paper_pdf.png)
+![](./figs/paper_pdf.png)
 
 ---
 
@@ -132,11 +205,9 @@ class: center, middle, inverse, title-slide
 
 ## Advantages
 
-.middle2[
+&lt;br&gt;
 
-&lt;img src="./figs/everything.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
+&lt;img src="./figs/everything.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -160,45 +231,2269 @@ class: center, middle, inverse, title-slide
 
 ## Disadvantages
 
-![paper_pdf](./figs/documentation.png)
+![](./figs/documentation.png)
 
 ---
 
 ## Disadvantages
 
-.middle2[![paper_pdf](./figs/cockpit.png)]
+&lt;br&gt;
+
+&lt;img src="./figs/cockpit.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Disadvantages
 
-![paper_pdf](./figs/learning.png)
+&lt;br&gt;
+![](./figs/learning.png)
 
 ---
 
 ## Disadvantages
 
-.middle2[
-
-&lt;img src="./figs/no_idea.png" width="60%" style="display: block; margin: auto;" /&gt;
-
-]
+&lt;img src="./figs/no_idea.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Help
 
-.center[![paper_pdf](./figs/help.png)]
+.center[![](./figs/help.png)]
 
 --
 
 &lt;img src="./figs/help2.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, middle, center
+
+# Installing R
+
+---
+
+## Installing R
+
+.center[.huge[[r-project.org](https://www.r-project.org)]]
+
+.center[![](./figs/install1.png)]
+
+---
+
+## Installing R
+
+.center[.huge[[r-project.org](https://www.r-project.org)]]
+
+.center[![](./figs/install2.png)]
+
+---
+
+## Installing R
+
+.huge[Choose the mirror closest to your location]
+
+.center[![](./figs/install3.png)]
+
+--
+
+.huge[Select your operating system]
+
+.center[![](./figs/install4.png)]
+
+---
+
+## Installing R
+
+.huge[For windows]
+
+.center[![](./figs/install5.png)]
+
+---
+
+## Installing R
+
+.huge[For macOS]
+
+.center[![](./figs/install6.png)]
+
+---
+
+## Installing
+
+.middle2[.center[.huge[Click on the installer and follow the instructions]]]
+
+---
+
+## R GUI
+
+
+.middle2[
+
+&lt;img src="./figs/r.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+## Alternatives
+
+.huge[Code editors]
+
+  * .large[VSCode, Emacs, Vim]
+
+--
+
+&lt;br&gt;
+&lt;br&gt;
+
+.huge[RStudio IDE]
+
+&lt;img src="./figs/rstudio.png" width="40%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+
+## Installing RStudio
+
+.center[.huge[[rstudio.com](https://www.rstudio.com)]]
+
+.center[![](./figs/install7.png)]
+
+---
+
+## Installing RStudio
+
+.center[.huge[[rstudio.com](https://www.rstudio.com)]]
+
+.center[![](./figs/install8.png)]
+
+--
+
+.center[![](./figs/install9.png)]
+
+---
+
+## Installing RStudio
+
+.center[.huge[Select your operating system]]
+
+.center[![](./figs/install10.png)]
+
+.center[.huge[Click on the installer and follow the instructions]]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface1.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface2.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface3.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface4.png)]
+
+---
+
+## RStudio
+
+.center[![](./figs/rstudio_interface5.png)]
+
+---
+
+class: inverse, middle, center
+
+# R Basics
+
+---
+
+## R as a calculator
+
+
+```r
+2 + 2
+```
+
+```
+## [1] 4
+```
+
+---
+
+## R as a calculator
+
+
+```r
+2 + 2
+```
+
+```
+## [1] 4
+```
+
+```r
+5 - 9
+```
+
+```
+## [1] -4
+```
+
+---
+
+## R as a calculator
+
+
+```r
+2 + 2
+```
+
+```
+## [1] 4
+```
+
+```r
+5 - 9
+```
+
+```
+## [1] -4
+```
+
+```r
+3 * 7
+```
+
+```
+## [1] 21
+```
+
+---
+
+## R as a calculator
+
+
+```r
+2 + 2
+```
+
+```
+## [1] 4
+```
+
+```r
+5 - 9
+```
+
+```
+## [1] -4
+```
+
+```r
+3 * 7
+```
+
+```
+## [1] 21
+```
+
+```r
+17 / 6
+```
+
+```
+## [1] 2.833333
+```
+
+---
+
+## R as a calculator
+
+
+```r
+2 + 2
+```
+
+```
+## [1] 4
+```
+
+```r
+5 - 9
+```
+
+```
+## [1] -4
+```
+
+```r
+3 * 7
+```
+
+```
+## [1] 21
+```
+
+```r
+17 / 6
+```
+
+```
+## [1] 2.833333
+```
+
+```r
+4^2 # can be 4**2
+```
+
+```
+## [1] 16
+```
+
+---
+
+## Everything is an object
+
+
+```r
+3
+```
+
+```
+## [1] 3
+```
+
+---
+
+## Everything is an object
+
+
+```r
+3
+```
+
+```
+## [1] 3
+```
+
+```r
+x &lt;- 3
+```
+
+---
+
+## Everything is an object
+
+
+```r
+3
+```
+
+```
+## [1] 3
+```
+
+```r
+x &lt;- 3
+x
+```
+
+```
+## [1] 3
+```
+
+---
+
+## Everything is an object
+
+
+```r
+3
+```
+
+```
+## [1] 3
+```
+
+```r
+x &lt;- 3
+x
+```
+
+```
+## [1] 3
+```
+
+Assignment operator: `&lt;-` preferable over `=`
+
+--
+
+RStudio shortcut: Alt (Option) + -
+
+---
+
+## Object naming
+
+.large[Best practices]&lt;sup&gt;[2]&lt;/sup&gt;
+.footer[.tiny[[2] [style.tidyverse.org](https://style.tidyverse.org/index.html)]]
+
+Should only use lowercase letters, numbers and underscore (\_)
+
+
+```r
+# Good
+day_one
+day_1
+
+# Bad
+DayOne
+dayone
+day.one
+```
+
+---
+
+## Object naming
+
+.large[Best practices]&lt;sup&gt;[2]&lt;/sup&gt;
+.footer[.tiny[[2] [style.tidyverse.org](https://style.tidyverse.org/index.html)]]
+
+Should only use lowercase letters, numbers and underscore (\_)
+
+
+```r
+# Good
+day_one
+day_1
+
+# Bad
+DayOne
+dayone
+day.one
+```
+
+ATTENTION: R is case sensitive
+
+
+```r
+number_1 &lt;- 1
+Number_1
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'Number_1' not found
+```
+
+---
+
+## Object types
+
+.huge[Numeric]
+
+
+```r
+1
+0
+-4
+8.72
+pi
+```
+
+---
+
+## Object types
+
+.huge[Numeric]
+
+
+```r
+1
+0
+-4
+8.72
+pi
+```
+
+Obs: `interger` vs. `double`
+
+---
+
+## Object types
+
+.huge[Character]
+
+
+```r
+"a"
+"multipleletters"
+"you can use spaces"
+"5"
+```
+
+---
+
+## Object types
+
+.huge[Logical]
+
+
+```r
+TRUE
+FALSE
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+
+```r
+10 == 10
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+
+```r
+10 == 10
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+
+```r
+10 == 10
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+3 == 10
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+
+```r
+10 == 10
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+3 == 10
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+
+```r
+10 == 10
+```
+
+```
+## [1] TRUE
+```
+
+```r
+3 == 10
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+a &lt;- 1
+a == 1
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+
+```r
+10 == 10
+```
+
+```
+## [1] TRUE
+```
+
+```r
+3 == 10
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+a &lt;- 1
+a == 1
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+## Logical operators
+
+.large[Test if two values are equal]
+
+
+```r
+10 == 10
+```
+
+```
+## [1] TRUE
+```
+
+```r
+3 == 10
+```
+
+```
+## [1] FALSE
+```
+
+```r
+a &lt;- 1
+a == 1
+```
+
+```
+## [1] TRUE
+```
+
+IMPORTANT: double equal sign `==`
+
+
+```r
+10 = 10
+```
+
+```
+## Error in 10 = 10: invalid (do_set) left-hand side to assignment
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+
+```r
+2 &gt; 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+
+```r
+2 &gt; 3
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+
+```r
+2 &gt; 3
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+2 &lt; 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+
+```r
+2 &gt; 3
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+2 &lt; 3
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+
+```r
+2 &gt; 3
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+2 &lt; 3
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+2 &lt; 2
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or less than another]
+
+
+```r
+2 &gt; 3
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+2 &lt; 3
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+2 &lt; 2
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+
+```r
+3 &gt;= 1
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+
+```r
+3 &gt;= 1
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+
+```r
+3 &gt;= 1
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+3 &lt;= 3
+```
+
+---
+
+## Logical operators
+
+.large[Test if a value is greater than or equal to or less than or equal to another]
+
+
+```r
+3 &gt;= 1
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+3 &lt;= 3
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+
+```r
+10 != 10
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+
+```r
+10 != 10
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+
+```r
+10 != 10
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+!(5 &gt; 9)
+```
+
+---
+
+## Logical operators
+
+.large[Negate an operation]
+
+
+```r
+10 != 10
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+!(5 &gt; 9)
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+--
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+--
+
+
+```r
+7 &lt;= 7 &amp; 3 != 4
+7 &lt; 7 &amp; 3 != 4
+7 == 7 &amp; 3 &gt; 4
+7 != 7 &amp; 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+7 &lt;= 7 &amp; 3 != 4
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+7 &lt; 7 &amp; 3 != 4
+7 == 7 &amp; 3 &gt; 4
+7 != 7 &amp; 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+7 &lt;= 7 &amp; 3 != 4
+```
+
+```
+## [1] TRUE
+```
+
+```r
+7 &lt; 7 &amp; 3 != 4
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+7 == 7 &amp; 3 &gt; 4
+7 != 7 &amp; 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+7 &lt;= 7 &amp; 3 != 4
+```
+
+```
+## [1] TRUE
+```
+
+```r
+7 &lt; 7 &amp; 3 != 4
+```
+
+```
+## [1] FALSE
+```
+
+```r
+7 == 7 &amp; 3 &gt; 4
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+7 != 7 &amp; 3 == 4
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+7 &lt;= 7 &amp; 3 != 4
+```
+
+```
+## [1] TRUE
+```
+
+```r
+7 &lt; 7 &amp; 3 != 4
+```
+
+```
+## [1] FALSE
+```
+
+```r
+7 == 7 &amp; 3 &gt; 4
+```
+
+```
+## [1] FALSE
+```
+
+```r
+7 != 7 &amp; 3 == 4
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+-1 &gt; -2 | 9 &gt; 5
+-1 &lt;= -2 | 9 != 5
+-1 != -2 | 9 &gt;= 5
+-1 == -2 | 9 &lt; 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+-1 &gt; -2 | 9 &gt; 5
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+-1 &lt;= -2 | 9 != 5
+-1 != -2 | 9 &gt;= 5
+-1 == -2 | 9 &lt; 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+-1 &gt; -2 | 9 &gt; 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+-1 &lt;= -2 | 9 != 5
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+-1 != -2 | 9 &gt;= 5
+-1 == -2 | 9 &lt; 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+-1 &gt; -2 | 9 &gt; 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+-1 &lt;= -2 | 9 != 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+-1 != -2 | 9 &gt;= 5
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+-1 == -2 | 9 &lt; 5
+```
+
+---
+
+## Multiple logical operations
+
+* `&amp;` (**and**): is `TRUE` when ALL conditions are `TRUE`
+
+
+* `|` (**or**): is `TRUE` if AT LEAST one condition is `TRUE`
+
+
+
+```r
+-1 &gt; -2 | 9 &gt; 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+-1 &lt;= -2 | 9 != 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+-1 != -2 | 9 &gt;= 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+-1 == -2 | 9 &lt; 5
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+## Vectors
+
+Untill now, we have operated with vectors of length 1
+
+
+```r
+x &lt;- 7
+x
+```
+
+```
+## [1] 7
+```
+
+---
+
+## Vectors
+
+Untill now, we have operated with vectors of length 1
+
+
+```r
+x &lt;- 7
+x
+```
+
+```
+## [1] 7
+```
+
+We can assess the length of a vector with the function `length()`
+
+
+```r
+length(x)
+```
+
+```
+## [1] 1
+```
+
+---
+
+## Vectors
+
+We can create vectors with the function `c()`
+
+
+```r
+my_vector &lt;- c(1, 1, 8, 3, 5, 20)
+my_vector
+```
+
+```
+## [1]  1  1  8  3  5 20
+```
+
+--
+
+
+```r
+length(my_vector)
+```
+
+```
+## [1] 6
+```
+
+--
+
+We can combine vectors to create bigger vectors
+
+
+```r
+bigger_vector &lt;- c(my_vector, c(100, 101, 102))
+bigger_vector
+```
+
+```
+## [1]   1   1   8   3   5  20 100 101 102
+```
+
+---
+
+## Vectors
+
+Vectors can have elements of different types
+
+
+```r
+mixed_vector &lt;- c("word", 9, TRUE)
+mixed_vector
+```
+
+```
+## [1] "word" "9"    "TRUE"
+```
+
+--
+
+We can access vector elements by position using the `[]` operator
+
+
+```r
+char_vector &lt;- c("one", "two", "three")
+char_vector[2]
+```
+
+```
+## [1] "two"
+```
+
+--
+
+
+```r
+char_vector[4]
+```
+
+```
+## [1] NA
+```
+
+---
+
+## Vectors
+
+One of the major benefits of vectors is the concept of **vectorization**
+
+
+```r
+n &lt;- 1:5
+n
+```
+
+---
+
+## Vectors
+
+One of the major benefits of vectors is the concept of **vectorization**
+
+
+```r
+n &lt;- 1:5
+n
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+--
+
+
+```r
+n^2
+```
+
+```
+## [1]  1  4  9 16 25
+```
+
+--
+
+
+```r
+sqrt(n)
+```
+
+```
+## [1] 1.000000 1.414214 1.732051 2.000000 2.236068
+```
+
+```r
+sum(n)
+```
+
+```
+## [1] 15
+```
+
+---
+
+## Data frames
+
+* A list of equal-length vectors: it has a rectangular shape
+
+--
+
+* Each vector is a column
+
+--
+
+* Each column can store only objects with the same type
+
+--
+
+* We can create data frames or import from files
+
+--
+
+* R has some built-in data frames
+
+
+```r
+iris
+```
+
+---
+
+## Data frames
+
+
+```r
+str(iris)
+```
+
+```
+## 'data.frame':	150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+```
+
+---
+
+## Data frames
+
+
+```r
+head(iris)
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+```
+
+---
+
+## Data frames
+
+
+```r
+head(iris)
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+```
+
+```r
+tail(iris)
+```
+
+```
+##     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+## 145          6.7         3.3          5.7         2.5 virginica
+## 146          6.7         3.0          5.2         2.3 virginica
+## 147          6.3         2.5          5.0         1.9 virginica
+## 148          6.5         3.0          5.2         2.0 virginica
+## 149          6.2         3.4          5.4         2.3 virginica
+## 150          5.9         3.0          5.1         1.8 virginica
+```
+
+---
+
+## Data frames
+
+
+```r
+names(iris)
+nrow(iris)
+ncol(iris)
+```
+
+---
+
+## Data frames
+
+
+```r
+names(iris)
+```
+
+```
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```
+
+
+```r
+nrow(iris)
+ncol(iris)
+```
+
+---
+
+## Data frames
+
+
+```r
+names(iris)
+```
+
+```
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```
+
+```r
+nrow(iris)
+```
+
+```
+## [1] 150
+```
+
+
+```r
+ncol(iris)
+```
+
+---
+
+## Data frames
+
+
+```r
+names(iris)
+```
+
+```
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```
+
+```r
+nrow(iris)
+```
+
+```
+## [1] 150
+```
+
+```r
+ncol(iris)
+```
+
+```
+## [1] 5
+```
+
+---
+
+## Data frames
+
+We can access data frame elements in various ways
+
+--
+
+The `$` operator: select columns
+
+
+```r
+iris$Sepal.Width
+```
+
+---
+
+## Data frames
+
+We can access data frame elements in various ways
+
+
+The `$` operator: select columns
+
+
+```r
+iris$Sepal.Width
+```
+
+```
+##   [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9 3.5
+##  [19] 3.8 3.8 3.4 3.7 3.6 3.3 3.4 3.0 3.4 3.5 3.4 3.2 3.1 3.4 4.1 4.2 3.1 3.2
+##  [37] 3.5 3.6 3.0 3.4 3.5 2.3 3.2 3.5 3.8 3.0 3.8 3.2 3.7 3.3 3.2 3.2 3.1 2.3
+##  [55] 2.8 2.8 3.3 2.4 2.9 2.7 2.0 3.0 2.2 2.9 2.9 3.1 3.0 2.7 2.2 2.5 3.2 2.8
+##  [73] 2.5 2.8 2.9 3.0 2.8 3.0 2.9 2.6 2.4 2.4 2.7 2.7 3.0 3.4 3.1 2.3 3.0 2.5
+##  [91] 2.6 3.0 2.6 2.3 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7 3.0 2.9 3.0 3.0 2.5 2.9
+## [109] 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6 2.2 3.2 2.8 2.8 2.7 3.3 3.2
+## [127] 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2
+## [145] 3.3 3.0 2.5 3.0 3.4 3.0
+```
+
+---
+
+## Data frames
+
+The `[]` operator: select columns and/or rows
+
+Syntax: `data.frame[row, col]`
+
+--
+
+
+```r
+iris[, 1]
+```
+
+---
+
+## Data frames
+
+The `[]` operator: select columns and/or rows
+
+Syntax: `data.frame[row, col]`
+
+
+```r
+iris[, 1]
+```
+
+```
+##   [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
+##  [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
+##  [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
+##  [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
+##  [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
+##  [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
+## [109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
+## [127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
+## [145] 6.7 6.7 6.3 6.5 6.2 5.9
+```
+---
+
+## Data frames
+
+The `[]` operator: select columns and/or rows
+
+Syntax: `data.frame[row, col]`
+
+
+```r
+iris[, "Sepal.Width"]
+```
+
+```
+##   [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9 3.5
+##  [19] 3.8 3.8 3.4 3.7 3.6 3.3 3.4 3.0 3.4 3.5 3.4 3.2 3.1 3.4 4.1 4.2 3.1 3.2
+##  [37] 3.5 3.6 3.0 3.4 3.5 2.3 3.2 3.5 3.8 3.0 3.8 3.2 3.7 3.3 3.2 3.2 3.1 2.3
+##  [55] 2.8 2.8 3.3 2.4 2.9 2.7 2.0 3.0 2.2 2.9 2.9 3.1 3.0 2.7 2.2 2.5 3.2 2.8
+##  [73] 2.5 2.8 2.9 3.0 2.8 3.0 2.9 2.6 2.4 2.4 2.7 2.7 3.0 3.4 3.1 2.3 3.0 2.5
+##  [91] 2.6 3.0 2.6 2.3 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7 3.0 2.9 3.0 3.0 2.5 2.9
+## [109] 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6 2.2 3.2 2.8 2.8 2.7 3.3 3.2
+## [127] 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2
+## [145] 3.3 3.0 2.5 3.0 3.4 3.0
+```
+
+---
+
+## Data frames
+
+The `[]` operator: select columns and/or rows
+
+Syntax: `data.frame[row, col]`
+
+
+```r
+iris[1, ]
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+```
+
+--
+
+
+```r
+iris[1, 1]
+```
+
+```
+## [1] 5.1
+```
+
+--
+
+
+```r
+iris[1, "Sepal.Width"]
+```
+
+```
+## [1] 3.5
+```
+
+---
+
+## Functions
+
+"Set of instructions bundled together to achieve a specific outcome"
+
+--
+
+
+```r
+length()
+c()
+head()
+sum()
+```
+
+--
+
+
+```r
+function_name(arg1 = val1, arg2 = val2, ..., argn = valn)
+```
+
+--
+
+
+```r
+help(length)
+```
+
+--
+
+&lt;img src="./figs/help_length.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Functions
+
+You can define your own functions
+
+--
+
+
+```r
+my_function &lt;- function(arg_name) {
+  do something
+}
+```
+
+--
+
+
+```r
+add_one &lt;- function(x) {
+  x + 1
+}
+```
+
+--
+
+
+```r
+add_one(2)
+```
+
+```
+## [1] 3
+```
+
+--
+
+
+```r
+a &lt;- c(1, 3, 5, 7, 9)
+add_one(x = a)
+```
+
+```
+## [1]  2  4  6  8 10
+```
+
+---
+
+## Packages
+
+* Extensions to the R programming language
+
+--
+
+* Contain code, data and documentation
+
+--
+
+* Most of the code are function definitions
+
+--
+
+* Anyone can develop a package
+
+--
+
+* You can install and load packages to use in your analyses
+
+--
+
+&lt;br&gt;
+
+.center[Installing vs. Loading]
+
+
+```r
+install.packages("packagename")
+library(packagename)
+```
+
+---
+
+## Packages
+
+
+```r
+install.packages("tidyverse")
+```
+
+--
+
+
+```r
+library(tidyverse)
+```
+
+---
+
+## The tibble
+
+
+```r
+iris
+```
+
+```
+##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1            5.1         3.5          1.4         0.2     setosa
+## 2            4.9         3.0          1.4         0.2     setosa
+## 3            4.7         3.2          1.3         0.2     setosa
+## 4            4.6         3.1          1.5         0.2     setosa
+## 5            5.0         3.6          1.4         0.2     setosa
+## 6            5.4         3.9          1.7         0.4     setosa
+## 7            4.6         3.4          1.4         0.3     setosa
+## 8            5.0         3.4          1.5         0.2     setosa
+## 9            4.4         2.9          1.4         0.2     setosa
+## 10           4.9         3.1          1.5         0.1     setosa
+## 11           5.4         3.7          1.5         0.2     setosa
+## 12           4.8         3.4          1.6         0.2     setosa
+## 13           4.8         3.0          1.4         0.1     setosa
+## 14           4.3         3.0          1.1         0.1     setosa
+## 15           5.8         4.0          1.2         0.2     setosa
+## 16           5.7         4.4          1.5         0.4     setosa
+## 17           5.4         3.9          1.3         0.4     setosa
+## 18           5.1         3.5          1.4         0.3     setosa
+## 19           5.7         3.8          1.7         0.3     setosa
+## 20           5.1         3.8          1.5         0.3     setosa
+## 21           5.4         3.4          1.7         0.2     setosa
+## 22           5.1         3.7          1.5         0.4     setosa
+## 23           4.6         3.6          1.0         0.2     setosa
+## 24           5.1         3.3          1.7         0.5     setosa
+## 25           4.8         3.4          1.9         0.2     setosa
+## 26           5.0         3.0          1.6         0.2     setosa
+## 27           5.0         3.4          1.6         0.4     setosa
+## 28           5.2         3.5          1.5         0.2     setosa
+## 29           5.2         3.4          1.4         0.2     setosa
+## 30           4.7         3.2          1.6         0.2     setosa
+## 31           4.8         3.1          1.6         0.2     setosa
+## 32           5.4         3.4          1.5         0.4     setosa
+## 33           5.2         4.1          1.5         0.1     setosa
+## 34           5.5         4.2          1.4         0.2     setosa
+## 35           4.9         3.1          1.5         0.2     setosa
+## 36           5.0         3.2          1.2         0.2     setosa
+## 37           5.5         3.5          1.3         0.2     setosa
+## 38           4.9         3.6          1.4         0.1     setosa
+## 39           4.4         3.0          1.3         0.2     setosa
+## 40           5.1         3.4          1.5         0.2     setosa
+## 41           5.0         3.5          1.3         0.3     setosa
+## 42           4.5         2.3          1.3         0.3     setosa
+## 43           4.4         3.2          1.3         0.2     setosa
+## 44           5.0         3.5          1.6         0.6     setosa
+## 45           5.1         3.8          1.9         0.4     setosa
+## 46           4.8         3.0          1.4         0.3     setosa
+## 47           5.1         3.8          1.6         0.2     setosa
+## 48           4.6         3.2          1.4         0.2     setosa
+## 49           5.3         3.7          1.5         0.2     setosa
+## 50           5.0         3.3          1.4         0.2     setosa
+## 51           7.0         3.2          4.7         1.4 versicolor
+## 52           6.4         3.2          4.5         1.5 versicolor
+## 53           6.9         3.1          4.9         1.5 versicolor
+## 54           5.5         2.3          4.0         1.3 versicolor
+## 55           6.5         2.8          4.6         1.5 versicolor
+## 56           5.7         2.8          4.5         1.3 versicolor
+## 57           6.3         3.3          4.7         1.6 versicolor
+## 58           4.9         2.4          3.3         1.0 versicolor
+## 59           6.6         2.9          4.6         1.3 versicolor
+## 60           5.2         2.7          3.9         1.4 versicolor
+## 61           5.0         2.0          3.5         1.0 versicolor
+## 62           5.9         3.0          4.2         1.5 versicolor
+## 63           6.0         2.2          4.0         1.0 versicolor
+## 64           6.1         2.9          4.7         1.4 versicolor
+## 65           5.6         2.9          3.6         1.3 versicolor
+## 66           6.7         3.1          4.4         1.4 versicolor
+## 67           5.6         3.0          4.5         1.5 versicolor
+## 68           5.8         2.7          4.1         1.0 versicolor
+## 69           6.2         2.2          4.5         1.5 versicolor
+## 70           5.6         2.5          3.9         1.1 versicolor
+## 71           5.9         3.2          4.8         1.8 versicolor
+## 72           6.1         2.8          4.0         1.3 versicolor
+## 73           6.3         2.5          4.9         1.5 versicolor
+## 74           6.1         2.8          4.7         1.2 versicolor
+## 75           6.4         2.9          4.3         1.3 versicolor
+## 76           6.6         3.0          4.4         1.4 versicolor
+## 77           6.8         2.8          4.8         1.4 versicolor
+## 78           6.7         3.0          5.0         1.7 versicolor
+## 79           6.0         2.9          4.5         1.5 versicolor
+## 80           5.7         2.6          3.5         1.0 versicolor
+## 81           5.5         2.4          3.8         1.1 versicolor
+## 82           5.5         2.4          3.7         1.0 versicolor
+## 83           5.8         2.7          3.9         1.2 versicolor
+## 84           6.0         2.7          5.1         1.6 versicolor
+## 85           5.4         3.0          4.5         1.5 versicolor
+## 86           6.0         3.4          4.5         1.6 versicolor
+## 87           6.7         3.1          4.7         1.5 versicolor
+## 88           6.3         2.3          4.4         1.3 versicolor
+## 89           5.6         3.0          4.1         1.3 versicolor
+## 90           5.5         2.5          4.0         1.3 versicolor
+## 91           5.5         2.6          4.4         1.2 versicolor
+## 92           6.1         3.0          4.6         1.4 versicolor
+## 93           5.8         2.6          4.0         1.2 versicolor
+## 94           5.0         2.3          3.3         1.0 versicolor
+## 95           5.6         2.7          4.2         1.3 versicolor
+## 96           5.7         3.0          4.2         1.2 versicolor
+## 97           5.7         2.9          4.2         1.3 versicolor
+## 98           6.2         2.9          4.3         1.3 versicolor
+## 99           5.1         2.5          3.0         1.1 versicolor
+## 100          5.7         2.8          4.1         1.3 versicolor
+## 101          6.3         3.3          6.0         2.5  virginica
+## 102          5.8         2.7          5.1         1.9  virginica
+## 103          7.1         3.0          5.9         2.1  virginica
+## 104          6.3         2.9          5.6         1.8  virginica
+## 105          6.5         3.0          5.8         2.2  virginica
+## 106          7.6         3.0          6.6         2.1  virginica
+## 107          4.9         2.5          4.5         1.7  virginica
+## 108          7.3         2.9          6.3         1.8  virginica
+## 109          6.7         2.5          5.8         1.8  virginica
+## 110          7.2         3.6          6.1         2.5  virginica
+## 111          6.5         3.2          5.1         2.0  virginica
+## 112          6.4         2.7          5.3         1.9  virginica
+## 113          6.8         3.0          5.5         2.1  virginica
+## 114          5.7         2.5          5.0         2.0  virginica
+## 115          5.8         2.8          5.1         2.4  virginica
+## 116          6.4         3.2          5.3         2.3  virginica
+## 117          6.5         3.0          5.5         1.8  virginica
+## 118          7.7         3.8          6.7         2.2  virginica
+## 119          7.7         2.6          6.9         2.3  virginica
+## 120          6.0         2.2          5.0         1.5  virginica
+## 121          6.9         3.2          5.7         2.3  virginica
+## 122          5.6         2.8          4.9         2.0  virginica
+## 123          7.7         2.8          6.7         2.0  virginica
+## 124          6.3         2.7          4.9         1.8  virginica
+## 125          6.7         3.3          5.7         2.1  virginica
+## 126          7.2         3.2          6.0         1.8  virginica
+## 127          6.2         2.8          4.8         1.8  virginica
+## 128          6.1         3.0          4.9         1.8  virginica
+## 129          6.4         2.8          5.6         2.1  virginica
+## 130          7.2         3.0          5.8         1.6  virginica
+## 131          7.4         2.8          6.1         1.9  virginica
+## 132          7.9         3.8          6.4         2.0  virginica
+## 133          6.4         2.8          5.6         2.2  virginica
+## 134          6.3         2.8          5.1         1.5  virginica
+## 135          6.1         2.6          5.6         1.4  virginica
+## 136          7.7         3.0          6.1         2.3  virginica
+## 137          6.3         3.4          5.6         2.4  virginica
+## 138          6.4         3.1          5.5         1.8  virginica
+## 139          6.0         3.0          4.8         1.8  virginica
+## 140          6.9         3.1          5.4         2.1  virginica
+## 141          6.7         3.1          5.6         2.4  virginica
+## 142          6.9         3.1          5.1         2.3  virginica
+## 143          5.8         2.7          5.1         1.9  virginica
+## 144          6.8         3.2          5.9         2.3  virginica
+## 145          6.7         3.3          5.7         2.5  virginica
+## 146          6.7         3.0          5.2         2.3  virginica
+## 147          6.3         2.5          5.0         1.9  virginica
+## 148          6.5         3.0          5.2         2.0  virginica
+## 149          6.2         3.4          5.4         2.3  virginica
+## 150          5.9         3.0          5.1         1.8  virginica
+```
+
+---
+
+## The tibble
+
+
+```r
+as_tibble(iris)
+```
+
+```
+## # A tibble: 150 × 5
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+##  1          5.1         3.5          1.4         0.2 setosa 
+##  2          4.9         3            1.4         0.2 setosa 
+##  3          4.7         3.2          1.3         0.2 setosa 
+##  4          4.6         3.1          1.5         0.2 setosa 
+##  5          5           3.6          1.4         0.2 setosa 
+##  6          5.4         3.9          1.7         0.4 setosa 
+##  7          4.6         3.4          1.4         0.3 setosa 
+##  8          5           3.4          1.5         0.2 setosa 
+##  9          4.4         2.9          1.4         0.2 setosa 
+## 10          4.9         3.1          1.5         0.1 setosa 
+## # … with 140 more rows
+```
+
+---
+
+## Workspace
+
+It's where user-defined objects accumulate
+
+--
+
+
+```r
+ls()
+```
+
+```
+##  [1] "a"             "add_one"       "bigger_vector" "char_vector"  
+##  [5] "mixed_vector"  "my_vector"     "n"             "number_1"     
+##  [9] "x"             "y"
+```
+
+--
+
+&lt;br&gt;
+
+It can get messy
+
+--
+
+* If you quit R
+
+--
+
+* If you have multiple analyses going on
+
+--
+
+* Importing data and exporting output
+
+---
+
+## Workspace
+
+What is real?
+
+--
+
+* Your data?
+
+* Your scripts?
+
+* Your workspace?
+
+* Your outputs?
+
+--
+
+&lt;br&gt;
+
+.center[.huge[Keep your code!]]
+
+---
+
+## Working directory
+
+Where you are
+
+--
+
+
+```r
+getwd()
+```
+
+---
+
+## Working directory
+
+Where you are
+
+
+```r
+getwd()
+```
+
+```
+## [1] "/Users/lucasveras/Documents/Projects/tutorials/rstats/00_intro_R"
+```
+
+--
+
+
+```r
+setwd("path/to/where/you/choose")
+```
+
+--
+
+&lt;br&gt;
+
+**Do not use this!**
+
+--
+
+Use RStudio Projects + `{here}` package
+
+---
+
+## Projects
+
+.center[![](./figs/finder.png)]
+
+---
+
+## Projects
+
+* Always open RStudio by clicking "my_project.Rproj"
+
+--
+
+* Use the `{here}` package to refer to relative paths inside your project
+
+--
+
+
+```r
+read_csv(here("data", "raw_data.csv"))
+```
+--
+
+&lt;br&gt;
+
+**Remember that packages need first to be installed and then loaded into your session**
+
+---
+
+class: inverse, middle, center
+
+# Exercises
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "github",
-"countIncrementalSlides": false
+"highlightStyle": "github"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
