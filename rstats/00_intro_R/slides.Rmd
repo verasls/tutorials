@@ -15,6 +15,48 @@ library(xaringanthemer)
 style_mono_light(base_color = "#23395b")
 ```
 
+class: inverse, left, bottom
+background-image: url("./figs/logo.png")
+background-position: 7% 2%
+background-size: 120px 70px
+
+```{r title_fig, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, warning = FALSE}
+library(tidyverse)
+library(ggsci)
+
+set.seed(20211111)
+
+x <- c(
+  c(rnorm(10, 10, 7), rep(NA, 1e5 - 10)),
+  rnorm(1e5),
+  c(rnorm(100, -2.5, 5), rep(NA, 1e5 - 100)),
+  c(rnorm(1e3, -10, 2), rep(NA, 1e5 - 1e3))
+)
+y <- c(
+  rep("a", 1e5),
+  rep("b", 1e5),
+  rep("c", 1e5),
+  rep("d", 1e5)
+)
+
+tibble(x, y) |>
+  ggplot(aes(x = x, color = y)) +
+  geom_density() +
+  #scale_color_tron() +
+  scale_color_manual(
+    values = c("#95CC5E", "#FF7E0C", "#D1DEE6", "#F7C531")
+  ) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+### Statistics with R
+
+#### Lesson 00: Introduction
+
+
+---
+
 class: inverse, middle, center
 
 # Statistics with R
