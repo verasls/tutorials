@@ -143,6 +143,8 @@ class: inverse, middle, center
 
 ## Advantages
 
+--
+
 
 .center[![](./figs/copy_paste.png)]
 
