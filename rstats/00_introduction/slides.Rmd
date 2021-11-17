@@ -1706,7 +1706,7 @@ knitr::include_graphics("./figs/qrcode.png")
 ```
 
 ```{r, echo = FALSE}
-library(icons)
+suppressPackageStartupMessages(library(icons))
 ```
 
 `r icon_style(fontawesome("github"), fill = "white")` @verasls | `r icon_style(fontawesome("twitter"), fill = "white")` @verasls
