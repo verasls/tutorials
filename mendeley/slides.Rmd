@@ -1,0 +1,98 @@
+---
+title: Introduction
+author: Lucas Veras
+output:
+  xaringan::moon_reader:
+    seal: false
+    css: ["default", "style.css", "xaringan-themer.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+---
+
+```{r xaringan-themer, include = FALSE, warning = FALSE}
+library(xaringanthemer)
+style_mono_light(base_color = "#23395b")
+```
+
+class: inverse, left, bottom
+background-image: url("./figs/logo.png")
+background-position: 7% 2%
+background-size: 120px 70px
+
+
+```{r, echo = FALSE, fig.align = "center", out.width = "40%"}
+knitr::include_graphics("./figs/mendeley_logo.png")
+```
+
+## Reference manager
+
+#### An introduction to Mendeley
+
+---
+
+class: inverse, middle, center
+
+# Reference manager
+
+---
+
+## What is it?
+
+--
+
+* Import citations
+
+--
+
+* Gather metadata from pdf files
+
+--
+
+* Allow organization in a data base
+
+--
+
+* Allow annotations
+
+--
+
+* Produce formatted citations in various formats
+
+---
+
+## Functionalities
+
+--
+
+* Add papers
+  * From pdf and mannualy
+
+--
+
+* Organization
+  * Folders and subfolders
+  * Add tags
+  * Search
+
+--
+
+* Pdf reader
+  * Annotation
+  * Notes
+
+--
+
+* Citation and bibliography
+
+---
+
+class: inverse, middle, center
+
+# Download and installation
+
+---
+
+class: inverse, middle, center
+
+# Hands on
