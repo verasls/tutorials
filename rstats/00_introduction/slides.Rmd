@@ -1690,6 +1690,250 @@ class: inverse, middle, center
 
 ---
 
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/project1.png")
+```
+
+---
+
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/project2.png")
+```
+
+---
+
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/project3.png")
+```
+
+---
+
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/project4.png")
+```
+
+---
+
+## Exercises
+
+Now, create an R script names "`lesson_00_exercises.R`".
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/file1.png")
+```
+
+---
+
+## Exercises
+
+Now, create an R script names "`lesson_00_exercises.R`".
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/file2.png")
+```
+
+---
+
+## Exercises
+
+Now, create an R script names "`lesson_00_exercises.R`".
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/file3.png")
+```
+
+---
+
+## Exercises
+
+Remember the shortcuts!
+
+* Assignment operator (<-): Alt (Option) + -
+* Run code: Alt (Option) + Enter
+
+---
+
+## Exercises
+
+.large[`1.` Object creation]
+
+a. Create an object named `my_object` holding the value: `this is my first object`.
+
+b. What type is it?
+
+---
+
+## Exercises
+
+.large[`1.` Object creation]
+
+a. Create an object named `my_object` holding the value: `this is my first object`.
+
+```{r}
+my_object <- "this is my first object"
+```
+
+b. What type is it?
+
+---
+
+## Exercises
+
+.large[`1.` Object creation]
+
+a. Create an object named `my_object` holding the value: `this is my first object`.
+
+```{r}
+my_object <- "this is my first object"
+```
+
+b. What type is it?
+
+```{r}
+typeof(my_object)
+```
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+b. Sum all the values in this vector.
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+```{r}
+x <- c(1, 3, 5, 7, 9)
+```
+
+b. Sum all the values in this vector.
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+```{r}
+x <- c(1, 3, 5, 7, 9)
+x <- seq(from = 1, to = 10, by = 2)
+x
+```
+
+b. Sum all the values in this vector.
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+```{r}
+x <- c(1, 3, 5, 7, 9)
+x <- seq(from = 1, to = 10, by = 2)
+x
+```
+
+b. Sum all the values in this vector.
+
+```{r}
+sum(x)
+```
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+```{r}
+x <- c(1, 3, 5, 7, 9)
+x <- seq(from = 1, to = 10, by = 2)
+x
+```
+
+b. Sum all the values in this vector.
+
+```{r}
+sum(x)
+```
+
+c. Calculate its mean
+
+```{r}
+mean(x)
+```
+
+---
+
+## Exercises
+
+.large[`2.` Function definition]
+
+a. Create a function named `my_mean` to calculate the mean of the vector `x`.
+
+```{r, eval = FALSE}
+my_mean <- function(x) {
+  ...
+}
+```
+
+---
+
+## Exercises
+
+.large[`2.` Function definition]
+
+a. Create a function named `my_mean` to calculate the mean of the vector `x`.
+
+```{r}
+my_mean <- function(x) {
+  sum(x) / length(x)
+}
+my_mean(x)
+```
+
+---
+
 class: inverse, middle, center
 background-image: url("./figs/logo.png")
 background-position: 7% 2%

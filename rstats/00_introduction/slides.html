@@ -4,7 +4,7 @@
     <title>Introduction</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lucas Veras" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -2165,23 +2165,6 @@ install.packages("tidyverse")
 library(tidyverse)
 ```
 
-```
-## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
-```
-
-```
-## ✔ tibble  3.1.5     ✔ dplyr   1.0.7
-## ✔ tidyr   1.1.4     ✔ stringr 1.4.0
-## ✔ readr   2.0.1     ✔ forcats 0.5.1
-## ✔ purrr   0.3.4
-```
-
-```
-## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
-
 ---
 
 ## The tibble
@@ -2386,8 +2369,8 @@ ls()
 
 ```
 ##  [1] "a"             "add_one"       "bigger_vector" "char_vector"  
-##  [5] "mixed_vector"  "my_vector"     "n"             "number_1"     
-##  [9] "x"             "y"
+##  [5] "mixed_vector"  "my_mean"       "my_object"     "my_vector"    
+##  [9] "n"             "number_1"      "x"             "y"
 ```
 
 --
@@ -2508,6 +2491,280 @@ read_csv(here("data", "raw_data.csv"))
 class: inverse, middle, center
 
 # Exercises
+
+---
+
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+&lt;img src="./figs/project1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+&lt;img src="./figs/project2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+&lt;img src="./figs/project3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exercises
+
+First, create an R project named "`rstats_tutorials`".
+
+&lt;img src="./figs/project4.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exercises
+
+Now, create an R script names "`lesson_00_exercises.R`".
+
+&lt;img src="./figs/file1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exercises
+
+Now, create an R script names "`lesson_00_exercises.R`".
+
+&lt;img src="./figs/file2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exercises
+
+Now, create an R script names "`lesson_00_exercises.R`".
+
+&lt;img src="./figs/file3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exercises
+
+Remember the shortcuts!
+
+* Assignment operator (&lt;-): Alt (Option) + -
+* Run code: Alt (Option) + Enter
+
+---
+
+## Exercises
+
+.large[`1.` Object creation]
+
+a. Create an object named `my_object` holding the value: `this is my first object`.
+
+b. What type is it?
+
+---
+
+## Exercises
+
+.large[`1.` Object creation]
+
+a. Create an object named `my_object` holding the value: `this is my first object`.
+
+
+```r
+my_object &lt;- "this is my first object"
+```
+
+b. What type is it?
+
+---
+
+## Exercises
+
+.large[`1.` Object creation]
+
+a. Create an object named `my_object` holding the value: `this is my first object`.
+
+
+```r
+my_object &lt;- "this is my first object"
+```
+
+b. What type is it?
+
+
+```r
+typeof(my_object)
+```
+
+```
+## [1] "character"
+```
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+b. Sum all the values in this vector.
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+
+```r
+x &lt;- c(1, 3, 5, 7, 9)
+```
+
+b. Sum all the values in this vector.
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+
+```r
+x &lt;- c(1, 3, 5, 7, 9)
+x &lt;- seq(from = 1, to = 10, by = 2)
+x
+```
+
+```
+## [1] 1 3 5 7 9
+```
+
+b. Sum all the values in this vector.
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+
+```r
+x &lt;- c(1, 3, 5, 7, 9)
+x &lt;- seq(from = 1, to = 10, by = 2)
+x
+```
+
+```
+## [1] 1 3 5 7 9
+```
+
+b. Sum all the values in this vector.
+
+
+```r
+sum(x)
+```
+
+```
+## [1] 25
+```
+
+c. Calculate its mean
+
+---
+
+## Exercises
+
+.large[`2.` Mathematical operations]
+
+a. Create a vector `x` with all the odd numbers between 0 and 10.
+
+
+```r
+x &lt;- c(1, 3, 5, 7, 9)
+x &lt;- seq(from = 1, to = 10, by = 2)
+x
+```
+
+```
+## [1] 1 3 5 7 9
+```
+
+b. Sum all the values in this vector.
+
+
+```r
+sum(x)
+```
+
+```
+## [1] 25
+```
+
+c. Calculate its mean
+
+
+```r
+mean(x)
+```
+
+```
+## [1] 5
+```
+
+---
+
+## Exercises
+
+.large[`2.` Function definition]
+
+a. Create a function named `my_mean` to calculate the mean of the vector `x`.
+
+
+```r
+my_mean &lt;- function(x) {
+  ...
+}
+```
+
+---
+
+## Exercises
+
+.large[`2.` Function definition]
+
+a. Create a function named `my_mean` to calculate the mean of the vector `x`.
+
+
+```r
+my_mean &lt;- function(x) {
+  sum(x) / length(x)
+}
+my_mean(x)
+```
+
+```
+## [1] 5
+```
 
 ---
 
