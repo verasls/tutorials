@@ -378,13 +378,7 @@ class: inverse, middle, center
 ## R GUI
 
 
-.middle2[
-
-```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
-knitr::include_graphics("./figs/r.png")
-```
-
-]
+.center[![](./figs/r.png)]
 
 ---
 
@@ -464,6 +458,16 @@ knitr::include_graphics("./figs/rstudio.png")
 ## RStudio
 
 .center[![](./figs/rstudio_interface5.png)]
+
+---
+
+## RStudio
+
+You can customise the panes layout
+
+```{r, echo = FALSE, fig.align = "center", out.width = "60%"}
+knitr::include_graphics("./figs/rstudio_panes.png")
+```
 
 ---
 
