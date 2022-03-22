@@ -1,0 +1,840 @@
+---
+title: Introduction
+author: Lucas Veras
+output:
+  xaringan::moon_reader:
+    seal: false
+    css: ["default", "style.css", "xaringan-themer.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+---
+
+```{r xaringan-themer, include = FALSE, warning = FALSE}
+library(xaringanthemer)
+style_mono_light(base_color = "#23395b")
+```
+
+class: inverse, left, bottom
+background-image: url("./figs/logo.png")
+background-position: 7% 2%
+background-size: 120px 70px
+
+```{r title_fig, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, warning = FALSE}
+library(dplyr)
+library(ggplot2)
+library(ggsci)
+
+set.seed(20220322)
+
+x <- c(
+  rnorm(100, 10, 7),
+  rnorm(100),
+  rnorm(100, -2.5, 5),
+  rnorm(100, -10, 2)
+)
+y <- c(
+  rep("a", 100),
+  rep("b", 100),
+  rep("c", 100),
+  rep("d", 100)
+)
+
+points <- data.frame(x, y)
+summary <- points |>
+  group_by(y) |>
+  summarise(
+    mean = mean(x),
+    sd = sd(x)
+  ) |>
+  mutate(
+    lower_ci = mean - 1.96 * sd / sqrt(100),
+    upper_ci = mean + 1.96 * sd / sqrt(100)
+  )
+
+ggplot() +
+  geom_jitter(
+    data = points, mapping = aes(x = x, y = y, color = y),
+    height = 0.3, alpha = 0.5
+  ) +
+  geom_boxplot(
+    data = points, mapping = aes(x = x, y = y),
+    width = 0.2, fill = NA, outlier.shape = NA, color = "white"
+  ) +
+  geom_point(
+    data = summary, mapping = aes(x = mean, y = y),
+    size = 2, color = "white"
+  ) +
+  scale_color_manual(
+    values = c("#95CC5E", "#FF7E0C", "#D1DEE6", "#F7C531")
+  ) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+### Statistics with R
+
+#### Lesson 01: Introduction to statistics
+
+---
+
+## Today
+
+<br> 
+
+.huge[
+* Introduction to statistics
+]
+
+--
+
+.huge[
+* Measures of central tendency and dispersion
+]
+
+--
+
+.huge[
+* Hypothesis testing
+]
+
+---
+
+class: inverse, middle, center
+
+# Introduction to statistics
+
+---
+
+## Population and sample
+
+```{r p1, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300}
+library(ggplot2)
+library(ggforce)
+
+set.seed(20220321)
+x <- c(runif(80, 2, 8))
+y <- c(runif(80, 2, 8))
+
+p1 <- data.frame(x, y) |>
+  ggplot() +
+  scale_x_continuous(limits = c(-1, 10)) +
+  scale_y_continuous(limits = c(0, 10)) +
+  geom_point(
+    aes(x = x, y = y), size = 3, alpha = 0.9, color = "#283858"
+  ) +
+  coord_fixed() +
+  theme_void()
+p1
+```
+
+---
+
+## Population and sample
+
+```{r p2, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300}
+p2 <- p1 +
+  geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
+  geom_curve(
+    aes(x = 5.2, y = 8.5, xend = 7.5, yend = 9.0),
+    arrow = arrow(length = unit(0.03, "npc"))
+  ) +
+  annotate("text", x = 7.5, y = 9.4, label = "Population", size = 6)
+p2
+```
+
+---
+
+## Population and sample
+
+```{r p3, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300}
+p3 <- p2 +
+  geom_circle(aes(x0 = 3, y0 = 6, r = 1), color = "#FF7E0C") +
+  geom_curve(
+    aes(x = 2.5, y = 5.5, xend = -0.4, yend = 5.0),
+    arrow = arrow(length = unit(0.03, "npc")),
+    color = "#FF7E0C"
+  ) +
+  annotate("text", x = -0.4, y = 4.6, label = "Sample", size = 6)
+p3
+```
+
+---
+
+## Population and sample
+
+.center[![](./figs/sample_model_population.png)]
+
+---
+
+## Frequency distributions
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, message = FALSE, warning = FALSE}
+set.seed(20220321)
+d <- data.frame(x = rnorm(1e4))
+ggplot(d, aes(x = x)) +
+  geom_histogram(aes(y = ..density..), color = "white", fill = "#283858") +
+  stat_function(fun = dnorm, args = list(mean = mean(d$x), sd = sd(d$x))) +
+  scale_x_continuous(expand = c(0, 0), limits = c(-4, 4)) +
+  theme_void()
+```
+
+---
+
+## Frequency distributions
+
+```{r, include = FALSE}
+set.seed(20220321)
+d <- data.frame(
+  p = rbeta(1e4, 1.5, 7),
+  n = rbeta(1e4, 5, 2)
+)
+
+p <- ggplot(d, aes(x = p)) +
+  geom_histogram(aes(y = ..density..), color = "white", fill = "#283858") +
+  stat_function(fun = dnorm, args = list(mean = mean(d$x), sd = sd(d$x))) +
+  theme_void()
+
+n <- ggplot(d, aes(x = n)) +
+  geom_histogram(aes(y = ..density..), color = "white", fill = "#283858") +
+  stat_function(fun = dnorm, args = list(mean = mean(d$x), sd = sd(d$x))) +
+  theme_void()
+```
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "90%", dpi= 300, message = FALSE, warning = FALSE}
+p
+```
+
+.center[Positively skewed]
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "90%", dpi= 300, message = FALSE, warning = FALSE}
+n
+```
+
+.center[Negatively skewed]
+
+]
+
+---
+
+class: inverse, middle, center
+
+# Measures of central tendency and dispersion
+
+---
+
+class: middle, center
+
+# Central tendency
+
+.large[Indicates the typical or central value in a distribution]
+
+---
+
+## Mode
+
+* The most frequent value
+
+--
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, message = FALSE, warning = FALSE}
+set.seed(20220321)
+d <- data.frame(x = rnorm(1e4))
+ggplot(d, aes(x = x)) +
+  geom_histogram(aes(y = ..density..), color = "white", fill = "#283858") +
+  scale_x_continuous(expand = c(0, 0), limits = c(-4, 4)) +
+  annotate(
+    "segment", x = 0, xend = 0, y = 0.5, yend = 0.43,
+    arrow = arrow(length = unit(0.3, "cm")),
+    size = 1, color = "#FF7E0C"
+  ) +
+  theme_void()
+```
+
+---
+
+## Mode
+
+* Is the most frequent value
+
+* A dataset can have two (bimodal) or more (multimodal) modes
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300, message = FALSE, warning = FALSE}
+set.seed(20220321)
+bimod <- data.frame(x = c(rnorm(1000, -2, 1), rnorm(1000, 2, 1)))
+ggplot(bimod, aes(x = x)) +
+  geom_histogram(aes(y = ..density..), color = "white", fill = "#283858") +
+  theme_void()
+```
+
+---
+
+## Mode
+
+* Is the most frequent value
+
+* A dataset can have two (bimodal) or more (multimodal) modes
+
+* Hardly ever used
+
+---
+
+## Mean
+
+* Is the average score
+
+--
+
+$$\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i$$
+
+--
+
+* Example: let's take a vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+--
+
+$$\sum_{i=1}^nX_i = 4 + 9 + 7 + 12 + 5 + 3 + 6 + 2 = 48$$
+
+--
+
+$$\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i = \frac{1}{8}48 = 6$$
+
+--
+
+```{r}
+mean(x)
+```
+
+---
+
+## Mean
+
+* Is influenced by extreme scores
+
+--
+
+```{r}
+x <- c(x, 57)
+x
+```
+
+--
+
+```{r}
+mean(x)
+```
+
+---
+
+## Median
+
+* Is the middle score when ranked in order of magnitude
+
+--
+
+* Example: let's take a vector `y`
+
+```{r}
+y <- c(3, 9, 12, 4, 1, 8, 6)
+```
+
+--
+
+```{r}
+sort(y)
+```
+
+--
+
+```{r}
+median(y)
+```
+
+---
+
+## Median
+
+* And when the vector has an even number of values?
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+sort(x)
+```
+
+--
+
+* In this case, the median is the average of the two "middle" values
+
+```{r}
+(5 + 6) / 2
+median(x)
+```
+
+---
+
+## Median
+
+* Is NOT influenced by extreme scores
+
+--
+
+```{r}
+x <- c(x, 57)
+sort(x)
+```
+
+--
+
+```{r}
+median(x)
+```
+
+---
+
+## Mean vs. Median
+
+```{r, include = FALSE}
+library(tidyverse)
+
+set.seed(20220321)
+n <- data.frame(x = rnorm(1e4))
+n_stats <- n |>
+  summarise(Mean = mean(x), Median = median(x)) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "key",
+    values_to = "value"
+  )
+
+norm_plot <- ggplot(n, aes(x = x)) +
+  geom_histogram(color = "white", fill = "#283858") +
+  geom_vline(data = n_stats, aes(xintercept = value, color = key), size = 1) +
+  scale_x_continuous(expand = c(0, 0), limits = c(-4, 4)) +
+  scale_color_manual(values = c("#FF7E0C", "#95CC5E")) +
+  theme_void() +
+  theme(legend.position = "none")
+
+set.seed(20220321)
+s <- data.frame(x = rbeta(1e3, 1.5, 7))
+s_stats <- s |>
+  summarise(Mean = mean(x), Median = median(x)) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "key",
+    values_to = "value"
+  )
+
+skwd_plot <- ggplot(s, aes(x = x)) +
+  geom_histogram(color = "white", fill = "#283858") +
+  geom_vline(data = s_stats, aes(xintercept = value, color = key), size = 1.5) +
+  scale_color_manual(values = c("#FF7E0C", "#95CC5E")) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+norm_plot
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+skwd_plot
+```
+
+]
+
+---
+
+class: middle, center
+
+# Dispersion
+
+.large[Indicates the spread of a distribution]
+
+---
+
+## Range
+
+* The variation between the highest and lowest values in a vector
+
+--
+
+* Example: let's take our old friend again, the vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+--
+
+```{r}
+range(x)
+```
+
+--
+
+```{r}
+diff(range(x))
+```
+
+--
+
+* Is influenced by extreme scores
+
+--
+
+```{r}
+x <- c(x, 57)
+diff(range(x))
+```
+
+
+---
+
+## Interquartile range
+
+* Divide the vector in 4 parts of equal size
+
+--
+
+* Cut off the top and bottom 25% of values
+
+--
+
+* Calculate the range of the middle 50%
+
+--
+
+* Can be represented in a boxplot
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/boxplot.png")
+```
+
+---
+
+## Interquartile range
+
+* Divide the vector in 4 parts of equal size
+
+
+* Cut off the top and bottom 25% of values
+
+
+* Calculate the range of the middle 50%
+
+
+* Can be represented in a boxplot
+
+```{r, echo = FALSE, fig.align = "center", out.width = "70%"}
+knitr::include_graphics("./figs/boxplot_annotated.png")
+```
+
+---
+
+## Mean error
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+d <- data.frame(
+  x = c(4, 9, 7, 12, 5, 3, 6, 2),
+  label = 1:8
+)
+p <- ggplot(d, aes(x = label, y = x)) +
+  geom_point(size = 3) +
+  scale_x_continuous(
+    limits = c(1, 8.5),
+    breaks = 1:8
+  ) +
+  scale_y_continuous(
+    limits = c(0, 12),
+    breaks = 0:12
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 13)
+  ) +
+  labs(x = "Observation", y = "Score")
+p
+```
+
+]
+
+.pull-right[
+
+* Plot of our good and old vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+]
+
+---
+
+## Mean error
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  geom_hline(
+    aes(yintercept = mean(d$x)), size = 1.5, color = "#283858", alpha = 0.5
+  )
+p
+```
+
+]
+
+.pull-right[
+
+* Plot of our good and old vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+* Horizontal line: $\bar{X}$
+
+]
+
+---
+
+## Mean error
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  annotate(
+    "segment",
+    x = 1:8, xend = 1:8,
+    y = mean(d$x), yend = d$x,
+    colour = "red", linetype = "dashed"
+  )
+p
+```
+
+]
+
+.pull-right[
+
+* Plot of our good and old vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+* Horizontal line: $\bar{X}$
+
+* Red dashed line: $e_i = X_i - \bar{X}$
+
+]
+
+---
+
+## Mean error
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+xlab <- seq(1.2, 8.2, 1)
+ylab <- d |>
+  mutate(
+    mean = mean(d$x),
+    .after = "x"
+  )
+ylab <- (ylab$x + ylab$mean) / 2
+ylab[which(ylab == mean(d$x))] <- mean(d$x) + 0.3
+lab <- as.character(d$x - mean(d$x))
+p <- p +
+  annotate("text", x = xlab, y = ylab, label = lab, size = 6)
+p
+```
+
+]
+
+.pull-right[
+
+* Plot of our good and old vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+* Horizontal line: $\bar{X}$
+
+* Red dashed line: $e_i = X_i - \bar{X}$
+
+```{r}
+e <- x - mean(x)
+e
+```
+
+
+]
+
+---
+
+## Mean error
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+xlab <- seq(1.2, 8.2, 1)
+ylab <- d |>
+  mutate(
+    mean = mean(d$x),
+    .after = "x"
+  )
+ylab <- (ylab$x + ylab$mean) / 2
+ylab[which(ylab == mean(d$x))] <- mean(d$x) + 0.3
+lab <- as.character(d$x - mean(d$x))
+p <- p +
+  annotate("text", x = xlab, y = ylab, label = lab, size = 6)
+p
+```
+
+]
+
+.pull-right[
+
+* Plot of our good and old vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+* Horizontal line: $\bar{X}$
+
+* Red dashed line: $e_i = X_i - \bar{X}$
+
+```{r}
+e <- x - mean(x)
+e
+```
+
+* We then can take the mean of the errors
+
+
+]
+
+---
+
+## Mean error
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+xlab <- seq(1.2, 8.2, 1)
+ylab <- d |>
+  mutate(
+    mean = mean(d$x),
+    .after = "x"
+  )
+ylab <- (ylab$x + ylab$mean) / 2
+ylab[which(ylab == mean(d$x))] <- mean(d$x) + 0.3
+lab <- as.character(d$x - mean(d$x))
+p <- p +
+  annotate("text", x = xlab, y = ylab, label = lab, size = 6)
+p
+```
+
+]
+
+.pull-right[
+.small[]
+
+* Plot of our good and old vector `x`
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+* Horizontal line: $\bar{X}$
+
+* Red dashed line: $e_i = X_i - \bar{X}$
+
+```{r}
+e <- x - mean(x)
+e
+```
+
+* We then can take the mean of the errors
+
+```{r}
+mean(e)
+```
+
+]
+
+---
+
+## Mean error
+
+.center[
+.large[An error with mean 0...]
+
+.huge[🤔]
+
+.large[Does it mean 0 dispersion?]
+]
+
+--
+
+.center[
+.large[Clearly not!]
+]
+
+--
+
+.center[
+.large[So, we must have an alternative...]
+]
+
+---
+
+## Variance
+
+---
+
+class: inverse, middle, center
+background-image: url("./figs/logo.png")
+background-position: 7% 2%
+background-size: 120px 70px
+
+.enormous[Thank you!]
+
+<br>
+
+Slides at:
+
+```{r, echo = FALSE, fig.align = "center", out.width = "20%"}
+knitr::include_graphics("./figs/qrcode.png")
+```
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(icons))
+```
+
+`r icon_style(fontawesome("github"), fill = "white")` @verasls | `r icon_style(fontawesome("twitter"), fill = "white")` @verasls
+
+`r icon_style(fontawesome("envelope", style = "solid"), fill = "white")` lucasdsveras@gmail.com
