@@ -51,7 +51,7 @@ data.frame(x, y) |>
 
 ### Statistics with R
 
-#### Lesson 00: Introduction
+#### Lesson 00: Introduction to R
 
 
 ---
