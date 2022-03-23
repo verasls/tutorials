@@ -21,7 +21,7 @@ background-position: 7% 2%
 background-size: 120px 70px
 
 ```{r title_fig, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, warning = FALSE}
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 library(ggsci)
 
@@ -597,7 +597,7 @@ x <- c(4, 9, 7, 12, 5, 3, 6, 2)
 ```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   geom_hline(
-    aes(yintercept = mean(d$x)), size = 1.5, color = "#283858", alpha = 0.5
+    aes(yintercept = mean(x)), size = 1.5, color = "#283858", alpha = 0.5
   )
 p
 ```
@@ -627,7 +627,7 @@ p <- p +
   annotate(
     "segment",
     x = 1:8, xend = 1:8,
-    y = mean(d$x), yend = d$x,
+    y = mean(x), yend = x,
     colour = "red", linetype = "dashed"
   )
 p
@@ -663,7 +663,7 @@ ylab <- d |>
     .after = "x"
   )
 ylab <- (ylab$x + ylab$mean) / 2
-ylab[which(ylab == mean(d$x))] <- mean(d$x) + 0.3
+ylab[which(ylab == mean(d$x))] <- mean(d$x) + 0.5
 lab <- as.character(d$x - mean(d$x))
 p <- p +
   annotate("text", x = xlab, y = ylab, label = lab, size = 6)
@@ -699,17 +699,6 @@ e
 .pull-left[
 
 ```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
-xlab <- seq(1.2, 8.2, 1)
-ylab <- d |>
-  mutate(
-    mean = mean(d$x),
-    .after = "x"
-  )
-ylab <- (ylab$x + ylab$mean) / 2
-ylab[which(ylab == mean(d$x))] <- mean(d$x) + 0.3
-lab <- as.character(d$x - mean(d$x))
-p <- p +
-  annotate("text", x = xlab, y = ylab, label = lab, size = 6)
 p
 ```
 
@@ -744,17 +733,6 @@ e
 .pull-left[
 
 ```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
-xlab <- seq(1.2, 8.2, 1)
-ylab <- d |>
-  mutate(
-    mean = mean(d$x),
-    .after = "x"
-  )
-ylab <- (ylab$x + ylab$mean) / 2
-ylab[which(ylab == mean(d$x))] <- mean(d$x) + 0.3
-lab <- as.character(d$x - mean(d$x))
-p <- p +
-  annotate("text", x = xlab, y = ylab, label = lab, size = 6)
 p
 ```
 
@@ -789,6 +767,9 @@ mean(e)
 ---
 
 ## Mean error
+
+<br>
+<br>
 
 .center[
 .large[An error with mean 0...]
