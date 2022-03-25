@@ -590,7 +590,6 @@ e
 ]
 
 .pull-right[
-.small[]
 
 * Plot of our good and old vector `x`
 
@@ -656,6 +655,557 @@ mean(e)
 ---
 
 ## Variance
+
+.pull-left[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+]
+
+---
+
+## Variance
+
+.pull-left[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+`1.` The error terms turn all positive
+
+
+```r
+e^2
+```
+
+```
+## [1]  4  9  1 36  1  9  0 16
+```
+
+]
+
+---
+
+## Variance
+
+.pull-left[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-46-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+`1.` The error terms turn all positive
+
+
+```r
+e^2
+```
+
+```
+## [1]  4  9  1 36  1  9  0 16
+```
+
+`2.` Greater errors get more penalized
+
+]
+
+---
+
+## Variance
+
+.pull-left[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+`1.` The error terms turn all positive
+
+
+```r
+e^2
+```
+
+```
+## [1]  4  9  1 36  1  9  0 16
+```
+
+`2.` Greater errors get more penalized
+
+]
+
+---
+
+## Variance
+
+* Ok, now that we have squared the errors, how can we calculate the variance?
+
+--
+
+`$$s^2 = \frac{1}{n}\sum_{i=1}^n(X_i - \bar{X})^2$$`
+
+---
+
+## Variance
+
+* Ok, now that we have squared the errors, how can we calculate the variance?
+
+`$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})^2$$`
+
+--
+
+* Why `\(n-1\)`?
+
+--
+
+* To use the error in the sample to estimate the error in the population
+
+--
+
+&lt;br&gt;
+
+.center[.large[Degrees of freedom]]
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+&lt;br&gt;
+
+--
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-50-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-51-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+&lt;br&gt;
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-52-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-53-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-54-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-55-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-56-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-57-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-58-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Variance
+
+`$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$`
+
+* How to calculate in R?
+
+--
+
+
+```r
+x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+---
+
+## Variance
+
+`$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$`
+
+* How to calculate in R?
+
+
+```r
+x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
+e &lt;- x - mean(x)
+```
+
+---
+
+## Variance
+
+`$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$`
+
+* How to calculate in R?
+
+
+```r
+x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
+e &lt;- x - mean(x)
+sum(e^2) / (length(x) - 1)
+```
+
+```
+## [1] 10.85714
+```
+
+---
+
+## Variance
+
+`$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$`
+
+* How to calculate in R?
+
+
+```r
+x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
+e &lt;- x - mean(x)
+sum(e^2) / (length(x) - 1)
+```
+
+```
+## [1] 10.85714
+```
+
+--
+
+* OR
+
+
+```r
+var(x)
+```
+
+```
+## [1] 10.85714
+```
+
+---
+
+## Variance
+
+.center[.middle2[.large[There is a limitation: it gives a measure in units square]]]
+
+---
+
+## Standard deviation
+
+`$$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})}$$`
+
+--
+
+* How to calculate in R?
+
+
+```r
+sd(x)
+```
+
+```
+## [1] 3.295018
+```
+
+--
+
+* *e.g.,* Height:
+
+--
+
+  * Variance: `\(1.73 ± 0.0144m^2\)`
+
+--
+
+  * Standard deviation: `\(1.73 ± 0.12m\)`
+
+---
+
+## Dispersion measures
+
+* Range, interquartile range, variance and standard deviation
+
+--
+
+  * These are measures of variation in the SAMPLE
+
+--
+
+.pull-left[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+## Dispersion measures
+
+.center[.middle2[.large[What about the POPULATION?]]]
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* `\(\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i\)`
+]
+
+--
+
+.pull-right[
+* `\(Var(aX) = a^2Var(x)\)`
+]
+
+--
+
+`$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &amp;= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+\end{align}$$`
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* `\(\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i\)`
+]
+
+.pull-right[
+* `\(Var(aX) = a^2Var(x)\)`
+]
+
+`$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &amp;= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&amp;= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+\end{align}$$`
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* `\(\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i\)`
+]
+
+.pull-right[
+* `\(Var(aX) = a^2Var(x)\)`
+]
+
+`$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &amp;= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&amp;= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+&amp;= \frac{n}{n^2}s^2 \\
+\end{align}$$`
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* `\(\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i\)`
+]
+
+.pull-right[
+* `\(Var(aX) = a^2Var(x)\)`
+]
+
+`$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &amp;= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&amp;= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+&amp;= \frac{n}{n^2}s^2 \\
+&amp;= \frac{s^2}{n}
+\end{align}$$`
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* `\(\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i\)`
+]
+
+.pull-right[
+* `\(Var(aX) = a^2Var(x)\)`
+]
+
+`$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &amp;= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&amp;= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+&amp;= \frac{n}{n^2}s^2 \\
+&amp;= \frac{s^2}{n}
+\end{align}$$`
+
+&lt;br&gt;
+
+`$$\sigma_{\bar{X}} = \sqrt{\frac{s^2}{n}} = \frac{s}{\sqrt{n}}$$`
+
+---
+
+## Standard error of the mean
+
+* How can we compute it in R?
+
+--
+
+
+```r
+x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
+sd(x) / sqrt(length(x))
+```
+
+```
+## [1] 1.164965
+```
+
+* R does NOT have a built-in function to compute the `\(\sigma_{\bar{X}}\)`.
+--
+
+&lt;br&gt;
+But we can use the code above to define one.
+
+
+```r
+se &lt;- function(x) sd(x) / sqrt(length(x))
+```
+
+---
+
+## Standard error of the mean
+
+* Larger samples have lower `\(\sigma_{\bar{X}}\)`
+
+--
+
+
+```r
+x1 &lt;- rnorm(10)
+x2 &lt;- rnorm(100)
+x3 &lt;- rnorm(1000)
+```
+
+--
+
+
+```r
+se(x1)
+```
+
+```
+## [1] 0.3056122
+```
+
+```r
+se(x2)
+```
+
+```
+## [1] 0.1037961
+```
+
+```r
+se(x3)
+```
+
+```
+## [1] 0.03163407
+```
 
 ---
 

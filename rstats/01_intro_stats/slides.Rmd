@@ -556,7 +556,7 @@ d <- data.frame(
   label = 1:8
 )
 p <- ggplot(d, aes(x = label, y = x)) +
-  geom_point(size = 3) +
+  geom_point(size = 3, shape = 21, fill = "black") +
   scale_x_continuous(
     limits = c(1, 8.5),
     breaks = 1:8
@@ -629,7 +629,8 @@ p <- p +
     x = 1:8, xend = 1:8,
     y = mean(x), yend = x,
     colour = "red", linetype = "dashed"
-  )
+  ) +
+  geom_point(size = 3, shape = 21, fill = "black")
 p
 ```
 
@@ -739,7 +740,6 @@ p
 ]
 
 .pull-right[
-.small[]
 
 * Plot of our good and old vector `x`
 
@@ -794,6 +794,642 @@ mean(e)
 ---
 
 ## Variance
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p
+```
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+]
+
+---
+
+## Variance
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p
+```
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+`1.` The error terms turn all positive
+
+```{r}
+e^2
+```
+
+]
+
+---
+
+## Variance
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p +
+  scale_y_continuous(
+    limits = c(-15, 50),
+    breaks = seq(-15, 50, 5)
+  )
+```
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+`1.` The error terms turn all positive
+
+```{r}
+e^2
+```
+
+`2.` Greater errors get more penalized
+
+]
+
+---
+
+## Variance
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p +
+  scale_y_continuous(
+    limits = c(-15, 50),
+    breaks = seq(-15, 50, 5)
+  ) +
+  annotate(
+    "segment",
+    x = 1:8, xend = 1:8,
+    y = c(2, 15, 7, 42, 5, -3, 6, -10),
+    yend = x,
+    colour = "red"
+  ) +
+  geom_point(
+    aes(x = 1:8, y = c(2, 15, 7, 42, 5, -3, 6, -10)),
+    size = 3, shape = 21, fill = "white"
+  )
+```
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+`1.` The error terms turn all positive
+
+```{r}
+e^2
+```
+
+`2.` Greater errors get more penalized
+
+]
+
+---
+
+## Variance
+
+* Ok, now that we have squared the errors, how can we calculate the variance?
+
+--
+
+$$s^2 = \frac{1}{n}\sum_{i=1}^n(X_i - \bar{X})^2$$
+
+---
+
+## Variance
+
+* Ok, now that we have squared the errors, how can we calculate the variance?
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})^2$$
+
+--
+
+* Why $n-1$?
+
+--
+
+* To use the error in the sample to estimate the error in the population
+
+--
+
+<br>
+
+.center[.large[Degrees of freedom]]
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+<br>
+
+--
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+p3
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+<br>
+<br>
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares <- ggplot() +
+  scale_x_continuous(limits = c(0, 5.5)) +
+  scale_y_continuous(limits = c(0, 5)) +
+  annotate(
+    "rect",
+    xmin = 0, xmax = 1,
+    ymin = 3, ymax = 4,
+    colour = "#283858",
+    fill = "white",
+    size = 1
+  ) +
+  annotate(
+    "rect",
+    xmin = 1.5, xmax = 2.5,
+    ymin = 3, ymax = 4,
+    colour = "#283858",
+    fill = "white",
+    size = 1
+  ) +
+  annotate(
+    "rect",
+    xmin = 3, xmax = 4,
+    ymin = 3, ymax = 4,
+    colour = "#283858",
+    fill = "white",
+    size = 1
+  ) +
+  annotate(
+    "rect",
+    xmin = 4.5, xmax = 5.5,
+    ymin = 3, ymax = 4,
+    colour = "#283858",
+    fill = "white",
+    size = 1
+  ) +
+  theme_void()
+squares
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume $\bar{X}_{sample} = \bar{X}_{population}$
+
+<br>
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume $\bar{X}_{sample} = \bar{X}_{population}$
+
+* *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume $\bar{X}_{sample} = \bar{X}_{population}$
+
+* *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares <- squares +
+  annotate("text", x = 0.5, y = 3.5, label = "8", size = 12, color = "#283858")
+squares
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume $\bar{X}_{sample} = \bar{X}_{population}$
+
+* *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares <- squares +
+  annotate("text", x = 2, y = 3.5, label = "3", size = 12, color = "#283858")
+squares
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume $\bar{X}_{sample} = \bar{X}_{population}$
+
+* *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares <- squares +
+  annotate("text", x = 3.5, y = 3.5, label = "14", size = 12, color = "#283858")
+squares
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume $\bar{X}_{sample} = \bar{X}_{population}$
+
+* *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares +
+  annotate("text", x = 5, y = 3.5, label = "?", size = 12, color = "#283858")
+```
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume $\bar{X}_{sample} = \bar{X}_{population}$
+
+* *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+squares <- squares +
+  annotate("text", x = 5, y = 3.5, label = "15", size = 12, color = "#283858")
+squares
+```
+
+---
+
+## Variance
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$
+
+* How to calculate in R?
+
+--
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+---
+
+## Variance
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$
+
+* How to calculate in R?
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+e <- x - mean(x)
+```
+
+---
+
+## Variance
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$
+
+* How to calculate in R?
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+e <- x - mean(x)
+sum(e^2) / (length(x) - 1)
+```
+
+---
+
+## Variance
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})$$
+
+* How to calculate in R?
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+e <- x - mean(x)
+sum(e^2) / (length(x) - 1)
+```
+
+--
+
+* OR
+
+```{r}
+var(x)
+```
+
+---
+
+## Variance
+
+.center[.middle2[.large[There is a limitation: it gives a measure in units square]]]
+
+---
+
+## Standard deviation
+
+$$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})}$$
+
+--
+
+* How to calculate in R?
+
+```{r}
+sd(x)
+```
+
+--
+
+* *e.g.,* Height:
+
+--
+
+  * Variance: $1.73 ± 0.0144m^2$
+
+--
+
+  * Standard deviation: $1.73 ± 0.12m$
+
+---
+
+## Dispersion measures
+
+* Range, interquartile range, variance and standard deviation
+
+--
+
+  * These are measures of variation in the SAMPLE
+
+--
+
+.pull-left[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+library(broman)
+
+make_plot <- function(d) {
+  ggplot(d, aes(x, y)) +
+    geom_point(size = 3, shape = 21, fill = "black") +
+    geom_hline(
+      aes(yintercept = mean(y)),
+      size = 1.5, color = "#283858", alpha = 0.5
+    ) +
+    scale_x_continuous(
+      expand = c(0, 0),
+      limits = c(0, 31),
+      breaks = seq(0, 30, 5)
+    ) +
+    scale_y_continuous(
+      expand = c(0, 0),
+      limits = c(0, 103),
+      breaks = seq(0, 100, 10)
+    ) +
+    theme_classic() +
+    theme(
+      panel.background = element_rect(fill = "transparent", colour = NA),
+      plot.background = element_rect(fill = "transparent", colour = NA),
+      axis.title = element_text(size = 14),
+      axis.text = element_text(size = 13),
+    ) +
+    labs(
+      title = paste0(
+        str_flatten(rep(" ", 40)),
+        "Mean = ", myround(mean(d$y), 1), "\n",
+        str_flatten(rep(" ", 40)),
+        "Range = ", myround(diff(range(d$y)), 1), "\n",
+        str_flatten(rep(" ", 40)),
+        "Interquartile range = ", myround(median(d$y) - IQR(d$y), 1), " - ",
+        myround(median(d$y) + IQR(d$y), 1), "\n",
+        str_flatten(rep(" ", 40)),
+        "Variance = ", myround(var(d$y), 1), "\n",
+        str_flatten(rep(" ", 40)),
+        "Standard deviation = ", myround(sd(d$y), 1)
+      ),
+      x = "Observation", y = "Score"
+    )
+}
+
+set.seed(20220324)
+d1 <- data.frame(
+  x = 1:30,
+  y = rnorm(30, 50, 10)
+)
+d2 <- data.frame(
+  x = 1:30,
+  y = rnorm(30, 50, 20)
+)
+
+make_plot(d1)
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+make_plot(d2)
+```
+
+]
+
+---
+
+## Dispersion measures
+
+.center[.middle2[.large[What about the POPULATION?]]]
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* $\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i$
+]
+
+--
+
+.pull-right[
+* $Var(aX) = a^2Var(x)$
+]
+
+--
+
+$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+\end{align}$$
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* $\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i$
+]
+
+.pull-right[
+* $Var(aX) = a^2Var(x)$
+]
+
+$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+\end{align}$$
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* $\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i$
+]
+
+.pull-right[
+* $Var(aX) = a^2Var(x)$
+]
+
+$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+&= \frac{n}{n^2}s^2 \\
+\end{align}$$
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* $\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i$
+]
+
+.pull-right[
+* $Var(aX) = a^2Var(x)$
+]
+
+$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+&= \frac{n}{n^2}s^2 \\
+&= \frac{s^2}{n}
+\end{align}$$
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+* $\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i$
+]
+
+.pull-right[
+* $Var(aX) = a^2Var(x)$
+]
+
+$$\begin{align}
+Var(\frac{1}{n}\sum_{i=1}^nX_i) &= \frac{1}{n^2}\sum_{i=1}^nVar(X_i) \\
+&= \frac{1}{n^2}\sum_{i=1}^ns^2 \\
+&= \frac{n}{n^2}s^2 \\
+&= \frac{s^2}{n}
+\end{align}$$
+
+<br>
+
+$$\sigma_{\bar{X}} = \sqrt{\frac{s^2}{n}} = \frac{s}{\sqrt{n}}$$
+
+---
+
+## Standard error of the mean
+
+* How can we compute it in R?
+
+--
+
+```{r}
+x <- c(4, 9, 7, 12, 5, 3, 6, 2)
+sd(x) / sqrt(length(x))
+```
+
+* R does NOT have a built-in function to compute the $\sigma_{\bar{X}}$
+--
+
+<br>
+But we can use the code above to define one
+
+```{r}
+se <- function(x) sd(x) / sqrt(length(x))
+```
+
+---
+
+## Standard error of the mean
+
+* Larger samples have lower $\sigma_{\bar{X}}$
+
+--
+
+```{r}
+x1 <- rnorm(10)
+x2 <- rnorm(100)
+x3 <- rnorm(1000)
+```
+
+--
+
+```{r}
+se(x1)
+se(x2)
+se(x3)
+```
 
 ---
 
