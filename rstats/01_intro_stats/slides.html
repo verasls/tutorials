@@ -1003,11 +1003,11 @@ sd(x)
 
 --
 
-  * Variance: `\(1.73 ± 0.0144m^2\)`
+  * Variance: `\(1.73m ± 0.0144m^2\)`
 
 --
 
-  * Standard deviation: `\(1.73 ± 0.12m\)`
+  * Standard deviation: `\(1.73m ± 0.12m\)`
 
 ---
 
@@ -1042,6 +1042,91 @@ sd(x)
 ---
 
 ## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+`$$\mu = 10$$`
+]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-67-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+`$$\mu = 10$$`
+]
+
+.pull-right[
+.center[Sample mean]
+`$$\bar{X} = 8$$`
+]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-68-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+`$$\mu = 10$$`
+]
+
+.pull-right[
+.center[Sample mean]
+`$$\bar{X} = 13$$`
+]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-69-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+`$$\mu = 10$$`
+]
+
+.pull-right[
+.center[Sample mean]
+`$$\bar{X} = 7$$`
+]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-70-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+`$$\mu = 10$$`
+]
+
+.pull-right[
+.center[Sample mean]
+`$$\bar{X} = 9$$`
+]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-71-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Standard error of the mean
+
+&lt;br&gt;
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-72-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Standard error of the mean
+
+--
 
 .pull-left[
 * `\(\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i\)`
@@ -1154,11 +1239,13 @@ sd(x) / sqrt(length(x))
 ## [1] 1.164965
 ```
 
-* R does NOT have a built-in function to compute the `\(\sigma_{\bar{X}}\)`.
+--
+
+* R does NOT have a built-in function to compute the `\(\sigma_{\bar{X}}\)`
 --
 
 &lt;br&gt;
-But we can use the code above to define one.
+But we can use the code above to define one
 
 
 ```r
@@ -1168,6 +1255,8 @@ se &lt;- function(x) sd(x) / sqrt(length(x))
 ---
 
 ## Standard error of the mean
+
+`$$\sigma_{\bar{X}} = \frac{s}{\sqrt{n}}$$`
 
 * Larger samples have lower `\(\sigma_{\bar{X}}\)`
 
@@ -1188,7 +1277,7 @@ se(x1)
 ```
 
 ```
-## [1] 0.3056122
+## [1] 0.2851783
 ```
 
 ```r
@@ -1196,7 +1285,7 @@ se(x2)
 ```
 
 ```
-## [1] 0.1037961
+## [1] 0.09098424
 ```
 
 ```r
@@ -1204,8 +1293,421 @@ se(x3)
 ```
 
 ```
-## [1] 0.03163407
+## [1] 0.03010591
 ```
+
+---
+
+## A different approach
+
+&lt;br&gt;
+
+* The `\(\sigma_{\bar{X}}\)` is the standard deviation of the sample distribution
+
+--
+
+* But we can also establish limits in which we believe the true value of the mean lies
+
+--
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-77-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+--
+
+.center[.large[Confidence interval]]
+
+---
+
+## Confidence interval
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.center[.large[Typical value: 95% confidence interval]]
+
+--
+
+.center[.large[How do we calculate these limits?]]
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+`$$\mu = 0; \sigma = 1$$`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-78-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+`$$\mu = 0; \sigma = 1$$`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-79-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+`$$\mu = 0; \sigma = 1$$`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-80-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+`$$\mu = 0; \sigma = 1$$`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-81-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence interval
+
+* Our mean and standard deviation almost certainly won't be 0 and 1...
+
+--
+
+* But:
+
+`$$z = \frac{X - \bar{X}}{s}$$`
+
+--
+
+`$$1.96 = \frac{X - \bar{X}}{s}$$`
+
+--
+
+`$$X - \bar{X} = 1.96 \cdot s$$`
+
+--
+
+`$$X = \bar{X} + 1.96 \cdot s$$`
+
+--
+
+`$$X = \bar{X} - 1.96 \cdot s$$`
+
+--
+
+* So, the confidence interval:
+
+`$$CI_{95\%} = \bar{X} \pm 1.96 \cdot s$$`
+
+---
+
+## Confidence interval
+
+* Our mean and standard deviation almost certainly won't be 0 and 1...
+
+* But:
+
+`$$z = \frac{X - \bar{X}}{s}$$`
+`$$1.96 = \frac{X - \bar{X}}{s}$$`
+`$$X - \bar{X} = 1.96 \cdot s$$`
+`$$X = \bar{X} + 1.96 \cdot s$$`
+`$$X = \bar{X} - 1.96 \cdot s$$`
+
+* So, the confidence interval:
+
+`$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$`
+
+---
+
+## Confidence interval
+
+`$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$`
+
+* How do we calculate it in R?
+
+--
+
+
+```r
+x &lt;- rnorm(100, mean = 10, sd = 2)
+```
+
+---
+
+## Confidence interval
+
+`$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$`
+
+* How do we calculate it in R?
+
+
+```r
+x &lt;- rnorm(100, mean = 10, sd = 2)
+lower_limit &lt;- mean(x) - 1.96 * (sd(x) / sqrt(length(x)))
+```
+
+---
+
+## Confidence interval
+
+`$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$`
+
+* How do we calculate it in R?
+
+
+```r
+x &lt;- rnorm(100, mean = 10, sd = 2)
+lower_limit &lt;- mean(x) - 1.96 * (sd(x) / sqrt(length(x)))
+upper_limit &lt;- mean(x) + 1.96 * (sd(x) / sqrt(length(x)))
+```
+
+--
+
+
+```r
+lower_limit
+```
+
+```
+## [1] 9.632801
+```
+
+```r
+upper_limit
+```
+
+```
+## [1] 10.44809
+```
+
+---
+
+## Confidence interval
+
+`$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$`
+
+* How do we calculate it in R?
+
+* We can put it in a function
+
+--
+
+
+```r
+ci &lt;- function(x) {
+  lower_limit &lt;- mean(x) - 1.96 * (sd(x) / sqrt(length(x)))
+  upper_limit &lt;- mean(x) + 1.96 * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+--
+
+
+```r
+ci(x)
+```
+
+```
+##       mean lower_limit upper_limit
+## 1 10.04045    9.632801    10.44809
+```
+
+---
+
+## Other confidence intervals
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.center[.large[95% confidence interval ✅]]
+
+--
+
+.center[.large[And if we want 90%? Or 99%?]]
+
+---
+
+## Other confidence intervals
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-88-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+## Other confidence intervals
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-89-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+`$$z_{1 - \frac{1 - p}{2}}$$`
+
+--
+
+&lt;br&gt;
+
+.center[For 95%:]
+
+`$$1 - \frac{1 - 0.95}{2}$$`
+
+--
+
+`$$1 - \frac{0.05}{2}$$`
+
+--
+
+`$$1 - 0.025 = 0.975 = 97.5\%$$` 
+
+--
+
+&lt;br&gt;
+
+.center[For 99%:]
+
+`$$1 - \frac{1 - 0.99}{2} = 0.995 = 99.5\%$$`
+
+---
+
+## Other confidence intervals
+
+* How can we calculate this in R?
+
+--
+
+
+```r
+qnorm(0.975)
+```
+
+```
+## [1] 1.959964
+```
+
+--
+
+
+```r
+ci &lt;- function(x, p = 0.95) {
+  lower_limit &lt;- mean(x) -
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  upper_limit &lt;- mean(x) +
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+--
+
+
+```r
+ci(x)
+```
+
+```
+##       mean lower_limit upper_limit
+## 1 10.04045    9.632809    10.44808
+```
+
+---
+
+## Other confidence intervals
+
+* How can we calculate this in R?
+
+
+```r
+qnorm(0.975)
+```
+
+```
+## [1] 1.959964
+```
+
+
+```r
+ci &lt;- function(x, p = 0.95) {
+  lower_limit &lt;- mean(x) -
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  upper_limit &lt;- mean(x) +
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+
+```r
+ci(x, 0.99)
+```
+
+```
+##       mean lower_limit upper_limit
+## 1 10.04045     9.50472    10.57617
+```
+
+---
+
+## Confidence intervals in small samples
+
+* Until now we have been using quantiles of the normal distribution
+
+--
+
+* In large samples, the distribution tends to be normal
+
+--
+
+* But if we have a small sample?
+
+--
+
+&lt;br&gt;
+
+.center[.large[*t*-distribution]]
+
+--
+
+* Changes shape with sample size
+
+--
+
+* In very large samples, it has the shape of the normal distribution
+
+---
+
+## Confidence intervals in small samples
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-96-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence intervals in small samples
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-97-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence intervals in small samples
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-98-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 

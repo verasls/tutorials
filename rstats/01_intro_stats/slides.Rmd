@@ -1195,11 +1195,11 @@ sd(x)
 
 --
 
-  * Variance: $1.73 ± 0.0144m^2$
+  * Variance: $1.73m ± 0.0144m^2$
 
 --
 
-  * Standard deviation: $1.73 ± 0.12m$
+  * Standard deviation: $1.73m ± 0.12m$
 
 ---
 
@@ -1292,6 +1292,120 @@ make_plot(d2)
 ---
 
 ## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+$$\mu = 10$$
+]
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4))
+```
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+$$\mu = 10$$
+]
+
+.pull-right[
+.center[Sample mean]
+$$\bar{X} = 8$$
+]
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
+  geom_circle(aes(x0 = 3, y0 = 6, r = 1), color = "#FF7E0C")
+```
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+$$\mu = 10$$
+]
+
+.pull-right[
+.center[Sample mean]
+$$\bar{X} = 13$$
+]
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
+  geom_circle(aes(x0 = 6, y0 = 4, r = 1), color = "#FF7E0C")
+```
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+$$\mu = 10$$
+]
+
+.pull-right[
+.center[Sample mean]
+$$\bar{X} = 7$$
+]
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
+  geom_circle(aes(x0 = 4, y0 = 3, r = 1), color = "#FF7E0C")
+```
+
+---
+
+## Standard error of the mean
+
+.pull-left[
+.center[Population mean]
+$$\mu = 10$$
+]
+
+.pull-right[
+.center[Sample mean]
+$$\bar{X} = 9$$
+]
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
+  geom_circle(aes(x0 = 7, y0 = 6, r = 1), color = "#FF7E0C")
+```
+
+---
+
+## Standard error of the mean
+
+<br>
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+set.seed(20220325)
+d <- data.frame(x = rnorm(1e4, mean = 10))
+ggplot(d, aes(x = x)) +
+  geom_histogram(color = "white", fill = "#283858") +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 13)
+  ) +
+  labs(x = "Sample mean", y = "Frequency")
+```
+
+---
+
+## Standard error of the mean
+
+--
 
 .pull-left[
 * $\bar{X} = \frac{1}{n}\sum_{i=1}^nX_i$
@@ -1399,6 +1513,8 @@ x <- c(4, 9, 7, 12, 5, 3, 6, 2)
 sd(x) / sqrt(length(x))
 ```
 
+--
+
 * R does NOT have a built-in function to compute the $\sigma_{\bar{X}}$
 --
 
@@ -1412,6 +1528,8 @@ se <- function(x) sd(x) / sqrt(length(x))
 ---
 
 ## Standard error of the mean
+
+$$\sigma_{\bar{X}} = \frac{s}{\sqrt{n}}$$
 
 * Larger samples have lower $\sigma_{\bar{X}}$
 
@@ -1429,6 +1547,536 @@ x3 <- rnorm(1000)
 se(x1)
 se(x2)
 se(x3)
+```
+
+---
+
+## A different approach
+
+<br>
+
+* The $\sigma_{\bar{X}}$ is the standard deviation of the sample distribution
+
+--
+
+* But we can also establish limits in which we believe the true value of the mean lies
+
+--
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 2/4, fig.align = 'center', echo = FALSE, out.width = "40%", dpi= 300}
+ggplot() +
+  geom_point(aes(x = 0, y = 0), size = 5, color = "#283858") +
+  geom_errorbarh(
+    aes(xmin = - 1, xmax = 1, y = 0),
+    size = 1.5, height = 0.1, color = "#283858"
+  ) +
+  scale_y_continuous(limits = c(-0.1, 0.1)) +
+  theme_void()
+```
+
+--
+
+.center[.large[Confidence interval]]
+
+---
+
+## Confidence interval
+
+<br>
+<br>
+<br>
+<br>
+
+.center[.large[Typical value: 95% confidence interval]]
+
+--
+
+.center[.large[How do we calculate these limits?]]
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+$$\mu = 0; \sigma = 1$$
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+p <- ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+  stat_function(fun = dnorm, color = "#283858", size = 1) +
+  scale_y_continuous(
+    expand = c(0, 0),
+    limits = c(0, 0.45)
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 13),
+    axis.line.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+p
+```
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+$$\mu = 0; \sigma = 1$$
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  annotate(
+    "segment",
+    x = 0, xend = 0,
+    y = 0, yend = 0.4,
+    linetype = "dashed"
+  )
+p
+```
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+$$\mu = 0; \sigma = 1$$
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  annotate(
+    "segment",
+    x = c(-1.96, 1.96), xend = c(-1.96, 1.96),
+    y = c(0, 0), yend = c(0.4, 0.4),
+    color = "#FF7E0C"
+  ) +
+  annotate(
+    "segment",
+    x = -1.96, xend = 1.96,
+    y = 0.42, yend = 0.42
+  ) +
+  annotate(
+    "segment",
+    x = c(-1.96, 1.96), xend = c(-1.96, 1.96),
+    y = c(0.41, 0.41), yend = c(0.42, 0.42)
+  ) +
+  annotate(
+    "text",
+    x = 0, y = 0.435,
+    "label" = "95%",
+    size = 6
+  )
+p
+```
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+$$\mu = 0; \sigma = 1$$
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  annotate(
+    "segment",
+    x = c(-1.97, 1.97), xend = c(-2.5, 2.5),
+    y = c(0.001, 0.001), yend = c(0.1, 0.1),
+    arrow = arrow(length = unit(0.03, "npc")),
+    color = "#FF7E0C"
+  ) +
+  annotate(
+    "text",
+    x = c(-2.5, 2.5),
+    y = c(0.11, 0.11),
+    label = c("-1.96", "1.96"),
+    size = 6
+  )
+p
+```
+
+---
+
+## Confidence interval
+
+* Our mean and standard deviation almost certainly won't be 0 and 1...
+
+--
+
+* But:
+
+$$z = \frac{X - \bar{X}}{s}$$
+
+--
+
+$$1.96 = \frac{X - \bar{X}}{s}$$
+
+--
+
+$$X - \bar{X} = 1.96 \cdot s$$
+
+--
+
+$$X = \bar{X} + 1.96 \cdot s$$
+
+--
+
+$$X = \bar{X} - 1.96 \cdot s$$
+
+--
+
+* So, the confidence interval:
+
+$$CI_{95\%} = \bar{X} \pm 1.96 \cdot s$$
+
+---
+
+## Confidence interval
+
+* Our mean and standard deviation almost certainly won't be 0 and 1...
+
+* But:
+
+$$z = \frac{X - \bar{X}}{s}$$
+$$1.96 = \frac{X - \bar{X}}{s}$$
+$$X - \bar{X} = 1.96 \cdot s$$
+$$X = \bar{X} + 1.96 \cdot s$$
+$$X = \bar{X} - 1.96 \cdot s$$
+
+* So, the confidence interval:
+
+$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$
+
+---
+
+## Confidence interval
+
+$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$
+
+* How do we calculate it in R?
+
+--
+
+```{r}
+x <- rnorm(100, mean = 10, sd = 2)
+```
+
+---
+
+## Confidence interval
+
+$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$
+
+* How do we calculate it in R?
+
+```{r}
+x <- rnorm(100, mean = 10, sd = 2)
+lower_limit <- mean(x) - 1.96 * (sd(x) / sqrt(length(x)))
+```
+
+---
+
+## Confidence interval
+
+$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$
+
+* How do we calculate it in R?
+
+```{r}
+x <- rnorm(100, mean = 10, sd = 2)
+lower_limit <- mean(x) - 1.96 * (sd(x) / sqrt(length(x)))
+upper_limit <- mean(x) + 1.96 * (sd(x) / sqrt(length(x)))
+```
+
+--
+
+```{r}
+lower_limit
+upper_limit
+```
+
+---
+
+## Confidence interval
+
+$$CI_{95\%} = \bar{X} \pm 1.96 \cdot \sigma_{\bar{X}}$$
+
+* How do we calculate it in R?
+
+* We can put it in a function
+
+--
+
+```{r}
+ci <- function(x) {
+  lower_limit <- mean(x) - 1.96 * (sd(x) / sqrt(length(x)))
+  upper_limit <- mean(x) + 1.96 * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+--
+
+```{r}
+ci(x)
+```
+
+---
+
+## Other confidence intervals
+
+<br>
+<br>
+<br>
+
+.center[.large[95% confidence interval ✅]]
+
+--
+
+.center[.large[And if we want 90%? Or 99%?]]
+
+---
+
+## Other confidence intervals
+
+.pull-left[
+
+<br>
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p <- ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+  stat_function(fun = dnorm, color = "#283858", size = 1) +
+  scale_y_continuous(
+    expand = c(0, 0),
+    limits = c(0, 0.45)
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 13),
+    axis.line.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) +
+  annotate(
+    "segment",
+    x = c(-1.96, 1.96), xend = c(-1.96, 1.96),
+    y = c(0, 0), yend = c(0.4, 0.4),
+    color = "#FF7E0C"
+  ) +
+  annotate(
+    "segment",
+    x = -1.96, xend = 1.96,
+    y = 0.42, yend = 0.42
+  ) +
+  annotate(
+    "segment",
+    x = c(-1.96, 1.96), xend = c(-1.96, 1.96),
+    y = c(0.41, 0.41), yend = c(0.42, 0.42)
+  ) +
+  annotate(
+    "text",
+    x = 0, y = 0.435,
+    "label" = "95%",
+    size = 6
+  )
+p
+```
+
+]
+
+---
+
+## Other confidence intervals
+
+.pull-left[
+
+<br>
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  annotate(
+    "segment",
+    x = c(-2, 2), xend = c(-4, 4),
+    y = c(0.42, 0.42), yend = c(0.42, 0.42)
+  ) +
+  annotate(
+    "segment",
+    x = c(-2, 2, -4, 4), xend = c(-2, 2, -4, 4),
+    y = c(0.41, 0.41, 0.41, 0.41), yend = c(0.42, 0.42, 0.42, 0.42)
+  ) +
+  annotate(
+    "text",
+    x = c(-3, 3), y = 0.435,
+    label = "2.5%",
+    size = 6
+  )
+p
+```
+
+]
+
+--
+
+$$z_{1 - \frac{1 - p}{2}}$$
+
+--
+
+<br>
+
+.center[For 95%:]
+
+$$1 - \frac{1 - 0.95}{2}$$
+
+--
+
+$$1 - \frac{0.05}{2}$$
+
+--
+
+$$1 - 0.025 = 0.975 = 97.5\%$$ 
+
+--
+
+<br>
+
+.center[For 99%:]
+
+$$1 - \frac{1 - 0.99}{2} = 0.995 = 99.5\%$$
+
+---
+
+## Other confidence intervals
+
+* How can we calculate this in R?
+
+--
+
+```{r}
+qnorm(0.975)
+```
+
+--
+
+```{r}
+ci <- function(x, p = 0.95) {
+  lower_limit <- mean(x) -
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  upper_limit <- mean(x) +
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+--
+
+```{r}
+ci(x)
+```
+
+---
+
+## Other confidence intervals
+
+* How can we calculate this in R?
+
+```{r}
+qnorm(0.975)
+```
+
+```{r}
+ci <- function(x, p = 0.95) {
+  lower_limit <- mean(x) -
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  upper_limit <- mean(x) +
+    qnorm(1 - ((1 - p) / 2)) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+```{r}
+ci(x, 0.99)
+```
+
+---
+
+## Confidence intervals in small samples
+
+* Until now we have been using quantiles of the normal distribution
+
+--
+
+* In large samples, the distribution tends to be normal
+
+--
+
+* But if we have a small sample?
+
+--
+
+<br>
+
+.center[.large[*t*-distribution]]
+
+--
+
+* Changes shape with sample size
+
+--
+
+* In very large samples, it has the shape of the normal distribution
+
+---
+
+## Confidence intervals in small samples
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+p <- ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+  stat_function(fun = dnorm, color = "#283858", size = 1) +
+  scale_y_continuous(
+    expand = c(0, 0),
+    limits = c(0, 0.45)
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 13),
+    axis.line.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+p
+```
+
+---
+
+## Confidence intervals in small samples
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  stat_function(fun = dt, args = list(df = 1), color =  "#FF7E0C", size = 1)
+p
+```
+
+---
+
+## Confidence intervals in small samples
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+p <- p +
+  stat_function(fun = dt, args = list(df = 20), color = "#F7C531", size = 1)
+p
 ```
 
 ---
