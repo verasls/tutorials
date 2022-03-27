@@ -1711,6 +1711,161 @@ ci(x, 0.99)
 
 ---
 
+## Confidence intervals in small samples
+
+* And how to calculate in R?
+
+
+```r
+qt(p, df)
+```
+
+--
+
+* Now, let's add this to our function
+
+
+```r
+ci &lt;- function(x, p = 0.95) {
+  lower_limit &lt;- mean(x) -
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  upper_limit &lt;- mean(x) +
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+--
+
+
+```r
+ci(x)
+```
+
+```
+##       mean lower_limit upper_limit
+## 1 10.04045    9.627765    10.45313
+```
+
+---
+
+## Interpreting confidence intervals
+
+&lt;br&gt;
+&lt;br&gt;
+
+`$$\bar{X} \pm t_{df} \cdot \sigma_{\bar{X}}$$`
+
+---
+
+## Interpreting confidence intervals
+
+&lt;br&gt;
+&lt;br&gt;
+
+`$$\bar{X} \pm t_{df} \cdot \frac{s}{\sqrt{n}}$$` 
+
+--
+
+* Depends on:
+
+--
+
+  * Dispersion within our sample
+
+  * Sample size
+
+---
+
+## Interpreting confidence intervals
+
+* Example 1: same sample size, different dispersion
+
+--
+
+
+```r
+rnorm_fix &lt;- function(n, mean, sd) mean + sd * scale(rnorm(n))
+a &lt;- rnorm_fix(20, mean = 10, sd = 2)
+b &lt;- rnorm_fix(20, mean = 10, sd = 4)
+```
+
+--
+
+
+```r
+ci(a)
+```
+
+```
+##   mean lower_limit upper_limit
+## 1   10    9.063971    10.93603
+```
+
+```r
+ci(b)
+```
+
+```
+##   mean lower_limit upper_limit
+## 1   10    8.127942    11.87206
+```
+
+---
+
+## Interpreting confidence intervals
+
+* Example 2: different sample size, same dispersion
+
+--
+
+
+```r
+c &lt;- rnorm_fix(40, mean = 10, sd = 2)
+d &lt;- rnorm_fix(20, mean = 10, sd = 2)
+```
+
+--
+
+
+```r
+ci(c)
+```
+
+```
+##   mean lower_limit upper_limit
+## 1   10    9.360369    10.63963
+```
+
+```r
+ci(d)
+```
+
+```
+##   mean lower_limit upper_limit
+## 1   10    9.063971    10.93603
+```
+
+---
+
+## Visualizing confidence intervals
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-106-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Visualizing confidence intervals
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-107-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Visualizing confidence intervals
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-108-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
 class: inverse, middle, center
 background-image: url("./figs/logo.png")
 background-position: 7% 2%

@@ -2081,6 +2081,210 @@ p
 
 ---
 
+## Confidence intervals in small samples
+
+* And how to calculate in R?
+
+```{r, eval = FALSE}
+qt(p, df)
+```
+
+--
+
+* Now, let's add this to our function
+
+```{r}
+ci <- function(x, p = 0.95) {
+  lower_limit <- mean(x) -
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  upper_limit <- mean(x) +
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+--
+
+```{r}
+ci(x)
+```
+
+---
+
+## Interpreting confidence intervals
+
+<br>
+<br>
+
+$$\bar{X} \pm t_{df} \cdot \sigma_{\bar{X}}$$
+
+---
+
+## Interpreting confidence intervals
+
+<br>
+<br>
+
+$$\bar{X} \pm t_{df} \cdot \frac{s}{\sqrt{n}}$$ 
+
+--
+
+* Depends on:
+
+--
+
+  * Dispersion within our sample
+
+  * Sample size
+
+---
+
+## Interpreting confidence intervals
+
+* Example 1: same sample size, different dispersion
+
+--
+
+```{r}
+rnorm_fix <- function(n, mean, sd) mean + sd * scale(rnorm(n))
+a <- rnorm_fix(20, mean = 10, sd = 2)
+b <- rnorm_fix(20, mean = 10, sd = 4)
+```
+
+--
+
+```{r}
+ci(a)
+ci(b)
+```
+
+---
+
+## Interpreting confidence intervals
+
+* Example 2: different sample size, same dispersion
+
+--
+
+```{r}
+c <- rnorm_fix(40, mean = 10, sd = 2)
+d <- rnorm_fix(20, mean = 10, sd = 2)
+```
+
+--
+
+```{r}
+ci(c)
+ci(d)
+```
+
+---
+
+## Visualizing confidence intervals
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+set.seed(20220327)
+d <- tibble(
+  A = rnorm(100, 10, 4),
+  B = rnorm(100, 10, 5),
+  C = rnorm(100, 7, 3)
+) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "vec",
+    values_to = "val"
+  ) |>
+  group_by(vec) |>
+  summarise(
+    mean = mean(val),
+    se = sd(val) / sqrt(100),
+    lower_ci = mean - 1.96 * se,
+    upper_ci = mean + 1.96 * se
+  )
+
+d1 <- d |>
+  filter(vec == "A") |>
+  add_row(vec = " ", mean = 0, se = 0, lower_ci = 0, upper_ci = 0) |>
+  mutate(vec = factor(vec, levels = c("A", " ")))
+p <- ggplot(d1) +
+  geom_point(aes(x = vec, y = mean), size = 3, color = "#283858") +
+  geom_errorbar(
+    aes(x = vec, ymin = lower_ci, ymax = upper_ci),
+    size = 1, width = 0.2, color = "#283858"
+  ) +
+  scale_y_continuous(
+    limits = c(6, 12),
+    breaks = seq(6, 12, 2)
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 13)
+  ) +
+  labs(x = "", y = "Score")
+p
+```
+
+---
+
+## Visualizing confidence intervals
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+d2 <- d |>
+  filter(vec %in% c("A", "B"))
+p <- ggplot(d2) +
+  geom_point(aes(x = vec, y = mean), size = 3, color = "#283858") +
+  geom_errorbar(
+    aes(x = vec, ymin = lower_ci, ymax = upper_ci),
+    size = 1, width = 0.2, color = "#283858"
+  ) +
+  scale_y_continuous(
+    limits = c(6, 12),
+    breaks = seq(6, 12, 2)
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 13)
+  ) +
+  labs(x = "", y = "Score")
+p
+```
+
+---
+
+## Visualizing confidence intervals
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+d3 <- d |>
+  filter(vec %in% c("A", "C"))
+p <- ggplot(d3) +
+  geom_point(aes(x = vec, y = mean), size = 3, color = "#283858") +
+  geom_errorbar(
+    aes(x = vec, ymin = lower_ci, ymax = upper_ci),
+    size = 1, width = 0.2, color = "#283858"
+  ) +
+  scale_y_continuous(
+    limits = c(6, 12),
+    breaks = seq(6, 12, 2)
+  ) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 13)
+  ) +
+  labs(x = "", y = "Score")
+p
+```
+
+---
+
 class: inverse, middle, center
 background-image: url("./figs/logo.png")
 background-position: 7% 2%
