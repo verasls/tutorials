@@ -1,6 +1,6 @@
-/* .remark-slide-number { */
-/*   display: none; */
-/* } */
+.remark-slide-number {
+  display: none;
+}
 
 .inverse h3, .inverse h4 {
   line-height: 0.2em;
