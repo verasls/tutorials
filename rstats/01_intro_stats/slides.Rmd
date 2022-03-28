@@ -92,11 +92,6 @@ ggplot() +
 * Measures of central tendency and dispersion
 ]
 
---
-
-.huge[
-* Hypothesis testing
-]
 
 ---
 
@@ -2569,6 +2564,12 @@ paste0(
   ")"
 )
 ```
+
+---
+
+## Exercises
+
+`3`. Calculate summary statistics for the `mass`
 
 ---
 
