@@ -438,24 +438,38 @@ diff(range(x))
 
 ---
 
-## Mean error
+## Interquartile range
 
-.pull-left[
+* To calculate it in R:
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
-.pull-right[
-
-* Plot of our good and old vector `x`
+--
 
 
 ```r
-x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
+IQR(x)
 ```
 
-]
+```
+## [1] 5
+```
+
+--
+
+* It returns Q3 - Q1
+
+--
+
+* If we want the values of the quartiles:
+
+
+```r
+quantile(x)
+```
+
+```
+##   0%  25%  50%  75% 100% 
+##    2    4    6    9   57
+```
 
 ---
 
@@ -475,8 +489,6 @@ x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
 ```r
 x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
 ```
-
-* Horizontal line: `\(\bar{X}\)`
 
 ]
 
@@ -501,6 +513,29 @@ x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
 
 * Horizontal line: `\(\bar{X}\)`
 
+]
+
+---
+
+## Mean error
+
+.pull-left[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+* Plot of our good and old vector `x`
+
+
+```r
+x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
+```
+
+* Horizontal line: `\(\bar{X}\)`
+
 * Red dashed line: `\(e_i = X_i - \bar{X}\)`
 
 ]
@@ -511,7 +546,7 @@ x &lt;- c(4, 9, 7, 12, 5, 3, 6, 2)
 
 .pull-left[
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -547,7 +582,7 @@ e
 
 .pull-left[
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -585,7 +620,7 @@ e
 
 .pull-left[
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -658,40 +693,13 @@ mean(e)
 
 .pull-left[
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 .pull-right[
 
 * We can square the errors, which brings two consequences:
-
-]
-
----
-
-## Variance
-
-.pull-left[
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
-.pull-right[
-
-* We can square the errors, which brings two consequences:
-
-`1.` The error terms turn all positive
-
-
-```r
-e^2
-```
-
-```
-## [1]  4  9  1 36  1  9  0 16
-```
 
 ]
 
@@ -720,6 +728,33 @@ e^2
 ## [1]  4  9  1 36  1  9  0 16
 ```
 
+]
+
+---
+
+## Variance
+
+.pull-left[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+* We can square the errors, which brings two consequences:
+
+`1.` The error terms turn all positive
+
+
+```r
+e^2
+```
+
+```
+## [1]  4  9  1 36  1  9  0 16
+```
+
 `2.` Greater errors get more penalized
 
 ]
@@ -730,7 +765,7 @@ e^2
 
 .pull-left[
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -795,29 +830,6 @@ e^2
 
 --
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-50-1.png" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Degrees of freedom
-
-* The number of observations that are free to vary
-
-&lt;br&gt;
-&lt;br&gt;
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-51-1.png" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Degrees of freedom
-
-* The number of observations that are free to vary
-
-* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
-
-&lt;br&gt;
-
 &lt;img src="slides_files/figure-html/unnamed-chunk-52-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
@@ -826,9 +838,8 @@ e^2
 
 * The number of observations that are free to vary
 
-* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
-
-* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+&lt;br&gt;
+&lt;br&gt;
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-53-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
@@ -840,7 +851,7 @@ e^2
 
 * Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
 
-* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+&lt;br&gt;
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-54-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
@@ -891,6 +902,30 @@ e^2
 * *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-58-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-59-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Degrees of freedom
+
+* The number of observations that are free to vary
+
+* Assume `\(\bar{X}_{sample} = \bar{X}_{population}\)`
+
+* *e.g.,* `\(\bar{X} = 10\)` - with this parameter fixed, can all scores vary?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-60-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1023,13 +1058,13 @@ sd(x)
 
 .pull-left[
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-67-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 .pull-right[
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-68-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1048,7 +1083,7 @@ sd(x)
 `$$\mu = 10$$`
 ]
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-67-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-69-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1064,7 +1099,7 @@ sd(x)
 `$$\bar{X} = 8$$`
 ]
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-68-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-70-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1080,7 +1115,7 @@ sd(x)
 `$$\bar{X} = 13$$`
 ]
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-69-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-71-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1096,7 +1131,7 @@ sd(x)
 `$$\bar{X} = 7$$`
 ]
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-70-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-72-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1112,7 +1147,7 @@ sd(x)
 `$$\bar{X} = 9$$`
 ]
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-71-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-73-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1120,7 +1155,7 @@ sd(x)
 
 &lt;br&gt;
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-72-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-74-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1310,7 +1345,7 @@ se(x3)
 
 --
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-77-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-79-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -1339,26 +1374,6 @@ se(x3)
 
 `$$\mu = 0; \sigma = 1$$`
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-78-1.png" width="50%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Confidence interval
-
-.center[Normal distribution: *z*-scores]
-
-`$$\mu = 0; \sigma = 1$$`
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-79-1.png" width="50%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Confidence interval
-
-.center[Normal distribution: *z*-scores]
-
-`$$\mu = 0; \sigma = 1$$`
-
 &lt;img src="slides_files/figure-html/unnamed-chunk-80-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
@@ -1370,6 +1385,26 @@ se(x3)
 `$$\mu = 0; \sigma = 1$$`
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-81-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+`$$\mu = 0; \sigma = 1$$`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-82-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence interval
+
+.center[Normal distribution: *z*-scores]
+
+`$$\mu = 0; \sigma = 1$$`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-83-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1541,7 +1576,7 @@ ci(x)
 
 &lt;br&gt;
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-88-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-90-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1553,7 +1588,7 @@ ci(x)
 
 &lt;br&gt;
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-89-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-91-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1695,19 +1730,19 @@ ci(x, 0.99)
 
 ## Confidence intervals in small samples
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-96-1.png" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Confidence intervals in small samples
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-97-1.png" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Confidence intervals in small samples
-
 &lt;img src="slides_files/figure-html/unnamed-chunk-98-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence intervals in small samples
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-99-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Confidence intervals in small samples
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-100-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1850,19 +1885,321 @@ ci(d)
 
 ## Visualizing confidence intervals
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-106-1.png" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Visualizing confidence intervals
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-107-1.png" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Visualizing confidence intervals
-
 &lt;img src="slides_files/figure-html/unnamed-chunk-108-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Visualizing confidence intervals
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-109-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Visualizing confidence intervals
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-110-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, middle, center
+
+# Summary
+
+---
+
+## Central tendency
+
+
+```r
+mean(x)
+median(x)
+```
+
+## Dispersion
+
+
+```r
+range(x)       # The max and mean values
+diff(range(x)) # The difference between max and min values
+IQR(x)      # The difference between Q3 and Q1
+quantile(x) # The values of all quartiles
+var(x)
+sd(x)
+```
+
+---
+
+## Dispersion
+
+
+```r
+se &lt;- function(x) sd(x) / sqrt(length(x))
+```
+
+
+```r
+ci &lt;- function(x, p = 0.95) {
+  lower_limit &lt;- mean(x) -
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  upper_limit &lt;- mean(x) +
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+---
+
+class: inverse, middle, center
+
+# Exercises
+
+---
+
+## Exercises
+
+* For these exercises, let's use the `starwars` dataset from the `dplyr` package.
+
+--
+
+
+```r
+library(dplyr)
+starwars
+```
+
+
+```
+## # A tibble: 87 × 14
+##    name   height  mass hair_color skin_color eye_color birth_year
+##    &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;
+##  1 Luke …    172    77 blond      fair       blue            19  
+##  2 C-3PO     167    75 &lt;NA&gt;       gold       yellow         112  
+##  3 R2-D2      96    32 &lt;NA&gt;       white, bl… red             33  
+##  4 Darth…    202   136 none       white      yellow          41.9
+##  5 Leia …    150    49 brown      light      brown           19  
+##  6 Owen …    178   120 brown, gr… light      blue            52  
+##  7 Beru …    165    75 brown      light      blue            47  
+##  8 R5-D4      97    32 &lt;NA&gt;       white, red red             NA  
+##  9 Biggs…    183    84 black      light      brown           24  
+## 10 Obi-W…    182    77 auburn, w… fair       blue-gray       57  
+## # … with 77 more rows, and 7 more variables: sex &lt;chr&gt;,
+## #   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+## Exercises
+
+`1`. Calculate the mean height in this dataset
+
+--
+
+* For this, we need to access the `height` column in the `starwars` dataset.
+
+
+```r
+starwars$height
+```
+
+--
+
+* And then use it to calculate the mean
+
+
+```r
+mean(starwars$height)
+```
+
+--
+
+
+```
+## [1] NA
+```
+
+--
+
+&lt;br&gt;
+
+.center[.large[What happened?]]
+
+---
+
+## Exercises
+
+`1`. Calculate the mean height in this dataset
+
+
+```r
+starwars$height
+```
+
+
+```
+##  [1] 172 167  96 202 150 178 165  97 183 182 188 180 228 180 173 175
+## [17] 170 180  66 170 183 200 190 177 175 180 150  NA  88 160 193 191
+## [33] 170 196 224 206 183 137 112 183 163 175 180 178  94 122 163 188
+## [49] 198 196 171 184 188 264 188 196 185 157 183 183 170 166 165 193
+## [65] 191 183 168 198 229 213 167  79  96 193 191 178 216 234 188 178
+## [81] 206  NA  NA  NA  NA  NA 165
+```
+
+--
+
+
+```r
+mean(starwars$height, na.rm = TRUE)
+```
+
+```
+## [1] 174.358
+```
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+--
+
+* Mean or Median?
+
+--
+
+* Let's plot a histogram
+
+--
+
+.pull-left[
+
+
+```r
+library(ggplot2)
+
+ggplot(data = starwars)
+```
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="slides_files/figure-html/hist1-1.png" width="2800" /&gt;
+
+]
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+* Mean or Median?
+
+* Let's plot a histogram
+
+.pull-left[
+
+
+```r
+library(ggplot2)
+
+ggplot(data = starwars) +
+  geom_histogram(aes(x = mass))
+```
+
+]
+
+.pull-right[
+
+&lt;img src="slides_files/figure-html/hist1-1.png" width="2800" /&gt;
+
+]
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+* Mean or Median?
+
+* Let's plot a histogram
+
+
+.pull-left[
+
+
+```r
+library(ggplot2)
+
+ggplot(data = starwars) +
+  geom_histogram(aes(x = mass))
+```
+
+]
+
+.pull-right[
+
+&lt;img src="slides_files/figure-html/hist2-1.png" width="2800" /&gt;
+
+]
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+
+```r
+median(starwars$mass, na.rm = TRUE)
+```
+
+```
+## [1] 79
+```
+
+--
+
+
+```r
+quantile(starwars$mass, na.rm = TRUE)
+```
+
+```
+##     0%    25%    50%    75%   100% 
+##   15.0   55.6   79.0   84.5 1358.0
+```
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+* We can format it to better present the values:
+
+.center[Median (Q1-Q3)]
+
+
+```r
+paste0(
+  median(starwars$mass, na.rm = TRUE),
+  " (",
+  quantile(starwars$mass, na.rm = TRUE)[2],
+  "-",
+  quantile(starwars$mass, na.rm = TRUE)[4],
+  ")"
+)
+```
+
+```
+## [1] "79 (55.6-84.5)"
+```
 
 ---
 

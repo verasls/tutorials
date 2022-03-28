@@ -20,7 +20,7 @@ background-image: url("./figs/logo.png")
 background-position: 7% 2%
 background-size: 120px 70px
 
-```{r title_fig, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, warning = FALSE}
+```{r title_fig, echo = FALSE,  dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "80%", dpi= 300, warning = FALSE}
 suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 library(ggsci)
@@ -108,7 +108,7 @@ class: inverse, middle, center
 
 ## Population and sample
 
-```{r p1, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300}
+```{r p1, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "80%", dpi= 300}
 library(ggplot2)
 library(ggforce)
 
@@ -132,7 +132,7 @@ p1
 
 ## Population and sample
 
-```{r p2, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300}
+```{r p2, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "80%", dpi= 300}
 p2 <- p1 +
   geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
   geom_curve(
@@ -147,7 +147,7 @@ p2
 
 ## Population and sample
 
-```{r p3, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300}
+```{r p3, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "80%", dpi= 300}
 p3 <- p2 +
   geom_circle(aes(x0 = 3, y0 = 6, r = 1), color = "#FF7E0C") +
   geom_curve(
@@ -169,7 +169,7 @@ p3
 
 ## Frequency distributions
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "80%", dpi= 300, message = FALSE, warning = FALSE}
 set.seed(20220321)
 d <- data.frame(x = rnorm(1e4))
 ggplot(d, aes(x = x)) +
@@ -203,7 +203,7 @@ n <- ggplot(d, aes(x = n)) +
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "90%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "90%", dpi= 300, message = FALSE, warning = FALSE}
 p
 ```
 
@@ -213,7 +213,7 @@ p
 
 .pull-right[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "90%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "90%", dpi= 300, message = FALSE, warning = FALSE}
 n
 ```
 
@@ -243,7 +243,7 @@ class: middle, center
 
 --
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "80%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "80%", dpi= 300, message = FALSE, warning = FALSE}
 set.seed(20220321)
 d <- data.frame(x = rnorm(1e4))
 ggplot(d, aes(x = x)) +
@@ -265,7 +265,7 @@ ggplot(d, aes(x = x)) +
 
 * A dataset can have two (bimodal) or more (multimodal) modes
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "70%", dpi= 300, message = FALSE, warning = FALSE}
 set.seed(20220321)
 bimod <- data.frame(x = c(rnorm(1000, -2, 1), rnorm(1000, 2, 1)))
 ggplot(bimod, aes(x = x)) +
@@ -443,7 +443,7 @@ skwd_plot <- ggplot(s, aes(x = x)) +
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 norm_plot
 ```
 
@@ -451,7 +451,7 @@ norm_plot
 
 .pull-right[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 skwd_plot
 ```
 
@@ -546,11 +546,35 @@ knitr::include_graphics("./figs/boxplot_annotated.png")
 
 ---
 
+## Interquartile range
+
+* To calculate it in R:
+
+--
+
+```{r}
+IQR(x)
+```
+
+--
+
+* It returns Q3 - Q1
+
+--
+
+* If we want the values of the quartiles:
+
+```{r}
+quantile(x)
+```
+
+---
+
 ## Mean error
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 d <- data.frame(
   x = c(4, 9, 7, 12, 5, 3, 6, 2),
   label = 1:8
@@ -594,7 +618,7 @@ x <- c(4, 9, 7, 12, 5, 3, 6, 2)
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   geom_hline(
     aes(yintercept = mean(x)), size = 1.5, color = "#283858", alpha = 0.5
@@ -622,7 +646,7 @@ x <- c(4, 9, 7, 12, 5, 3, 6, 2)
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   annotate(
     "segment",
@@ -656,7 +680,7 @@ x <- c(4, 9, 7, 12, 5, 3, 6, 2)
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 xlab <- seq(1.2, 8.2, 1)
 ylab <- d |>
   mutate(
@@ -699,7 +723,7 @@ e
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p
 ```
 
@@ -733,7 +757,7 @@ e
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p
 ```
 
@@ -797,7 +821,7 @@ mean(e)
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p
 ```
 
@@ -815,7 +839,7 @@ p
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p
 ```
 
@@ -839,7 +863,7 @@ e^2
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p +
   scale_y_continuous(
     limits = c(-15, 50),
@@ -869,7 +893,7 @@ e^2
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p +
   scale_y_continuous(
     limits = c(-15, 50),
@@ -946,7 +970,7 @@ $$s^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})^2$$
 
 --
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 p3
 ```
 
@@ -959,7 +983,7 @@ p3
 <br>
 <br>
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares <- ggplot() +
   scale_x_continuous(limits = c(0, 5.5)) +
   scale_y_continuous(limits = c(0, 5)) +
@@ -1009,7 +1033,7 @@ squares
 
 <br>
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares
 ```
 
@@ -1023,7 +1047,7 @@ squares
 
 * *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares
 ```
 
@@ -1037,7 +1061,7 @@ squares
 
 * *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares <- squares +
   annotate("text", x = 0.5, y = 3.5, label = "8", size = 12, color = "#283858")
 squares
@@ -1053,7 +1077,7 @@ squares
 
 * *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares <- squares +
   annotate("text", x = 2, y = 3.5, label = "3", size = 12, color = "#283858")
 squares
@@ -1069,7 +1093,7 @@ squares
 
 * *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares <- squares +
   annotate("text", x = 3.5, y = 3.5, label = "14", size = 12, color = "#283858")
 squares
@@ -1085,7 +1109,7 @@ squares
 
 * *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares +
   annotate("text", x = 5, y = 3.5, label = "?", size = 12, color = "#283858")
 ```
@@ -1100,7 +1124,7 @@ squares +
 
 * *e.g.,* $\bar{X} = 10$ - with this parameter fixed, can all scores vary?
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 squares <- squares +
   annotate("text", x = 5, y = 3.5, label = "15", size = 12, color = "#283858")
 squares
@@ -1215,7 +1239,7 @@ sd(x)
 
 .pull-left[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 library(broman)
 
 make_plot <- function(d) {
@@ -1277,7 +1301,7 @@ make_plot(d1)
 
 .pull-right[
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 make_plot(d2)
 ```
 
@@ -1298,7 +1322,7 @@ make_plot(d2)
 $$\mu = 10$$
 ]
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "70%", dpi= 300}
 p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4))
 ```
 
@@ -1316,7 +1340,7 @@ $$\mu = 10$$
 $$\bar{X} = 8$$
 ]
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "70%", dpi= 300}
 p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
   geom_circle(aes(x0 = 3, y0 = 6, r = 1), color = "#FF7E0C")
 ```
@@ -1335,7 +1359,7 @@ $$\mu = 10$$
 $$\bar{X} = 13$$
 ]
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "70%", dpi= 300}
 p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
   geom_circle(aes(x0 = 6, y0 = 4, r = 1), color = "#FF7E0C")
 ```
@@ -1354,7 +1378,7 @@ $$\mu = 10$$
 $$\bar{X} = 7$$
 ]
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "70%", dpi= 300}
 p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
   geom_circle(aes(x0 = 4, y0 = 3, r = 1), color = "#FF7E0C")
 ```
@@ -1373,7 +1397,7 @@ $$\mu = 10$$
 $$\bar{X} = 9$$
 ]
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', echo = FALSE, out.width = "70%", dpi= 300}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 3/4, fig.align = 'center', out.width = "70%", dpi= 300}
 p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
   geom_circle(aes(x0 = 7, y0 = 6, r = 1), color = "#FF7E0C")
 ```
@@ -1384,7 +1408,7 @@ p1 + geom_circle(aes(x0 = 5, y0 = 5, r = 4)) +
 
 <br>
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 set.seed(20220325)
 d <- data.frame(x = rnorm(1e4, mean = 10))
 ggplot(d, aes(x = x)) +
@@ -1563,7 +1587,7 @@ se(x3)
 
 --
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 2/4, fig.align = 'center', echo = FALSE, out.width = "40%", dpi= 300}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.asp = 2/4, fig.align = 'center', out.width = "40%", dpi= 300}
 ggplot() +
   geom_point(aes(x = 0, y = 0), size = 5, color = "#283858") +
   geom_errorbarh(
@@ -1601,7 +1625,7 @@ ggplot() +
 
 $$\mu = 0; \sigma = 1$$
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
 p <- ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
   stat_function(fun = dnorm, color = "#283858", size = 1) +
   scale_y_continuous(
@@ -1629,7 +1653,7 @@ p
 
 $$\mu = 0; \sigma = 1$$
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   annotate(
     "segment",
@@ -1648,7 +1672,7 @@ p
 
 $$\mu = 0; \sigma = 1$$
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   annotate(
     "segment",
@@ -1683,7 +1707,7 @@ p
 
 $$\mu = 0; \sigma = 1$$
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "50%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   annotate(
     "segment",
@@ -1850,7 +1874,7 @@ ci(x)
 
 <br>
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p <- ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
   stat_function(fun = dnorm, color = "#283858", size = 1) +
   scale_y_continuous(
@@ -1902,7 +1926,7 @@ p
 
 <br>
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "100%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   annotate(
     "segment",
@@ -2039,7 +2063,7 @@ ci(x, 0.99)
 
 ## Confidence intervals in small samples
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 p <- ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
   stat_function(fun = dnorm, color = "#283858", size = 1) +
   scale_y_continuous(
@@ -2063,7 +2087,7 @@ p
 
 ## Confidence intervals in small samples
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   stat_function(fun = dt, args = list(df = 1), color =  "#FF7E0C", size = 1)
 p
@@ -2073,7 +2097,7 @@ p
 
 ## Confidence intervals in small samples
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 p <- p +
   stat_function(fun = dt, args = list(df = 20), color = "#F7C531", size = 1)
 p
@@ -2182,7 +2206,7 @@ ci(d)
 
 ## Visualizing confidence intervals
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 set.seed(20220327)
 d <- tibble(
   A = rnorm(100, 10, 4),
@@ -2231,7 +2255,7 @@ p
 
 ## Visualizing confidence intervals
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 d2 <- d |>
   filter(vec %in% c("A", "B"))
 p <- ggplot(d2) +
@@ -2259,7 +2283,7 @@ p
 
 ## Visualizing confidence intervals
 
-```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', echo = FALSE, out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE}
 d3 <- d |>
   filter(vec %in% c("A", "C"))
 p <- ggplot(d3) +
@@ -2281,6 +2305,269 @@ p <- ggplot(d3) +
   ) +
   labs(x = "", y = "Score")
 p
+```
+
+---
+
+class: inverse, middle, center
+
+# Summary
+
+---
+
+## Central tendency
+
+```{r, eval = FALSE}
+mean(x)
+median(x)
+```
+
+## Dispersion
+
+```{r, eval = FALSE}
+range(x)       # The max and mean values
+diff(range(x)) # The difference between max and min values
+IQR(x)      # The difference between Q3 and Q1
+quantile(x) # The values of all quartiles
+var(x)
+sd(x)
+```
+
+---
+
+## Dispersion
+
+```{r, eval = FALSE}
+se <- function(x) sd(x) / sqrt(length(x))
+```
+
+```{r, eval = FALSE}
+ci <- function(x, p = 0.95) {
+  lower_limit <- mean(x) -
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  upper_limit <- mean(x) +
+    qt(1 - ((1 - p) / 2), length(x) - 1) * (sd(x) / sqrt(length(x)))
+  data.frame(mean = mean(x), lower_limit, upper_limit)
+}
+```
+
+---
+
+class: inverse, middle, center
+
+# Exercises
+
+---
+
+## Exercises
+
+* For these exercises, let's use the `starwars` dataset from the `dplyr` package.
+
+--
+
+```{r, eval = FALSE}
+library(dplyr)
+starwars
+```
+
+```{r, echo = FALSE}
+print(starwars, width = 65)
+```
+
+---
+
+## Exercises
+
+`1`. Calculate the mean height in this dataset
+
+--
+
+* For this, we need to access the `height` column in the `starwars` dataset.
+
+```{r, eval = FALSE}
+starwars$height
+```
+
+--
+
+* And then use it to calculate the mean
+
+```{r, eval = FALSE}
+mean(starwars$height)
+```
+
+--
+
+```{r, echo = FALSE}
+mean(starwars$height)
+```
+
+--
+
+<br>
+
+.center[.large[What happened?]]
+
+---
+
+## Exercises
+
+`1`. Calculate the mean height in this dataset
+
+```{r, eval = FALSE}
+starwars$height
+```
+
+```{r, echo = FALSE}
+print(starwars$height, width = 68)
+```
+
+--
+
+```{r}
+mean(starwars$height, na.rm = TRUE)
+```
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+--
+
+* Mean or Median?
+
+--
+
+* Let's plot a histogram
+
+--
+
+.pull-left[
+
+```{r hist1, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE, fig.show = "hide"}
+library(ggplot2)
+
+ggplot(data = starwars)
+```
+
+]
+
+--
+
+.pull-right[
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("hist1", "png")
+)
+```
+
+]
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+* Mean or Median?
+
+* Let's plot a histogram
+
+.pull-left[
+
+```{r hist2, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300, message = FALSE, warning = FALSE, fig.show = "hide"}
+library(ggplot2)
+
+ggplot(data = starwars) +
+  geom_histogram(aes(x = mass))
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("hist1", "png")
+)
+```
+
+]
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+* Mean or Median?
+
+* Let's plot a histogram
+
+
+.pull-left[
+
+```{r, eval = FALSE}
+library(ggplot2)
+
+ggplot(data = starwars) +
+  geom_histogram(aes(x = mass))
+```
+
+]
+
+.pull-right[
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("hist2", "png")
+)
+```
+
+]
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+```{r}
+median(starwars$mass, na.rm = TRUE)
+```
+
+--
+
+```{r}
+quantile(starwars$mass, na.rm = TRUE)
+```
+
+---
+
+## Exercises
+
+`2`. Calculate summary statistics for the `mass`
+
+* We can format it to better present the values:
+
+--
+
+.center[Median (Q1-Q3)]
+
+--
+
+```{r}
+paste0(
+  median(starwars$mass, na.rm = TRUE),
+  " (",
+  quantile(starwars$mass, na.rm = TRUE)[2],
+  "-",
+  quantile(starwars$mass, na.rm = TRUE)[4],
+  ")"
+)
 ```
 
 ---
