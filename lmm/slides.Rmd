@@ -276,6 +276,11 @@ d_anova_show <- mutate(d_anova, across(where(is.numeric), round, 1))
 knitr::kable(head(d_anova_show), format = "html")
 ```
 
+--
+
+* N = `r length(unique(d_anova_show$subj))` subjects
+
+
 ---
 
 ## The data
@@ -732,6 +737,10 @@ knitr::kable(head(d_show), format = "html")
 ```{r, echo = FALSE}
 knitr::kable(head(d_show), format = "html")
 ```
+
+--
+
+* N = `r length(unique(d$subj))` subjects (*vs.* `r length(unique(d_anova_show$subj))` with RM ANOVA)
 
 ---
 
