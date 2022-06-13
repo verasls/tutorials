@@ -96,6 +96,14 @@ background-size: 400px 90px
 
 ---
 
+class: center, middle
+
+```{r, echo = FALSE, fig.align = "center", out.width = "40%"}
+knitr::include_graphics("./figs/R.svg")
+```
+
+---
+
 class: inverse, center, middle
 
 ## What is a longitudinal study?
@@ -657,6 +665,19 @@ In our case, the intercept will vary across each subject
 
 ---
 
+## Linear mixed models
+
+.center[.huge["Multilevel"]]
+
+<br>
+<br>
+
+```{r, echo = FALSE, fig.align = "center", out.width = "90%"}
+knitr::include_graphics("./figs/multilevel.png")
+```
+
+---
+
 ## Doing the analysis using R
 
 <br>
@@ -714,19 +735,40 @@ knitr::kable(head(d_show), format = "html")
 
 ---
 
+## The data
+
+<br>
+
+* How to read data into R
+
+```{r, eval = FALSE}
+read_xlsx("path/to/data.xlsx")
+read_csv("path/to/data.xlsx")
+```
+
+--
+
+```{r, eval = FALSE}
+d <- read_csv("~/Documents/Projects/lmm_tutorial/example_data.csv")
+```
+
+---
+
 ## Packages
 
 <br>
 
-* We will need 2 packages to analyse the data.
+* We will need some packages to analyse the data.
 
 --
 
 * First, we will need to install:
 
 ```{r eval = FALSE}
-install.packages("lmerTest")
-install.packages("emmeans")
+install.packages("tidyverse") # General data manipulation and graphs
+install.packages("readxl")    # Read data from excel files
+install.packages("lmerTest")  # Build the linear mixed models
+install.packages("emmeans")   # Calculate the estimated marginal means
 ```
 
 --
@@ -734,6 +776,8 @@ install.packages("emmeans")
 * And then, load them into the R session:
 
 ```{r eval = FALSE}
+library(tidyverse)
+library(readxl)
 library(lmerTest)
 library(emmeans)
 ```

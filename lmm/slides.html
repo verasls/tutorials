@@ -62,6 +62,12 @@ background-size: 400px 90px
 
 ---
 
+class: center, middle
+
+&lt;img src="./figs/R.svg" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
 class: inverse, center, middle
 
 ## What is a longitudinal study?
@@ -766,7 +772,7 @@ Random effects can be either **random intercept**
 
 --
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -774,7 +780,7 @@ Random effects can be either **random intercept**
 
 Random effects can be either random intercept, **random slope**
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -782,7 +788,7 @@ Random effects can be either random intercept, **random slope**
 
 Random effects can be either random intercept, random slope, or **both**
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -801,6 +807,17 @@ We will usually need random intercept
 --
 
 In our case, the intercept will vary across each subject
+
+---
+
+## Linear mixed models
+
+.center[.huge["Multilevel"]]
+
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="./figs/multilevel.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -959,11 +976,32 @@ What will we need?
 
 ---
 
+## The data
+
+&lt;br&gt;
+
+* How to read data into R
+
+
+```r
+read_xlsx("path/to/data.xlsx")
+read_csv("path/to/data.xlsx")
+```
+
+--
+
+
+```r
+d &lt;- read_csv("~/Documents/Projects/lmm_tutorial/example_data.csv")
+```
+
+---
+
 ## Packages
 
 &lt;br&gt;
 
-* We will need 2 packages to analyse the data.
+* We will need some packages to analyse the data.
 
 --
 
@@ -971,8 +1009,10 @@ What will we need?
 
 
 ```r
-install.packages("lmerTest")
-install.packages("emmeans")
+install.packages("tidyverse") # General data manipulation and graphs
+install.packages("readxl")    # Read data from excel files
+install.packages("lmerTest")  # Build the linear mixed models
+install.packages("emmeans")   # Calculate the estimated marginal means
 ```
 
 --
@@ -981,6 +1021,8 @@ install.packages("emmeans")
 
 
 ```r
+library(tidyverse)
+library(readxl)
 library(lmerTest)
 library(emmeans)
 ```
@@ -1186,7 +1228,7 @@ pairs(emm, adjust = "none")
 
 ## Plots
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-33-1.png" width="65%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1205,7 +1247,7 @@ ph[28, ]
 --
 
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-31-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-35-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1221,7 +1263,7 @@ ph[28, ]
 ## 28 EG T4 - CG T4    1.422 0.696 225   2.044   0.042
 ```
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-33-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-37-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
