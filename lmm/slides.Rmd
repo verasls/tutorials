@@ -1,0 +1,997 @@
+---
+title: Introduction
+author: Lucas Veras
+output:
+  xaringan::moon_reader:
+    seal: false
+    css: ["default", "style.css", "xaringan-themer.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+---
+
+```{r xaringan-themer, include = FALSE, warning = FALSE}
+library(xaringanthemer)
+style_mono_light(base_color = "#23395b")
+```
+
+```{r, include = FALSE}
+library(tidyverse)
+library(lvmisc)
+library(lmerTest)
+library(emmeans)
+library(afex)
+
+plot_emm <- function(data) {
+  ggplot(as.data.frame(data)) +
+    geom_point(
+      aes(x = time, y = emmean, color = group, shape = group),
+      position = position_dodge(0.2), size = 4
+    ) +
+    geom_line(
+      aes(x = time, y = emmean, color = group, group = group, linetype = group),
+      position = position_dodge(0.2), size = 1
+    ) +
+    geom_errorbar(
+      aes(
+        x = time, ymin = lower.CL, ymax = upper.CL, color = group, group = group
+      ),
+      position = position_dodge(0.2), width = 0.1, size = 1
+    ) +
+    scale_color_manual(values = c("#0072B2", "#D55E00")) +
+    theme_classic() +
+    theme(
+      legend.title = element_blank(),
+      legend.text = element_text(size = 12),
+      axis.title.y = element_text(size = 14, face = "bold"),
+      axis.title.x = element_blank(),
+      axis.text.y = element_text(size = 12, face = "bold"),
+      axis.text.x = element_text(size = 12, face = "bold")
+    )
+}
+```
+
+
+class: center, middle
+background-image: url("./figs/logos.png")
+background-position: 50% 95%
+background-size: 400px 90px
+
+## Analysis of longitudinal data using linear mixed models
+
+### Lucas Veras
+
+<br>
+<br>
+<br>
+
+---
+
+## Today
+
+<br> 
+
+.huge[
+<ol>
+<li> What is a longitudinal study?
+</ol>
+]
+
+
+--
+
+.huge[
+<ol start=2>
+<li> Usual approach to data analysis
+</ol>
+]
+
+--
+
+.huge[
+<ol start=3>
+<li> Using linear mixed models
+</ol>
+]
+
+---
+
+class: inverse, center, middle
+
+## What is a longitudinal study?
+
+---
+
+## Longitudinal study
+
+<br>
+
+--
+
+* Repeated observations of the same variables over time 
+--
+(> 2 observations)
+
+--
+
+* Can be observational (*e.g.*, cohort) or experimental (*e.g.*, randomized controlled trials)
+
+--
+
+* Can detect the effect of time
+
+--
+
+* Time-consuming and expensive
+
+--
+
+* Missing data
+
+---
+
+class: inverse, center, middle
+
+## Usual approach to data analysis
+
+---
+
+## Usual approach
+
+<br>
+
+--
+
+* ANOVA, ANCOVA, etc.
+
+--
+
+  * Cannot be used due to correlated error terms
+
+--
+
+* Repeated measures ANOVA is usually used
+
+---
+
+## The data
+
+```{r, include = FALSE}
+load("data.Rda")
+d <- d |>
+  mutate(
+    group = recode_factor(
+      group,
+      "Exercise group" = "EG",
+      "Control group" = "CG"
+    ),
+    time = recode_factor(
+      time,
+      "Pre-BS" = "T1",
+      "1-month post-BS" = "T2",
+      "6-months post-BS" = "T3",
+      "12-months post-BS" = "T4"
+    )
+  )
+```
+
+.center[Lean mass in bariatric surgery patients]
+
+--
+
+.center[Does exercise attenuates the lean mass loss after bariatric surgery?]
+
+--
+
+```{r, echo = FALSE}
+d_show <- d |>
+  select(subj, group, time, lean_mass) |>
+  pivot_wider(
+    names_from = time,
+    values_from = lean_mass
+  ) |>
+  mutate(across(where(is.numeric), round, 1))
+
+knitr::kable(head(d_show), format = "html")
+```
+
+---
+
+## The data
+
+* For repeated measures ANOVA, we cannot have any missing data
+
+<br>
+
+```{r, echo = FALSE}
+knitr::kable(head(d_show), format = "html")
+```
+
+---
+
+## The data
+
+* For repeated measures ANOVA, we cannot have any missing data
+
+<br>
+
+```{r, echo = FALSE}
+d_show <- na.omit(d_show)
+
+knitr::kable(head(d_show), format = "html")
+```
+
+---
+
+## The data
+
+* For repeated measures ANOVA, we cannot have any missing data
+
+* Also, data have to be in "long" format
+
+```{r, echo = FALSE}
+d_show <- na.omit(d_show)
+
+knitr::kable(head(d_show), format = "html")
+```
+
+---
+
+## The data
+
+* For repeated measures ANOVA, we cannot have any missing data
+
+* Also, data have to be in "long" format
+
+```{r, echo = FALSE}
+d_anova <- d |>
+  select(subj, group, time, lean_mass) |>
+  pivot_wider(
+    names_from = time,
+    values_from = lean_mass
+  ) |>
+  na.omit() |>
+  pivot_longer(
+    cols = -c(subj, group),
+    names_to = "time",
+    values_to = "lean_mass"
+  ) |>
+  mutate(
+    time = factor(
+      time,
+      levels = c("T1", "T2", "T3", "T4")
+    )
+  )
+
+d_anova_show <- mutate(d_anova, across(where(is.numeric), round, 1))
+
+knitr::kable(head(d_anova_show), format = "html")
+```
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome
+
+]
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome
+
+* Between-subjects variable
+
+]
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome
+
+* Between-subjects variable
+
+* Within-subjects variable
+
+]
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome
+
+* Between-subjects variable
+
+* Within-subjects variable
+
+* Covariates
+
+]
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome:
+
+* Between-subjects variable
+
+* Within-subjects variable
+
+* Covariates
+
+]
+
+.pull-right[
+
+<br>
+
+`lean_mass`
+
+]
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome:
+
+* Between-subjects variable:
+
+* Within-subjects variable
+
+* Covariates
+
+]
+
+.pull-right[
+
+<br>
+
+`lean_mass`
+
+`time`
+
+]
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome:
+
+* Between-subjects variable:
+
+* Within-subjects variable:
+
+* Covariates
+
+]
+
+.pull-right[
+
+<br>
+
+`lean_mass`
+
+`time`
+
+`group`
+
+]
+
+---
+
+## The data
+
+<br>
+
+.pull-left[
+
+Also, we have to specify:
+
+* Outcome:
+
+* Between-subjects variable:
+
+* Within-subjects variable:
+
+* Covariates:
+
+]
+
+.pull-right[
+
+<br>
+
+`lean_mass`
+
+`time`
+
+`group`
+
+baseline values of `lean_mass`
+
+]
+
+---
+
+## The analysis
+
+<br>
+
+**Main outcome:** between-group differences in lean mass at the end of the intervention
+
+--
+
+Pairwise comparisons:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+d_anova$lean_mass_adjust <- repeat_baseline_values(
+  d_anova, lean_mass, subj, time, "T1"
+)
+rma <- aov_ez(
+  "subj",
+  "lean_mass",
+  d_anova,
+  within = c("time"),
+  between = c("group"),
+  covariate = c("lean_mass_adjust"),
+  factorize = FALSE
+)
+
+emm_anova <- emmeans(rma, ~ group:time)
+ph_anova <- as.data.frame(pairs(emm_anova, adjust = "none"))
+ph_anova[1:10, ]
+```
+
+---
+
+## The analysis
+
+<br>
+
+**Main outcome:** between-group differences in lean mass at the end of the intervention
+
+Pairwise comparisons:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+ph_anova[28, ]
+```
+
+---
+
+class: inverse, center, middle
+
+## Using linear mixed models
+
+---
+
+## The general linear model
+
+<br>
+
+$$Y_i = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + \varepsilon_i$$
+
+<br>
+
+--
+
+Linear regression, *t*-test, ANOVA, ANCOVA, etc
+
+--
+
+Includes only **fixed effects**
+
+--
+
+But we can also include **random effects**
+
+---
+
+## Linear mixed models
+
+Mixed = (fixed + random) effects
+
+--
+
+But what are **fixed** and **random** effects?
+
+--
+
+* **Fixed effects:** 
+
+  * Variables that we expect will have an effect on the dependent variable
+
+--
+
+* **Random effects:**
+
+  * Grouping factors for which we are trying to control
+
+--
+
+  * Always categorical variables
+
+--
+
+  * Rule of thumb: at least five levels
+
+---
+
+## Linear mixed models
+
+Random effects can be either **random intercept**
+
+--
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300}
+ggplot() +
+  geom_abline(colour = "#EA4025", intercept = 1, slope = 1, size = 1) +
+  geom_abline(colour = "#479D8B", intercept = 0.4, slope = 1, size = 1) +
+  geom_abline(colour = "#E7B03C", intercept = 1.6, slope = 1, size = 1) +
+  geom_abline(colour = "#E98A33", intercept = 0.1, slope = 1, size = 1) +
+  geom_abline(colour = "#74B9D2", intercept = 1.1, slope = 1, size = 1) +
+  scale_y_continuous(limits = c(0, 2)) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text = element_blank()
+  )
+```
+
+---
+
+## Linear mixed models
+
+Random effects can be either random intercept, **random slope**
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300}
+ggplot() +
+  geom_abline(colour = "#EA4025", intercept = 1, slope = 1, size = 1) +
+  geom_abline(colour = "#479D8B", intercept = 1, slope = 0.5, size = 1) +
+  geom_abline(colour = "#E7B03C", intercept = 1, slope = 2, size = 1) +
+  geom_abline(colour = "#E98A33", intercept = 1, slope = 1.6, size = 1) +
+  geom_abline(colour = "#74B9D2", intercept = 1, slope = 0.2, size = 1) +
+  scale_y_continuous(limits = c(0.8, 2)) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text = element_blank()
+  )
+```
+
+---
+
+## Linear mixed models
+
+Random effects can be either random intercept, random slope, or **both**
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "60%", dpi= 300}
+ggplot() +
+  geom_abline(colour = "#EA4025", intercept = 1, slope = 1, size = 1) +
+  geom_abline(colour = "#479D8B", intercept = 0.5, slope = 0.9, size = 1) +
+  geom_abline(colour = "#E7B03C", intercept = 1.5, slope = 2.1, size = 1) +
+  geom_abline(colour = "#E98A33", intercept = 0.2, slope = 1.2, size = 1) +
+  geom_abline(colour = "#74B9D2", intercept = 1.1, slope = 0.7, size = 1) +
+  scale_y_continuous(limits = c(0, 2)) +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text = element_blank()
+  )
+```
+
+---
+
+## Linear mixed models
+
+We will usually need random intercept
+
+--
+
+<br>
+
+$$Y_i = (\beta_0 + u_0) + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + \varepsilon_i$$
+
+<br>
+
+--
+
+In our case, the intercept will vary across each subject
+
+---
+
+## Doing the analysis using R
+
+<br>
+
+What will we need?
+
+--
+
+* Data
+
+--
+
+* Packages
+
+--
+
+* Build the model
+
+--
+
+* Inspect the results
+
+---
+
+## The data
+
+<br> 
+<br> 
+<br> 
+<br> 
+
+```{r, echo = FALSE}
+d_show <- d |>
+  select(
+    subj, group, time, lean_mass,
+    lean_mass_baseline = lean_mass_adjust
+  ) |>
+  mutate(across(where(is.numeric), round, 1))
+knitr::kable(head(d_show), format = "html")
+```
+
+---
+
+## The data
+
+* Remember:
+
+  * Allow missing data
+
+  * `lean_mass_baseline` is the covariate
+
+```{r, echo = FALSE}
+knitr::kable(head(d_show), format = "html")
+```
+
+---
+
+## Packages
+
+<br>
+
+* We will need 2 packages to analyse the data.
+
+--
+
+* First, we will need to install:
+
+```{r eval = FALSE}
+install.packages("lmerTest")
+install.packages("emmeans")
+```
+
+--
+
+* And then, load them into the R session:
+
+```{r eval = FALSE}
+library(lmerTest)
+library(emmeans)
+```
+
+---
+
+## Build the model
+
+<br>
+
+* To build the model we will use the function:
+
+```{r, eval = FALSE}
+lmm <- lmer(formula, data)
+```
+
+--
+
+* Where `formula` is:
+
+`outcome ~ fix_eff_1 + fix_eff_2 + cov + (1 | random_intercerpt)`
+
+--
+
+* And `data` is the name of our dataset, which is `d`
+
+--
+
+* Therefore:
+
+```{r}
+lmm <- lmer(
+  lean_mass ~ group * time + lean_mass_adjust + (1 | subj),
+  data = d
+)
+```
+
+---
+
+## Inspecting the results
+
+<br>
+
+* We can, then, check the results of the fixed effects
+
+```{r, eval = FALSE}
+anova(model_name, type = 3, test = "F")
+```
+
+---
+
+## Inspecting the results
+
+<br>
+
+* We can, then, check the results of the fixed effects
+
+```{r, warning = FALSE}
+anova(lmm, type = 3, test = "F")
+```
+
+---
+
+## Inspecting the results
+
+<br>
+
+* We can also calculate the estimated marginal means
+
+```{r, eval = FALSE}
+emm <- emmeans(model, formula)
+```
+
+--
+
+* Where `formula` is: `~ factor`
+
+--
+
+* We usually want the marginal means of the interaction term
+
+```{r}
+emm <- emmeans(lmm, ~ group:time)
+```
+
+---
+
+## Inspecting the results
+
+<br>
+
+```{r, warning = FALSE}
+emm
+```
+
+---
+
+## Inspecting the results
+
+<br>
+
+* Finally, we can also get the pairwise comparisons
+
+```{r, eval = FALSE}
+pairs(marginal_means, adjust)
+```
+
+---
+
+## Inspecting the results
+
+* Finally, we can also get the pairwise comparisons
+
+```{r, eval = FALSE}
+pairs(emm, adjust = "none")
+```
+
+```{r, echo = FALSE, warning = FALSE}
+ph <- as.data.frame(pairs(emm, adjust = "none")) |>
+  mutate(
+    across(where(is.numeric), round, 3),
+    df = round(df, 0),
+    p.value = ifelse(
+      p.value == 0,
+      "<.001", as.character(p.value)
+    )
+  )
+ph[1:14, ]
+```
+
+---
+
+## Inspecting the results
+
+* Finally, we can also get the pairwise comparisons
+
+```{r, eval = FALSE}
+pairs(emm, adjust = "none")
+```
+
+```{r, echo = FALSE, warning = FALSE}
+ph[15:28, ]
+```
+
+---
+
+## Plots
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "65%", dpi= 300}
+plot_emm(emm) +
+  scale_y_continuous(limits = c(40, 60)) +
+  labs(y = "Lean mass (kg)") +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    legend.key = element_rect(fill = "transparent", colour = NA),
+    legend.background = element_blank(),
+    legend.box.background = element_blank(),
+    legend.position = "bottom"
+  ) +
+  annotate(
+    "segment", x = 4.20, xend = 4.20, y = 42.7, yend = 45, size = 0.5
+  ) +
+  annotate(
+    "segment", x = 4.15, xend = 4.20, y = 42.7, yend = 42.7, size = 0.5
+  ) +
+  annotate(
+    "segment", x = 4.15, xend = 4.20, y = 45, yend = 45, size = 0.5
+  ) +
+  annotate(
+    "text", x = 4.3, y = 43.6, label = "italic(p) == 0.042",
+    angle = 90, parse = TRUE
+  )
+```
+
+---
+
+## Plots
+
+```{r}
+ph[28, ]
+```
+
+--
+
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "50%", dpi= 300}
+p <- ggplot(ph[28, ]) +
+  geom_point(aes(x = contrast, y = estimate), size = 2) +
+  geom_errorbar(
+    aes(
+      x = contrast,
+      ymin = estimate - 1.96 * SE,
+      ymax = estimate + 1.96 * SE
+    ),
+    width = 0.2
+  ) +
+  scale_y_continuous(
+    limits = c(-1, 3)
+  ) +
+  labs(x = "", y = "Mean difference") +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12)
+  )
+p
+```
+
+---
+
+## Plots
+
+```{r}
+ph[28, ]
+```
+
+```{r, echo = FALSE, dev.args = list(bg = 'transparent'), fig.align = 'center', out.width = "50%", dpi= 300}
+p + geom_hline(yintercept = 0, linetype = "dotted")
+```
+
+---
+
+## Useful links
+
+<br>
+
+* [Getting started with R and RStudio](https://ourcodingclub.github.io/tutorials/intro-to-r/)
+
+* [R for Data Science (book)](https://r4ds.had.co.nz)
+
+* [Discovering Statistics Using R (book; specially Chapter 19 - Multilevel linear models)](https://www.discoveringstatistics.com/books/discovering-statistics-using-r/)
+
+---
+
+class: center
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.enormous[**Thank you!**]
+
+<br>
+<br>
+<br>
+<br>
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(icons))
+```
+
+`r icon_style(fontawesome("github"), fill = "#1B395E")` [@verasls](https://github.com/verasls) | `r icon_style(fontawesome("twitter"), fill = "#1B395E")` [@verasls](https://twitter.com/lucasdsveras)
+
+`r icon_style(fontawesome("envelope", style = "solid"), fill = "#1B395E")` [lucasdsveras@gmail.com](mailto:lucasdsveras@gmail.com)
+
+`r icon_style(fontawesome("globe", style = "solid"), fill = "#1B395E")` [lveras.com](https://lveras.com)
